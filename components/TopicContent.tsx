@@ -3,17 +3,23 @@
 import { useEffect, useState } from 'react'
 import { remark } from 'remark'
 import html from 'remark-html'
+import { useProgress } from '@/hooks/useProgress'
+import { useViewMode } from '@/contexts/ViewModeContext'
 
 interface TopicContentProps {
   roadmapSlug: string
   topicId: string
+  topicLabel?: string
   onClose: () => void
 }
 
-export default function TopicContent({ roadmapSlug, topicId, onClose }: TopicContentProps) {
+export default function TopicContent({ roadmapSlug, topicId, topicLabel, onClose }: TopicContentProps) {
   const [content, setContent] = useState<string>('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isPersonalContent, setIsPersonalContent] = useState(false)
+  const { isCompleted, toggleComplete, markStarted } = useProgress()
+  const { viewMode, isPersonalMode } = useViewMode()
 
   useEffect(() => {
     async function loadContent() {
@@ -21,20 +27,43 @@ export default function TopicContent({ roadmapSlug, topicId, onClose }: TopicCon
         setLoading(true)
         setError(null)
         
-        const response = await fetch(`/api/topic-content?roadmap=${roadmapSlug}&topic=${topicId}`)
+        const response = await fetch(`/api/topic-content?roadmap=${roadmapSlug}&topic=${topicId}&viewMode=${viewMode}`)
         
         if (!response.ok) {
           throw new Error('Content not found')
         }
         
-        const { content: markdown } = await response.json()
+        const { content: markdown, isPersonalContent: isPersonal } = await response.json()
+        setIsPersonalContent(isPersonal || false)
+        
+        // Process resource type indicators
+        const processedMarkdown = markdown.replace(
+          /\[@(\w+)@([^\]]+)\]\(([^)]+)\)/g,
+          (_match: string, type: string, text: string, url: string) => {
+            const icons: Record<string, string> = {
+              article: '📄',
+              video: '🎥',
+              course: '🎓',
+              official: '📚',
+              opensource: '💻',
+            }
+            const icon = icons[type] || '🔗'
+            return `[${icon} ${text}](${url})`
+          }
+        )
         
         // Convert markdown to HTML
         const processedContent = await remark()
           .use(html)
-          .process(markdown)
+          .process(processedMarkdown)
         
-        setContent(processedContent.toString())
+        // Add target="_blank" to all links
+        const htmlWithNewTabLinks = processedContent.toString().replace(
+          /<a href=/g,
+          '<a target="_blank" rel="noopener noreferrer" href='
+        )
+        
+        setContent(htmlWithNewTabLinks)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load content')
       } finally {
@@ -43,17 +72,42 @@ export default function TopicContent({ roadmapSlug, topicId, onClose }: TopicCon
     }
 
     loadContent()
-  }, [roadmapSlug, topicId])
+    // Mark as started when viewing content
+    markStarted(topicId)
+  }, [roadmapSlug, topicId, viewMode]) // Remove markStarted from dependencies
 
   return (
     <div className="absolute right-0 top-0 w-96 h-full bg-white shadow-lg overflow-hidden flex flex-col">
       <div className="p-6 border-b">
-        <button 
-          onClick={onClose}
-          className="text-gray-500 hover:text-gray-700"
-        >
-          ← Back
-        </button>
+        <div className="flex items-center justify-between mb-4">
+          <button 
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700"
+          >
+            ← Back
+          </button>
+          <button
+            onClick={() => toggleComplete(topicId)}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              isCompleted(topicId)
+                ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            {isCompleted(topicId) ? '✓ Completed' : 'Mark Complete'}
+          </button>
+        </div>
+        {topicLabel && (
+          <div>
+            <h2 className="text-xl font-bold text-gray-900">{topicLabel}</h2>
+            {isPersonalContent && isPersonalMode && (
+              <div className="mt-2 flex items-center text-sm text-amber-600">
+                <span className="mr-1">💭</span>
+                <span>Personal perspective</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       
       <div className="flex-1 overflow-y-auto p-6">

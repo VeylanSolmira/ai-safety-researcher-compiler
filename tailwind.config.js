@@ -2,6 +2,7 @@
 // Tailwind CSS is a utility-first CSS framework
 // This config file customizes Tailwind's default styles and adds your design system
 module.exports = {
+  darkMode: 'media', // or 'class' if you want manual toggle
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',

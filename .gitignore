@@ -43,3 +43,6 @@ next-env.d.ts
 # OS
 Thumbs.db
 .DS_Store
+
+# Development resources (not for production)
+development-resources/

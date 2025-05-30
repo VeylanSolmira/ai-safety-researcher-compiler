@@ -3,10 +3,7 @@
     {
       "id": "title-node",
       "type": "title",
-      "position": {
-        "x": 520,
-        "y": 50
-      },
+      "position": { "x": 520, "y": 50 },
       "data": {
         "label": "AI Safety Researcher",
         "parentId": null,
@@ -14,9 +11,7 @@
           "fontSize": 28,
           "fontWeight": 700,
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 300,
       "height": 60
@@ -24,19 +19,14 @@
     {
       "id": "prerequisites-section",
       "type": "section",
-      "position": {
-        "x": 250,
-        "y": 150
-      },
+      "position": { "x": 250, "y": 150 },
       "data": {
         "label": "",
         "parentId": null,
         "style": {
           "backgroundColor": "#ffffff",
           "borderColor": "#000000"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 540,
       "height": 180
@@ -44,19 +34,14 @@
     {
       "id": "prerequisites-label",
       "type": "label",
-      "position": {
-        "x": 300,
-        "y": 170
-      },
+      "position": { "x": 300, "y": 170 },
       "data": {
         "label": "Prerequisites",
         "parentId": "prerequisites-section",
         "style": {
           "fontSize": 20,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 200,
       "height": 30
@@ -64,10 +49,7 @@
     {
       "id": "foundations-topic",
       "type": "topic",
-      "position": {
-        "x": 520,
-        "y": 400
-      },
+      "position": { "x": 520, "y": 400 },
       "data": {
         "label": "Foundations",
         "parentId": null,
@@ -75,9 +57,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -85,19 +65,14 @@
     {
       "id": "foundations-section-left",
       "type": "section",
-      "position": {
-        "x": 50,
-        "y": 480
-      },
+      "position": { "x": 50, "y": 480 },
       "data": {
         "label": "",
         "parentId": "foundations-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 400,
       "height": 400
@@ -105,19 +80,14 @@
     {
       "id": "core-cs-label",
       "type": "label",
-      "position": {
-        "x": 70,
-        "y": 500
-      },
+      "position": { "x": 70, "y": 500 },
       "data": {
         "label": "Core Computer Science",
         "parentId": "foundations-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 25
@@ -125,18 +95,13 @@
     {
       "id": "docker-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 80,
-        "y": 540
-      },
+      "position": { "x": 80, "y": 540 },
       "data": {
         "label": "Docker & Containerization",
         "parentId": "core-cs-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 35
@@ -144,18 +109,13 @@
     {
       "id": "distributed-systems-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 80,
-        "y": 590
-      },
+      "position": { "x": 80, "y": 590 },
       "data": {
         "label": "Distributed Systems",
         "parentId": "core-cs-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 35
@@ -163,38 +123,42 @@
     {
       "id": "version-control-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 80,
-        "y": 640
-      },
+      "position": { "x": 80, "y": 640 },
       "data": {
         "label": "Version Control",
         "parentId": "core-cs-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 35
     },
     {
+      "id": "ethics-subtopic",
+      "type": "subtopic",
+      "position": { "x": 280, "y": 540 },
+      "data": {
+        "label": "Ethics & Philosophy",
+        "parentId": "foundations-topic",
+        "style": {
+          "fontSize": 14
+        }
+      },
+      "width": 150,
+      "height": 35
+    },
+    {
       "id": "foundations-section-right",
       "type": "section",
-      "position": {
-        "x": 590,
-        "y": 480
-      },
+      "position": { "x": 590, "y": 480 },
       "data": {
         "label": "",
         "parentId": "foundations-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 400,
       "height": 400
@@ -202,19 +166,14 @@
     {
       "id": "safety-paradigms-label",
       "type": "label",
-      "position": {
-        "x": 610,
-        "y": 500
-      },
+      "position": { "x": 610, "y": 500 },
       "data": {
         "label": "AI Safety Paradigms",
         "parentId": "foundations-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 25
@@ -222,18 +181,13 @@
     {
       "id": "control-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 620,
-        "y": 540
-      },
+      "position": { "x": 620, "y": 540 },
       "data": {
         "label": "Control",
         "parentId": "safety-paradigms-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 100,
       "height": 35
@@ -241,18 +195,13 @@
     {
       "id": "alignment-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 740,
-        "y": 540
-      },
+      "position": { "x": 740, "y": 540 },
       "data": {
         "label": "Alignment",
         "parentId": "safety-paradigms-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 100,
       "height": 35
@@ -260,18 +209,13 @@
     {
       "id": "value-learning-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 860,
-        "y": 540
-      },
+      "position": { "x": 860, "y": 540 },
       "data": {
         "label": "Value Learning",
         "parentId": "safety-paradigms-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 110,
       "height": 35
@@ -279,19 +223,14 @@
     {
       "id": "ai-systems-label",
       "type": "label",
-      "position": {
-        "x": 610,
-        "y": 600
-      },
+      "position": { "x": 610, "y": 600 },
       "data": {
         "label": "AI Systems & Training",
         "parentId": "foundations-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 25
@@ -299,18 +238,13 @@
     {
       "id": "types-ai-systems-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 620,
-        "y": 640
-      },
+      "position": { "x": 620, "y": 640 },
       "data": {
         "label": "Types of AI Systems",
         "parentId": "ai-systems-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 35
@@ -318,18 +252,13 @@
     {
       "id": "llms-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 800,
-        "y": 640
-      },
+      "position": { "x": 800, "y": 640 },
       "data": {
         "label": "LLMs",
         "parentId": "ai-systems-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 80,
       "height": 35
@@ -337,18 +266,13 @@
     {
       "id": "how-llms-trained-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 620,
-        "y": 690
-      },
+      "position": { "x": 620, "y": 690 },
       "data": {
         "label": "How LLMs are Trained",
         "parentId": "ai-systems-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -356,18 +280,13 @@
     {
       "id": "pretraining-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 620,
-        "y": 740
-      },
+      "position": { "x": 620, "y": 740 },
       "data": {
         "label": "Pretraining",
         "parentId": "ai-systems-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 100,
       "height": 35
@@ -375,18 +294,13 @@
     {
       "id": "fine-tuning-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 740,
-        "y": 740
-      },
+      "position": { "x": 740, "y": 740 },
       "data": {
         "label": "Fine-tuning",
         "parentId": "ai-systems-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 100,
       "height": 35
@@ -394,10 +308,7 @@
     {
       "id": "alignment-fundamentals-topic",
       "type": "topic",
-      "position": {
-        "x": 520,
-        "y": 800
-      },
+      "position": { "x": 520, "y": 800 },
       "data": {
         "label": "Alignment Fundamentals",
         "parentId": null,
@@ -405,9 +316,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -415,10 +324,7 @@
     {
       "id": "specialization-paths-topic",
       "type": "topic",
-      "position": {
-        "x": 520,
-        "y": 1300
-      },
+      "position": { "x": 520, "y": 1300 },
       "data": {
         "label": "Specialization Paths",
         "parentId": null,
@@ -426,9 +332,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -436,19 +340,14 @@
     {
       "id": "alignment-section-left",
       "type": "section",
-      "position": {
-        "x": 50,
-        "y": 880
-      },
+      "position": { "x": 50, "y": 880 },
       "data": {
         "label": "",
         "parentId": "alignment-fundamentals-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 400,
       "height": 450
@@ -456,18 +355,13 @@
     {
       "id": "core-methodology-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 900
-      },
+      "position": { "x": 70, "y": 900 },
       "data": {
         "label": "Core Methodology",
-        "parentId": "core-concepts-label",
+        "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -475,18 +369,13 @@
     {
       "id": "teacher-trainer-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 240,
-        "y": 900
-      },
+      "position": { "x": 240, "y": 900 },
       "data": {
         "label": "Teacher vs. Trainer",
-        "parentId": "core-concepts-label",
+        "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -494,18 +383,13 @@
     {
       "id": "multi-agent-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 950
-      },
+      "position": { "x": 70, "y": 950 },
       "data": {
         "label": "Multi-Agent Environments",
-        "parentId": "core-concepts-label",
+        "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 35
@@ -513,18 +397,13 @@
     {
       "id": "hallucinations-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 270,
-        "y": 950
-      },
+      "position": { "x": 270, "y": 950 },
       "data": {
         "label": "Hallucinations",
-        "parentId": "core-concepts-label",
+        "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -532,18 +411,13 @@
     {
       "id": "foundational-papers-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1000
-      },
+      "position": { "x": 70, "y": 1000 },
       "data": {
         "label": "Foundational Papers",
-        "parentId": "core-concepts-label",
+        "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -551,18 +425,13 @@
     {
       "id": "key-figures-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 240,
-        "y": 1000
-      },
+      "position": { "x": 240, "y": 1000 },
       "data": {
         "label": "Key Figures",
-        "parentId": "core-concepts-label",
+        "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -570,18 +439,13 @@
     {
       "id": "neel-nanda-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1050
-      },
+      "position": { "x": 70, "y": 1050 },
       "data": {
         "label": "Neel Nanda",
         "parentId": "key-figures-subtopic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": true
+        }
       },
       "width": 100,
       "height": 35
@@ -589,18 +453,13 @@
     {
       "id": "yoshua-bengio-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 190,
-        "y": 1050
-      },
+      "position": { "x": 190, "y": 1050 },
       "data": {
         "label": "Yoshua Bengio",
         "parentId": "key-figures-subtopic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": true
+        }
       },
       "width": 120,
       "height": 35
@@ -608,19 +467,14 @@
     {
       "id": "sources-ai-risk-label",
       "type": "label",
-      "position": {
-        "x": 70,
-        "y": 1050
-      },
+      "position": { "x": 70, "y": 1110 },
       "data": {
         "label": "Sources of AI Risk",
         "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 25
@@ -628,18 +482,13 @@
     {
       "id": "agency-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1090
-      },
+      "position": { "x": 70, "y": 1150 },
       "data": {
         "label": "Agency",
         "parentId": "sources-ai-risk-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 80,
       "height": 35
@@ -647,18 +496,13 @@
     {
       "id": "impenetrability-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 170,
-        "y": 1090
-      },
+      "position": { "x": 170, "y": 1150 },
       "data": {
         "label": "Impenetrability",
         "parentId": "sources-ai-risk-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -666,18 +510,13 @@
     {
       "id": "situational-awareness-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 310,
-        "y": 1090
-      },
+      "position": { "x": 310, "y": 1150 },
       "data": {
         "label": "Situational awareness",
         "parentId": "sources-ai-risk-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 35
@@ -685,19 +524,14 @@
     {
       "id": "ai-risk-areas-label",
       "type": "label",
-      "position": {
-        "x": 70,
-        "y": 1150
-      },
+      "position": { "x": 70, "y": 1210 },
       "data": {
         "label": "AI Risk Areas",
         "parentId": "alignment-fundamentals-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 25
@@ -705,18 +539,13 @@
     {
       "id": "existential-risk-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1190
-      },
+      "position": { "x": 70, "y": 1250 },
       "data": {
         "label": "Existential Risk",
         "parentId": "ai-risk-areas-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 130,
       "height": 35
@@ -724,10 +553,7 @@
     {
       "id": "technical-alignment-topic",
       "type": "topic",
-      "position": {
-        "x": 220,
-        "y": 1500
-      },
+      "position": { "x": 220, "y": 1500 },
       "data": {
         "label": "Technical Alignment",
         "parentId": null,
@@ -735,9 +561,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -745,19 +569,14 @@
     {
       "id": "technical-section",
       "type": "section",
-      "position": {
-        "x": 50,
-        "y": 1580
-      },
+      "position": { "x": 50, "y": 1580 },
       "data": {
         "label": "",
         "parentId": "technical-alignment-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 350,
       "height": 400
@@ -765,18 +584,13 @@
     {
       "id": "prompt-injection-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1890
-      },
+      "position": { "x": 170, "y": 1500 },
       "data": {
         "label": "Prompt Injection",
-        "parentId": "security-&-attacks-label",
+        "parentId": "technical-alignment-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 140,
       "height": 35
@@ -784,18 +598,13 @@
     {
       "id": "jailbreak-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 220,
-        "y": 1890
-      },
+      "position": { "x": 330, "y": 1500 },
       "data": {
         "label": "Jailbreak Techniques",
-        "parentId": "security-&-attacks-label",
+        "parentId": "technical-alignment-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 35
@@ -803,18 +612,13 @@
     {
       "id": "data-poisoning-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1940
-      },
+      "position": { "x": 510, "y": 1500 },
       "data": {
         "label": "Data Poisoning",
-        "parentId": "security-&-attacks-label",
+        "parentId": "technical-alignment-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 130,
       "height": 35
@@ -822,18 +626,13 @@
     {
       "id": "computer-security-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 210,
-        "y": 1940
-      },
+      "position": { "x": 660, "y": 1500 },
       "data": {
         "label": "Computer Security",
-        "parentId": "security-&-attacks-label",
+        "parentId": "technical-alignment-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -841,19 +640,14 @@
     {
       "id": "testing-contexts-label",
       "type": "label",
-      "position": {
-        "x": 70,
-        "y": 1600
-      },
+      "position": { "x": 170, "y": 1560 },
       "data": {
         "label": "Testing Contexts",
         "parentId": "technical-alignment-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 140,
       "height": 25
@@ -861,18 +655,13 @@
     {
       "id": "white-box-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1640
-      },
+      "position": { "x": 170, "y": 1600 },
       "data": {
         "label": "White Box Testing",
         "parentId": "testing-contexts-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 140,
       "height": 35
@@ -880,18 +669,13 @@
     {
       "id": "black-box-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 220,
-        "y": 1640
-      },
+      "position": { "x": 330, "y": 1600 },
       "data": {
         "label": "Black Box Testing",
         "parentId": "testing-contexts-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 140,
       "height": 35
@@ -899,18 +683,13 @@
     {
       "id": "grey-box-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1690
-      },
+      "position": { "x": 490, "y": 1600 },
       "data": {
         "label": "Grey Box Testing",
         "parentId": "testing-contexts-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 140,
       "height": 35
@@ -918,19 +697,14 @@
     {
       "id": "interpretability-techniques-label",
       "type": "label",
-      "position": {
-        "x": 70,
-        "y": 1750
-      },
+      "position": { "x": 170, "y": 1660 },
       "data": {
         "label": "Interpretability Techniques",
         "parentId": "technical-alignment-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 200,
       "height": 25
@@ -938,18 +712,13 @@
     {
       "id": "explainability-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 70,
-        "y": 1790
-      },
+      "position": { "x": 170, "y": 1700 },
       "data": {
         "label": "Explainability",
         "parentId": "interpretability-techniques-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -957,18 +726,13 @@
     {
       "id": "interpretability-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 200,
-        "y": 1790
-      },
+      "position": { "x": 310, "y": 1700 },
       "data": {
         "label": "Interpretability",
         "parentId": "interpretability-techniques-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 130,
       "height": 35
@@ -976,18 +740,13 @@
     {
       "id": "transparency-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 340,
-        "y": 1790
-      },
+      "position": { "x": 460, "y": 1700 },
       "data": {
         "label": "Transparency",
         "parentId": "interpretability-techniques-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -995,10 +754,7 @@
     {
       "id": "ai-governance-topic",
       "type": "topic",
-      "position": {
-        "x": 520,
-        "y": 1500
-      },
+      "position": { "x": 520, "y": 1500 },
       "data": {
         "label": "AI Governance",
         "parentId": null,
@@ -1006,9 +762,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -1016,19 +770,14 @@
     {
       "id": "ai-governance-section",
       "type": "section",
-      "position": {
-        "x": 450,
-        "y": 1580
-      },
+      "position": { "x": 350, "y": 1580 },
       "data": {
         "label": "",
         "parentId": "ai-governance-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 350,
       "height": 400
@@ -1036,19 +785,14 @@
     {
       "id": "policy-frameworks-label",
       "type": "label",
-      "position": {
-        "x": 470,
-        "y": 1600
-      },
+      "position": { "x": 170, "y": 2100 },
       "data": {
         "label": "Policy Frameworks",
         "parentId": "ai-governance-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 25
@@ -1056,18 +800,13 @@
     {
       "id": "national-ai-strategies-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 470,
-        "y": 1640
-      },
+      "position": { "x": 170, "y": 2140 },
       "data": {
         "label": "National AI Strategies",
         "parentId": "policy-frameworks-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 35
@@ -1075,18 +814,13 @@
     {
       "id": "international-coordination-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 650,
-        "y": 1640
-      },
+      "position": { "x": 350, "y": 2140 },
       "data": {
         "label": "International Coordination",
         "parentId": "policy-frameworks-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 35
@@ -1094,18 +828,13 @@
     {
       "id": "regulatory-approaches-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 470,
-        "y": 1690
-      },
+      "position": { "x": 550, "y": 2140 },
       "data": {
         "label": "Regulatory Approaches",
         "parentId": "policy-frameworks-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1113,19 +842,14 @@
     {
       "id": "institutional-design-label",
       "type": "label",
-      "position": {
-        "x": 470,
-        "y": 1750
-      },
+      "position": { "x": 170, "y": 2200 },
       "data": {
         "label": "Institutional Design",
         "parentId": "ai-governance-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 160,
       "height": 25
@@ -1133,18 +857,13 @@
     {
       "id": "safety-oversight-bodies-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 470,
-        "y": 1790
-      },
+      "position": { "x": 170, "y": 2240 },
       "data": {
         "label": "Safety Oversight Bodies",
         "parentId": "institutional-design-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1152,18 +871,13 @@
     {
       "id": "assessment-frameworks-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 660,
-        "y": 1790
-      },
+      "position": { "x": 360, "y": 2240 },
       "data": {
         "label": "Assessment Frameworks",
         "parentId": "institutional-design-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1171,18 +885,13 @@
     {
       "id": "enforcement-mechanisms-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 470,
-        "y": 1840
-      },
+      "position": { "x": 550, "y": 2240 },
       "data": {
         "label": "Enforcement Mechanisms",
         "parentId": "institutional-design-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 35
@@ -1190,19 +899,14 @@
     {
       "id": "strategic-interventions-label",
       "type": "label",
-      "position": {
-        "x": 470,
-        "y": 1900
-      },
+      "position": { "x": 170, "y": 2300 },
       "data": {
         "label": "Strategic Interventions",
         "parentId": "ai-governance-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 180,
       "height": 25
@@ -1210,18 +914,13 @@
     {
       "id": "risk-assessment-methodologies-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 470,
-        "y": 1940
-      },
+      "position": { "x": 170, "y": 2340 },
       "data": {
         "label": "Risk Assessment Methodologies",
         "parentId": "strategic-interventions-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 210,
       "height": 35
@@ -1229,18 +928,13 @@
     {
       "id": "timeline-considerations-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 690,
-        "y": 1940
-      },
+      "position": { "x": 400, "y": 2340 },
       "data": {
         "label": "Timeline Considerations",
         "parentId": "strategic-interventions-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1248,18 +942,13 @@
     {
       "id": "resource-allocation-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 470,
-        "y": 1990
-      },
+      "position": { "x": 590, "y": 2340 },
       "data": {
         "label": "Resource Allocation",
         "parentId": "strategic-interventions-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -1267,10 +956,7 @@
     {
       "id": "technical-governance-topic",
       "type": "topic",
-      "position": {
-        "x": 820,
-        "y": 1500
-      },
+      "position": { "x": 820, "y": 1500 },
       "data": {
         "label": "Technical Governance",
         "parentId": null,
@@ -1278,9 +964,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -1288,19 +972,14 @@
     {
       "id": "technical-governance-section",
       "type": "section",
-      "position": {
-        "x": 750,
-        "y": 1580
-      },
+      "position": { "x": 750, "y": 1580 },
       "data": {
         "label": "",
         "parentId": "technical-governance-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 350,
       "height": 400
@@ -1308,19 +987,14 @@
     {
       "id": "compute-governance-label",
       "type": "label",
-      "position": {
-        "x": 770,
-        "y": 1600
-      },
+      "position": { "x": 170, "y": 2700 },
       "data": {
         "label": "Compute Governance",
         "parentId": "technical-governance-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 25
@@ -1328,18 +1002,13 @@
     {
       "id": "training-run-monitoring-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 770,
-        "y": 1640
-      },
+      "position": { "x": 170, "y": 2740 },
       "data": {
         "label": "Training Run Monitoring",
         "parentId": "compute-governance-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1347,18 +1016,13 @@
     {
       "id": "hardware-controls-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 950,
-        "y": 1640
-      },
+      "position": { "x": 360, "y": 2740 },
       "data": {
         "label": "Hardware Controls",
         "parentId": "compute-governance-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -1366,18 +1030,13 @@
     {
       "id": "resource-tracking-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 770,
-        "y": 1690
-      },
+      "position": { "x": 530, "y": 2740 },
       "data": {
         "label": "Resource Tracking",
         "parentId": "compute-governance-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -1385,19 +1044,14 @@
     {
       "id": "model-evaluations-label",
       "type": "label",
-      "position": {
-        "x": 770,
-        "y": 1750
-      },
+      "position": { "x": 170, "y": 2800 },
       "data": {
         "label": "Model Evaluations",
         "parentId": "technical-governance-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 25
@@ -1405,18 +1059,13 @@
     {
       "id": "safety-benchmarks-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 770,
-        "y": 1790
-      },
+      "position": { "x": 170, "y": 2840 },
       "data": {
         "label": "Safety Benchmarks",
         "parentId": "model-evaluations-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -1424,18 +1073,13 @@
     {
       "id": "capability-assessments-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 930,
-        "y": 1790
-      },
+      "position": { "x": 340, "y": 2840 },
       "data": {
         "label": "Capability Assessments",
         "parentId": "model-evaluations-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1443,18 +1087,13 @@
     {
       "id": "red-teaming-protocols-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 770,
-        "y": 1840
-      },
+      "position": { "x": 530, "y": 2840 },
       "data": {
         "label": "Red Teaming Protocols",
         "parentId": "model-evaluations-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 170,
       "height": 35
@@ -1462,19 +1101,14 @@
     {
       "id": "institutional-mechanisms-label",
       "type": "label",
-      "position": {
-        "x": 770,
-        "y": 1900
-      },
+      "position": { "x": 170, "y": 2900 },
       "data": {
         "label": "Institutional Mechanisms",
         "parentId": "technical-governance-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 190,
       "height": 25
@@ -1482,18 +1116,13 @@
     {
       "id": "api-access-controls-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 770,
-        "y": 1940
-      },
+      "position": { "x": 170, "y": 2940 },
       "data": {
         "label": "API Access Controls",
         "parentId": "institutional-mechanisms-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 150,
       "height": 35
@@ -1501,18 +1130,13 @@
     {
       "id": "deployment-gates-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 930,
-        "y": 1940
-      },
+      "position": { "x": 340, "y": 2940 },
       "data": {
         "label": "Deployment Gates",
         "parentId": "institutional-mechanisms-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 140,
       "height": 35
@@ -1520,18 +1144,13 @@
     {
       "id": "safety-capability-balance-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 770,
-        "y": 1990
-      },
+      "position": { "x": 500, "y": 2940 },
       "data": {
         "label": "Safety-Capability Balance",
         "parentId": "institutional-mechanisms-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 190,
       "height": 35
@@ -1539,10 +1158,7 @@
     {
       "id": "advanced-research-topic",
       "type": "topic",
-      "position": {
-        "x": 520,
-        "y": 2000
-      },
+      "position": { "x": 520, "y": 2000 },
       "data": {
         "label": "Advanced Research",
         "parentId": null,
@@ -1550,9 +1166,7 @@
           "fontSize": 17,
           "justifyContent": "flex-start",
           "textAlign": "center"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 203,
       "height": 49
@@ -1560,39 +1174,28 @@
     {
       "id": "advanced-section",
       "type": "section",
-      "position": {
-        "x": 350,
-        "y": 2080,
-        "width": 600
-      },
+      "position": { "x": 150, "y": 2080 },
       "data": {
         "label": "",
         "parentId": "advanced-research-topic",
         "style": {
           "backgroundColor": "#f3f4f6",
           "borderColor": "#d1d5db"
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
-      "width": 600,
+      "width": 700,
       "height": 300
     },
     {
       "id": "red-teaming-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 370,
-        "y": 2140
-      },
+      "position": { "x": 170, "y": 3300 },
       "data": {
         "label": "Red Teaming",
-        "parentId": "research-methods-label",
+        "parentId": "advanced-research-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -1600,18 +1203,13 @@
     {
       "id": "ai-agents-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 500,
-        "y": 2140
-      },
+      "position": { "x": 310, "y": 3300 },
       "data": {
         "label": "AI Agents",
-        "parentId": "research-methods-label",
+        "parentId": "advanced-research-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 100,
       "height": 35
@@ -1619,18 +1217,13 @@
     {
       "id": "disrupting-research-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 600,
-        "y": 2140
-      },
+      "position": { "x": 430, "y": 3300 },
       "data": {
         "label": "Disrupting AI Safety Research",
-        "parentId": "research-methods-label",
+        "parentId": "advanced-research-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "personal",
-        "isOpinionated": true
+        }
       },
       "width": 200,
       "height": 35
@@ -1638,18 +1231,13 @@
     {
       "id": "collaboration-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 820,
-        "y": 2140
-      },
+      "position": { "x": 650, "y": 3300 },
       "data": {
         "label": "Collaboration",
-        "parentId": "research-methods-label",
+        "parentId": "advanced-research-topic",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -1657,19 +1245,14 @@
     {
       "id": "organizations-label",
       "type": "label",
-      "position": {
-        "x": 370,
-        "y": 2200
-      },
+      "position": { "x": 170, "y": 3360 },
       "data": {
         "label": "Organizations",
         "parentId": "advanced-research-topic",
         "style": {
           "fontSize": 16,
           "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 25
@@ -1677,18 +1260,13 @@
     {
       "id": "constellation-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 370,
-        "y": 2240
-      },
+      "position": { "x": 170, "y": 3400 },
       "data": {
         "label": "Constellation",
         "parentId": "organizations-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 120,
       "height": 35
@@ -1696,139 +1274,16 @@
     {
       "id": "far-subtopic",
       "type": "subtopic",
-      "position": {
-        "x": 500,
-        "y": 2240
-      },
+      "position": { "x": 310, "y": 3400 },
       "data": {
         "label": "FAR (Fund for Alignment Research)",
         "parentId": "organizations-label",
         "style": {
           "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
+        }
       },
       "width": 250,
       "height": 35
-    },
-    {
-      "id": "philosophy-label",
-      "type": "label",
-      "position": {
-        "x": 380,
-        "y": 500
-      },
-      "data": {
-        "label": "Philosophy",
-        "parentId": "foundations-topic",
-        "style": {
-          "fontSize": 16,
-          "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
-      },
-      "width": 120,
-      "height": 25
-    },
-    {
-      "id": "ethics-subtopic",
-      "type": "subtopic",
-      "position": {
-        "x": 380,
-        "y": 540
-      },
-      "data": {
-        "label": "Ethics",
-        "parentId": "philosophy-label",
-        "style": {
-          "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
-      },
-      "width": 80,
-      "height": 35
-    },
-    {
-      "id": "political-subtopic",
-      "type": "subtopic",
-      "position": {
-        "x": 380,
-        "y": 580
-      },
-      "data": {
-        "label": "Political",
-        "parentId": "philosophy-label",
-        "style": {
-          "fontSize": 14
-        },
-        "viewMode": "both",
-        "isOpinionated": false
-      },
-      "width": 80,
-      "height": 35
-    },
-    {
-      "id": "core-concepts-label",
-      "type": "label",
-      "position": {
-        "x": 70,
-        "y": 900
-      },
-      "data": {
-        "label": "Core Concepts",
-        "parentId": "alignment-fundamentals-topic",
-        "style": {
-          "fontSize": 16,
-          "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
-      },
-      "width": 140,
-      "height": 25
-    },
-    {
-      "id": "security-&-attacks-label",
-      "type": "label",
-      "position": {
-        "x": 70,
-        "y": 1850
-      },
-      "data": {
-        "label": "Security & Attacks",
-        "parentId": "technical-alignment-topic",
-        "style": {
-          "fontSize": 16,
-          "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
-      },
-      "width": 160,
-      "height": 25
-    },
-    {
-      "id": "research-methods-label",
-      "type": "label",
-      "position": {
-        "x": 370,
-        "y": 2100
-      },
-      "data": {
-        "label": "Research Methods",
-        "parentId": "advanced-research-topic",
-        "style": {
-          "fontSize": 16,
-          "fontWeight": 600
-        },
-        "viewMode": "both",
-        "isOpinionated": false
-      },
-      "width": 160,
-      "height": 25
     }
   ],
   "edges": [

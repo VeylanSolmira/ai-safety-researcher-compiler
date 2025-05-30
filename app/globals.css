@@ -78,3 +78,34 @@ body {
 .topic-content a {
   @apply text-blue-600 hover:text-blue-800 underline;
 }
+
+/* Personal/Opinionated content styling */
+.personal-mode {
+  --personal-accent: #f59e0b; /* Amber color */
+  --personal-bg: #fef3c7;
+  --personal-border: #f59e0b;
+}
+
+.personal-indicator {
+  @apply inline-flex items-center px-2 py-1 text-xs font-medium rounded-full;
+  background-color: var(--personal-bg);
+  color: var(--personal-accent);
+  border: 1px solid var(--personal-border);
+}
+
+.personal-content {
+  @apply border-l-4 pl-4 my-4;
+  border-color: var(--personal-accent);
+  background-color: rgba(254, 243, 199, 0.3);
+}
+
+/* Opinionated nodes in roadmap */
+.opinionated-node {
+  box-shadow: 0 0 0 2px var(--personal-accent);
+}
+
+.opinionated-badge {
+  @apply absolute -top-2 -left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs;
+  background-color: var(--personal-accent);
+  color: white;
+}

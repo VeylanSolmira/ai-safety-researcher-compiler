@@ -22,8 +22,9 @@
 - Pretraining
 - Fine-tuning
 
-### Philosophy & Ethics
-- Ethics & Philosophy
+### Philosophy
+- Ethics
+- Political
 
 ## 2. Alignment Fundamentals
 
@@ -61,7 +62,41 @@
 - Data Poisoning
 - Computer Security
 
-## 4. Advanced Research
+## 4. AI Governance
+
+### Policy Frameworks
+- National AI Strategies
+- International Coordination
+- Regulatory Approaches
+
+### Institutional Design
+- Safety Oversight Bodies
+- Assessment Frameworks
+- Enforcement Mechanisms
+
+### Strategic Interventions
+- Risk Assessment Methodologies
+- Timeline Considerations
+- Resource Allocation
+
+## 5. Technical Governance
+
+### Compute Governance
+- Training Run Monitoring
+- Hardware Controls
+- Resource Tracking
+
+### Model Evaluations
+- Safety Benchmarks
+- Capability Assessments
+- Red Teaming Protocols
+
+### Institutional Mechanisms
+- API Access Controls
+- Deployment Gates
+- Safety-Capability Balance
+
+## 6. Advanced Research
 
 ### Organizations
 - Constellation

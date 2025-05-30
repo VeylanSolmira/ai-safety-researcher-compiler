@@ -6,6 +6,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const roadmapSlug = searchParams.get('roadmap')
   const topicId = searchParams.get('topic')
+  const viewMode = searchParams.get('viewMode') || 'neutral'
 
   if (!roadmapSlug || !topicId) {
     return NextResponse.json(
@@ -25,7 +26,17 @@ export async function GET(request: NextRequest) {
 
     // Find the file that matches the topic ID
     const files = fs.readdirSync(contentDir)
-    const topicFile = files.find(file => file.endsWith(`@${topicId}.md`))
+    
+    // First, try to find a personal version if in personal mode
+    let topicFile = null
+    if (viewMode === 'personal') {
+      topicFile = files.find(file => file.endsWith(`@${topicId}.personal.md`))
+    }
+    
+    // If no personal version found, or in neutral mode, use the regular file
+    if (!topicFile) {
+      topicFile = files.find(file => file.endsWith(`@${topicId}.md`) && !file.includes('.personal.'))
+    }
 
     if (!topicFile) {
       return NextResponse.json(
@@ -37,8 +48,11 @@ export async function GET(request: NextRequest) {
     // Read the content
     const filePath = path.join(contentDir, topicFile)
     const content = fs.readFileSync(filePath, 'utf8')
+    
+    // Add a marker if this is personal content
+    const isPersonalContent = topicFile.includes('.personal.')
 
-    return NextResponse.json({ content })
+    return NextResponse.json({ content, isPersonalContent })
   } catch (error) {
     console.error('Error loading topic content:', error)
     return NextResponse.json(

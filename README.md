@@ -102,9 +102,7 @@ Current curriculum structure with implementation status:
   - [ ] Multi-Agent Environments
   - [ ] Hallucinations
   - [X] Foundational Papers
-  - [ ] Key Figures
-    - [ ] Neel Nanda
-    - [ ] Yoshua Bengio
+  - [X] Key Figures
 
 #### 3. Technical Alignment
 - [ ] **Testing Contexts**
@@ -121,7 +119,35 @@ Current curriculum structure with implementation status:
   - [ ] Data Poisoning
   - [ ] Computer Security
 
-#### 4. Advanced Research
+#### 4. AI Governance
+- [ ] **Policy Frameworks**
+  - [ ] National AI Strategies
+  - [ ] International Coordination
+  - [ ] Regulatory Approaches
+- [ ] **Institutional Design**
+  - [ ] Safety Oversight Bodies
+  - [ ] Assessment Frameworks
+  - [ ] Enforcement Mechanisms
+- [ ] **Strategic Interventions**
+  - [ ] Risk Assessment Methodologies
+  - [ ] Timeline Considerations
+  - [ ] Resource Allocation
+
+#### 5. Technical Governance
+- [ ] **Compute Governance**
+  - [ ] Training Run Monitoring
+  - [ ] Hardware Controls
+  - [ ] Resource Tracking
+- [ ] **Model Evaluations**
+  - [ ] Safety Benchmarks
+  - [ ] Capability Assessments
+  - [ ] Red Teaming Protocols
+- [ ] **Institutional Mechanisms**
+  - [ ] API Access Controls
+  - [ ] Deployment Gates
+  - [ ] Safety-Capability Balance
+
+#### 6. Advanced Research
 - [ ] **Organizations**
   - [ ] Constellation
   - [ ] FAR (Fund for Alignment Research)
@@ -137,28 +163,6 @@ Current curriculum structure with implementation status:
 - [ ] Implement progress tracking
 - [ ] Add more learning pathways
 - [ ] Create community features
-- [ ] Study roadmap.sh implementations for inspiration:
-  - [ ] Frontend
-  - [ ] Backend
-  - [ ] DevOps
-  - [ ] Full Stack
-  - [ ] AI Engineer
-  - [ ] Data Analyst
-  - [ ] AI and Data Scientist
-  - [ ] Android
-  - [ ] iOS
-  - [ ] PostgreSQL
-  - [ ] Blockchain
-  - [ ] QA
-  - [ ] Software Architect
-  - [ ] Cyber Security
-  - [ ] UX Design
-  - [ ] Game Developer
-  - [ ] Technical Writer
-  - [ ] MLOps
-  - [ ] Product Manager
-  - [ ] Engineering Manager
-  - [ ] Developer Relations
 
 ## License
 

@@ -1,8 +1,13 @@
 // Dynamic route that handles different roadmaps based on the URL slug
 // e.g., /roadmap/ai-safety-researcher will have slug = "ai-safety-researcher"
 import { notFound } from 'next/navigation'
-import RoadmapViewer from '@/components/RoadmapViewer'
+import dynamic from 'next/dynamic'
+import ProgressSummary from '@/components/ProgressSummary'
 import { getRoadmapData } from '@/lib/roadmap'
+
+const RoadmapViewer = dynamic(() => import('@/components/RoadmapViewer'), {
+  ssr: false
+})
 
 // This tells Next.js which pages to pre-generate at build time
 export async function generateStaticParams() {
