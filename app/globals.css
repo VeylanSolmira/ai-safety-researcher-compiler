@@ -1,0 +1,43 @@
+/* Global CSS file - applies to entire app */
+/* Tailwind directives that inject utility classes */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+:root {
+  /* CSS variables for consistent theming */
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Dark mode colors */
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Custom utility classes for the roadmap */
+@layer utilities {
+  .roadmap-node {
+    @apply rounded-lg border-2 p-4 cursor-pointer transition-all hover:shadow-lg;
+  }
+  
+  .roadmap-edge {
+    @apply stroke-current;
+  }
+}

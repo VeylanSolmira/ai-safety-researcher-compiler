@@ -1,0 +1,169 @@
+{
+  "nodes": [
+    {
+      "id": "title-node",
+      "type": "title",
+      "position": { "x": 520, "y": 50 },
+      "data": {
+        "label": "AI Safety Researcher",
+        "style": {
+          "fontSize": 28,
+          "fontWeight": 700,
+          "textAlign": "center"
+        }
+      },
+      "width": 300,
+      "height": 60
+    },
+    {
+      "id": "prerequisites-section",
+      "type": "section",
+      "position": { "x": 250, "y": 150 },
+      "data": {
+        "label": "",
+        "style": {
+          "backgroundColor": "#ffffff",
+          "borderColor": "#000000"
+        }
+      },
+      "width": 540,
+      "height": 180
+    },
+    {
+      "id": "prerequisites-label",
+      "type": "label",
+      "position": { "x": 300, "y": 170 },
+      "data": {
+        "label": "Prerequisites",
+        "style": {
+          "fontSize": 20,
+          "fontWeight": 600
+        }
+      },
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "foundations-topic",
+      "type": "topic",
+      "position": { "x": 520, "y": 400 },
+      "data": {
+        "label": "Foundations",
+        "style": {
+          "fontSize": 17,
+          "justifyContent": "flex-start",
+          "textAlign": "center"
+        }
+      },
+      "width": 203,
+      "height": 49
+    },
+    {
+      "id": "alignment-fundamentals-topic",
+      "type": "topic",
+      "position": { "x": 520, "y": 600 },
+      "data": {
+        "label": "Alignment Fundamentals",
+        "style": {
+          "fontSize": 17,
+          "justifyContent": "flex-start",
+          "textAlign": "center"
+        }
+      },
+      "width": 203,
+      "height": 49
+    },
+    {
+      "id": "technical-alignment-topic",
+      "type": "topic",
+      "position": { "x": 520, "y": 800 },
+      "data": {
+        "label": "Technical Alignment",
+        "style": {
+          "fontSize": 17,
+          "justifyContent": "flex-start",
+          "textAlign": "center"
+        }
+      },
+      "width": 203,
+      "height": 49
+    },
+    {
+      "id": "advanced-research-topic",
+      "type": "topic",
+      "position": { "x": 520, "y": 1000 },
+      "data": {
+        "label": "Advanced Research",
+        "style": {
+          "fontSize": 17,
+          "justifyContent": "flex-start",
+          "textAlign": "center"
+        }
+      },
+      "width": 203,
+      "height": 49
+    }
+  ],
+  "edges": [
+    {
+      "id": "title-to-prereq",
+      "source": "title-node",
+      "sourceHandle": "y2",
+      "target": "prerequisites-section",
+      "targetHandle": "y1",
+      "style": {
+        "strokeDasharray": "0",
+        "strokeWidth": 3.5,
+        "stroke": "#2b78e4"
+      }
+    },
+    {
+      "id": "prereq-to-foundations",
+      "source": "prerequisites-section",
+      "sourceHandle": "y2",
+      "target": "foundations-topic",
+      "targetHandle": "y1",
+      "style": {
+        "strokeDasharray": "0",
+        "strokeWidth": 3.5,
+        "stroke": "#2b78e4"
+      }
+    },
+    {
+      "id": "foundations-to-alignment",
+      "source": "foundations-topic",
+      "sourceHandle": "y2",
+      "target": "alignment-fundamentals-topic",
+      "targetHandle": "y1",
+      "style": {
+        "strokeDasharray": "0",
+        "strokeWidth": 3.5,
+        "stroke": "#2b78e4"
+      }
+    },
+    {
+      "id": "alignment-to-technical",
+      "source": "alignment-fundamentals-topic",
+      "sourceHandle": "y2",
+      "target": "technical-alignment-topic",
+      "targetHandle": "y1",
+      "style": {
+        "strokeDasharray": "0",
+        "strokeWidth": 3.5,
+        "stroke": "#2b78e4"
+      }
+    },
+    {
+      "id": "technical-to-advanced",
+      "source": "technical-alignment-topic",
+      "sourceHandle": "y2",
+      "target": "advanced-research-topic",
+      "targetHandle": "y1",
+      "style": {
+        "strokeDasharray": "0",
+        "strokeWidth": 3.5,
+        "stroke": "#2b78e4"
+      }
+    }
+  ]
+}
