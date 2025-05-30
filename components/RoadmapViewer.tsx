@@ -13,6 +13,7 @@ import ReactFlow, {
   Position,
 } from 'reactflow'
 import 'reactflow/dist/style.css' // Required CSS for ReactFlow
+import TopicContent from './TopicContent'
 
 // Custom node components for different types
 const TitleNode = ({ data }: { data: any }) => (
@@ -36,6 +37,15 @@ const TopicNode = ({ data }: { data: any }) => (
     </div>
     <Handle type="source" position={Position.Bottom} id="y2" />
   </>
+)
+
+const SubtopicNode = ({ data }: { data: any }) => (
+  <div 
+    style={data.style} 
+    className="bg-gray-50 border border-gray-300 rounded-md px-3 py-1 hover:bg-gray-100 cursor-pointer text-sm"
+  >
+    {data.label}
+  </div>
 )
 
 const SectionNode = ({ data }: { data: any }) => (
@@ -71,16 +81,17 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
   const nodeTypes = useMemo<NodeTypes>(() => ({
     title: TitleNode,
     topic: TopicNode,
+    subtopic: SubtopicNode,
     section: SectionNode,
     label: LabelNode,
   }), [])
   
   // Handle node clicks
   const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
-    if (node.type === 'topic') {
+    if (node.type === 'topic' || node.type === 'subtopic') {
       setSelectedNode(node.id)
       // TODO: Load and display topic content
-      console.log('Clicked topic:', node.data.label)
+      console.log('Clicked:', node.data.label)
     }
   }, [])
   
@@ -100,19 +111,13 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
         <Controls />
       </ReactFlow>
       
-      {/* Topic content panel could go here */}
+      {/* Topic content panel */}
       {selectedNode && (
-        <div className="absolute right-0 top-0 w-96 h-full bg-white shadow-lg p-6 overflow-y-auto">
-          <button 
-            onClick={() => setSelectedNode(null)}
-            className="mb-4 text-gray-500 hover:text-gray-700"
-          >
-            ← Back
-          </button>
-          {/* Topic content would be loaded here */}
-          <h2 className="text-xl font-bold mb-4">Topic Content</h2>
-          <p>Content for node {selectedNode} would appear here.</p>
-        </div>
+        <TopicContent
+          roadmapSlug="ai-safety-researcher"
+          topicId={selectedNode}
+          onClose={() => setSelectedNode(null)}
+        />
       )}
     </div>
   )

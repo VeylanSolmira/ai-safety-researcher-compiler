@@ -61,11 +61,104 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Roadmap
 
-- [ ] Complete AI safety curriculum content
+### Complete AI Safety Curriculum Content
+
+Current curriculum structure with implementation status:
+
+#### Prerequisites
+- [ ] ML basics
+- [ ] Python programming
+- [ ] Linear algebra & calculus
+- [ ] Basic statistics
+
+#### 1. Foundations
+- [ ] **Core Computer Science**
+  - [ ] Docker & Containerization
+  - [ ] Distributed Systems
+  - [ ] Version Control
+- [ ] **AI Safety Paradigms**
+  - [ ] Control
+  - [ ] Alignment
+  - [ ] Value Learning
+- [ ] **AI Systems & Training**
+  - [ ] Types of AI Systems
+  - [ ] LLMs
+  - [ ] How LLMs are Trained
+  - [ ] Pretraining
+  - [ ] Fine-tuning
+- [ ] **Philosophy & Ethics**
+  - [ ] Ethics & Philosophy
+
+#### 2. Alignment Fundamentals
+- [ ] **Sources of AI Risk**
+  - [ ] Agency
+  - [ ] Impenetrability
+  - [ ] Situational awareness
+- [ ] **AI Risk Areas**
+  - [ ] Existential Risk
+- [ ] **Core Concepts**
+  - [ ] Core Methodology
+  - [ ] Teacher vs. Trainer
+  - [ ] Multi-Agent Environments
+  - [ ] Hallucinations
+  - [X] Foundational Papers
+  - [ ] Key Figures
+    - [ ] Neel Nanda
+    - [ ] Yoshua Bengio
+
+#### 3. Technical Alignment
+- [ ] **Testing Contexts**
+  - [ ] White Box Testing
+  - [ ] Black Box Testing
+  - [ ] Grey Box Testing
+- [ ] **Interpretability Techniques**
+  - [ ] Explainability
+  - [ ] Interpretability
+  - [ ] Transparency
+- [ ] **Security & Attacks**
+  - [ ] Prompt Injection
+  - [ ] Jailbreak Techniques
+  - [ ] Data Poisoning
+  - [ ] Computer Security
+
+#### 4. Advanced Research
+- [ ] **Organizations**
+  - [ ] Constellation
+  - [ ] FAR (Fund for Alignment Research)
+- [ ] **Research Methods**
+  - [ ] Red Teaming
+  - [ ] AI Agents
+  - [ ] Disrupting AI Safety Research
+  - [ ] Collaboration
+
+### Other Development Goals
+
 - [ ] Add interactive assessments
 - [ ] Implement progress tracking
 - [ ] Add more learning pathways
 - [ ] Create community features
+- [ ] Study roadmap.sh implementations for inspiration:
+  - [ ] Frontend
+  - [ ] Backend
+  - [ ] DevOps
+  - [ ] Full Stack
+  - [ ] AI Engineer
+  - [ ] Data Analyst
+  - [ ] AI and Data Scientist
+  - [ ] Android
+  - [ ] iOS
+  - [ ] PostgreSQL
+  - [ ] Blockchain
+  - [ ] QA
+  - [ ] Software Architect
+  - [ ] Cyber Security
+  - [ ] UX Design
+  - [ ] Game Developer
+  - [ ] Technical Writer
+  - [ ] MLOps
+  - [ ] Product Manager
+  - [ ] Engineering Manager
+  - [ ] Developer Relations
 
 ## License
 

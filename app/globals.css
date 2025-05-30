@@ -41,3 +41,40 @@ body {
     @apply stroke-current;
   }
 }
+
+/* Topic content styles */
+.topic-content {
+  @apply text-gray-700;
+}
+
+.topic-content h1 {
+  @apply text-2xl font-bold mb-4 text-gray-900;
+}
+
+.topic-content h2 {
+  @apply text-xl font-semibold mb-3 mt-6 text-gray-800;
+}
+
+.topic-content h3 {
+  @apply text-lg font-semibold mb-2 mt-4 text-gray-800;
+}
+
+.topic-content p {
+  @apply mb-4 leading-relaxed;
+}
+
+.topic-content strong {
+  @apply font-semibold text-gray-900;
+}
+
+.topic-content ul {
+  @apply list-disc list-inside mb-4 space-y-2;
+}
+
+.topic-content li {
+  @apply ml-4;
+}
+
+.topic-content a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}

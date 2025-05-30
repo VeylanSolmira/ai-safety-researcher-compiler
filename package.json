@@ -7,7 +7,13 @@
     "type": "git",
     "url": "https://github.com/[your-username]/ai-safety-research-compiler.git"
   },
-  "keywords": ["ai-safety", "ai-alignment", "education", "curriculum", "research"],
+  "keywords": [
+    "ai-safety",
+    "ai-alignment",
+    "education",
+    "curriculum",
+    "research"
+  ],
   "author": "Veylan Solmira",
   "license": "MIT",
   "scripts": {
@@ -18,11 +24,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "gray-matter": "^4.0.3",
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "reactflow": "^11.11.3",
-    "gray-matter": "^4.0.3",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1"
   },
