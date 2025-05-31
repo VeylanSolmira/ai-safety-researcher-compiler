@@ -10,6 +10,11 @@
 - Distributed Systems
 - Version Control
 
+### Research Methodology & Execution
+- Problem Decomposition & Scoping
+- Iterative Research Design
+- Research Project Management
+
 ### AI Safety Paradigms
 - Control
 - Alignment

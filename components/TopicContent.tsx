@@ -77,12 +77,12 @@ export default function TopicContent({ roadmapSlug, topicId, topicLabel, onClose
   }, [roadmapSlug, topicId, viewMode]) // Remove markStarted from dependencies
 
   return (
-    <div className="absolute right-0 top-0 w-96 h-full bg-white shadow-lg overflow-hidden flex flex-col">
-      <div className="p-6 border-b">
+    <div className="absolute right-0 top-0 w-96 h-full bg-white dark:bg-gray-800 shadow-lg overflow-hidden flex flex-col z-50">
+      <div className="p-6 border-b dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <button 
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             ← Back
           </button>
@@ -90,8 +90,8 @@ export default function TopicContent({ roadmapSlug, topicId, topicLabel, onClose
             onClick={() => toggleComplete(topicId)}
             className={`px-4 py-2 rounded-lg font-medium transition ${
               isCompleted(topicId)
-                ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
             }`}
           >
             {isCompleted(topicId) ? '✓ Completed' : 'Mark Complete'}
@@ -99,7 +99,7 @@ export default function TopicContent({ roadmapSlug, topicId, topicLabel, onClose
         </div>
         {topicLabel && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{topicLabel}</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{topicLabel}</h2>
             {isPersonalContent && isPersonalMode && (
               <div className="mt-2 flex items-center text-sm text-amber-600">
                 <span className="mr-1">💭</span>

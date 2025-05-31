@@ -1771,6 +1771,83 @@
       "height": 35
     },
     {
+      "id": "research-methodology-execution-label",
+      "type": "label",
+      "position": {
+        "x": 300,
+        "y": 700
+      },
+      "data": {
+        "label": "Research Methodology & Execution",
+        "parentId": "foundations-topic",
+        "style": {
+          "fontSize": 16,
+          "fontWeight": 600
+        },
+        "viewMode": "both",
+        "isOpinionated": false
+      },
+      "width": 250,
+      "height": 25
+    },
+    {
+      "id": "problem-decomposition-scoping-subtopic",
+      "type": "subtopic",
+      "position": {
+        "x": 80,
+        "y": 740
+      },
+      "data": {
+        "label": "Problem Decomposition & Scoping",
+        "parentId": "research-methodology-execution-label",
+        "style": {
+          "fontSize": 14
+        },
+        "viewMode": "both",
+        "isOpinionated": false
+      },
+      "width": 230,
+      "height": 35
+    },
+    {
+      "id": "iterative-research-design-subtopic",
+      "type": "subtopic",
+      "position": {
+        "x": 320,
+        "y": 740
+      },
+      "data": {
+        "label": "Iterative Research Design",
+        "parentId": "research-methodology-execution-label",
+        "style": {
+          "fontSize": 14
+        },
+        "viewMode": "both",
+        "isOpinionated": false
+      },
+      "width": 180,
+      "height": 35
+    },
+    {
+      "id": "research-project-management-subtopic",
+      "type": "subtopic",
+      "position": {
+        "x": 80,
+        "y": 790
+      },
+      "data": {
+        "label": "Research Project Management",
+        "parentId": "research-methodology-execution-label",
+        "style": {
+          "fontSize": 14
+        },
+        "viewMode": "both",
+        "isOpinionated": false
+      },
+      "width": 200,
+      "height": 35
+    },
+    {
       "id": "core-concepts-label",
       "type": "label",
       "position": {

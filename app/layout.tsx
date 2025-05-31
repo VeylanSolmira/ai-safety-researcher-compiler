@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ViewModeProvider } from '@/contexts/ViewModeContext'
-import ViewModeToggle from '@/components/ViewModeToggle'
 
 // Load the Inter font (clean, modern font used by many tech sites)
 const inter = Inter({ subsets: ['latin'] })
@@ -25,9 +24,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ViewModeProvider>
-          <header className="fixed top-0 right-0 z-50 p-4">
-            <ViewModeToggle />
-          </header>
           <main>{children}</main>
         </ViewModeProvider>
       </body>

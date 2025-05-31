@@ -21,7 +21,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "export": "STATIC_EXPORT=true next build && touch out/.nojekyll",
+    "deploy": "npm run export"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",

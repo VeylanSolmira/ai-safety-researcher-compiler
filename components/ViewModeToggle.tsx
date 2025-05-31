@@ -14,8 +14,9 @@ export default function ViewModeToggle() {
       
       <button
         onClick={() => setViewMode(isPersonalMode ? 'neutral' : 'personal')}
-        className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        style={{ backgroundColor: isPersonalMode ? '#f59e0b' : '#e5e7eb' }}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+          isPersonalMode ? 'bg-amber-500' : 'bg-gray-200'
+        }`}
         role="switch"
         aria-checked={isPersonalMode}
         aria-label="Toggle between academic and personal view"

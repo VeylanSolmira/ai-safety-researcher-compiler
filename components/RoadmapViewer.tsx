@@ -16,6 +16,7 @@ import 'reactflow/dist/style.css'
 import TopicContent from './TopicContent'
 import { useProgress } from '@/hooks/useProgress'
 import { useViewMode } from '@/contexts/ViewModeContext'
+import { useRouter } from 'next/navigation'
 
 // Simple node components
 const TitleNode = ({ data }: { data: any }) => (
@@ -28,27 +29,61 @@ const TitleNode = ({ data }: { data: any }) => (
   </>
 )
 
-const TopicNode = ({ data }: { data: any }) => (
-  <>
-    <Handle type="target" position={Position.Top} id="y1" />
+const TopicNode = ({ data, id }: { data: any; id: string }) => {
+  const { isCompleted, isStarted } = useProgress()
+  const completed = isCompleted(id)
+  const started = isStarted(id)
+  
+  return (
+    <>
+      <Handle type="target" position={Position.Top} id="y1" />
+      <div 
+        style={data.style} 
+        className={`
+          ${completed 
+            ? 'bg-green-100 dark:bg-green-900 border-green-500 dark:border-green-400' 
+            : started
+            ? 'bg-yellow-50 dark:bg-yellow-900 border-yellow-500 dark:border-yellow-400'
+            : 'bg-white dark:bg-gray-800 border-blue-500 dark:border-blue-400'
+          }
+          border-2 rounded-lg px-4 py-2 hover:opacity-90 cursor-pointer dark:text-white relative
+        `}
+      >
+        <div className="flex items-center gap-2">
+          {completed && <span className="text-green-600 dark:text-green-400">✓</span>}
+          {data.label}
+        </div>
+      </div>
+      <Handle type="source" position={Position.Bottom} id="y2" />
+    </>
+  )
+}
+
+const SubtopicNode = ({ data, id }: { data: any; id: string }) => {
+  const { isCompleted, isStarted } = useProgress()
+  const completed = isCompleted(id)
+  const started = isStarted(id)
+  
+  return (
     <div 
       style={data.style} 
-      className="bg-white dark:bg-gray-800 border-2 border-blue-500 dark:border-blue-400 rounded-lg px-4 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer dark:text-white"
+      className={`
+        ${completed 
+          ? 'bg-green-50 dark:bg-green-900 border-green-400 dark:border-green-600' 
+          : started
+          ? 'bg-yellow-50 dark:bg-yellow-900 border-yellow-400 dark:border-yellow-600'
+          : 'bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
+        }
+        border rounded-md px-3 py-1 hover:opacity-90 cursor-pointer text-sm dark:text-gray-200
+      `}
     >
-      {data.label}
+      <div className="flex items-center gap-1">
+        {completed && <span className="text-green-600 dark:text-green-400 text-xs">✓</span>}
+        {data.label}
+      </div>
     </div>
-    <Handle type="source" position={Position.Bottom} id="y2" />
-  </>
-)
-
-const SubtopicNode = ({ data }: { data: any }) => (
-  <div 
-    style={data.style} 
-    className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-sm dark:text-gray-200"
-  >
-    {data.label}
-  </div>
-)
+  )
+}
 
 const SectionNode = ({ data }: { data: any }) => (
   <>
@@ -94,6 +129,8 @@ interface RoadmapViewerProps {
 
 export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
   const { viewMode } = useViewMode()
+  const { isCompleted, isStarted, toggleComplete, markStarted } = useProgress()
+  const router = useRouter()
   
   // Filter nodes based on view mode
   const filteredNodes = useMemo(() => {
@@ -120,11 +157,21 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
     if (node.type === 'topic' || node.type === 'subtopic') {
       setSelectedNode(node.id)
       setSelectedNodeLabel(node.data.label || '')
+      markStarted(node.id)
     }
-  }, [])
+  }, [markStarted])
   
   return (
-    <div className="w-full h-[800px] border rounded-lg overflow-hidden bg-gray-50 dark:bg-[#2a2635]">
+    <div className="w-full h-[800px] border rounded-lg overflow-hidden bg-gray-50 dark:bg-[#2a2635] relative">
+      <button
+        onClick={() => router.push('/journey')}
+        className="absolute top-4 right-4 z-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-colors duration-200 flex items-center gap-2"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+        Start Journey
+      </button>
       <ReactFlow
         nodes={nodes}
         edges={edges}

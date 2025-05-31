@@ -84,14 +84,18 @@ export function markTopicStarted(topicId: string): void {
 }
 
 // Get completion stats
-export function getProgressStats() {
+export function getProgressStats(totalTopics?: number) {
   const progress = getProgress()
   const topics = Object.keys(progress.progress)
   const completed = topics.filter(id => progress.progress[id].completed)
   
+  // If totalTopics is provided, use it; otherwise use the number of started topics
+  const total = totalTopics || topics.length
+  
   return {
-    total: topics.length,
+    total: total,
+    started: topics.length,
     completed: completed.length,
-    percentage: topics.length > 0 ? Math.round((completed.length / topics.length) * 100) : 0
+    percentage: total > 0 && topics.length > 0 ? Math.round((completed.length / total) * 100) : 0
   }
 }

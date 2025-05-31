@@ -76,6 +76,10 @@ Current curriculum structure with implementation status:
   - [ ] Docker & Containerization
   - [ ] Distributed Systems
   - [ ] Version Control
+- [ ] **Research Methodology & Execution**
+  - [ ] Problem Decomposition & Scoping
+  - [ ] Iterative Research Design
+  - [ ] Research Project Management
 - [ ] **AI Safety Paradigms**
   - [ ] Control
   - [ ] Alignment
@@ -163,6 +167,13 @@ Current curriculum structure with implementation status:
 - [ ] Implement progress tracking
 - [ ] Add more learning pathways
 - [ ] Create community features
+
+## Documentation
+
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Instructions for deploying to various platforms
+- **[Journey Implementation](JOURNEY_IMPLEMENTATION.md)** - Interactive journey feature details
+- **[View Mode Implementation](VIEW_MODE_IMPLEMENTATION.md)** - Academic/Personal view mode details
+- **[Development Notes](development-resources/notes.md)** - Technical decisions and implementation notes
 
 ## License
 
