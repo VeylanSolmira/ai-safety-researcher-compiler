@@ -10,10 +10,9 @@
 - Distributed Systems
 - Version Control
 
-### Research Methodology & Execution
-- Problem Decomposition & Scoping
-- Iterative Research Design
-- Research Project Management
+### Philosophy
+- Ethics
+- Political
 
 ### AI Safety Paradigms
 - Control
@@ -27,19 +26,12 @@
 - Pretraining
 - Fine-tuning
 
-### Philosophy
-- Ethics
-- Political
+### Research Methodology & Execution
+- Problem Decomposition & Scoping
+- Iterative Research Design
+- Research Project Management
 
 ## 2. Alignment Fundamentals
-
-### Sources of AI Risk
-- Agency
-- Impenetrability
-- Situational awareness
-
-### AI Risk Areas
-- Existential Risk
 
 ### Core Concepts
 - Core Methodology
@@ -49,7 +41,17 @@
 - Foundational Papers
 - Key Figures
 
-## 3. Technical Alignment
+### Sources of AI Risk
+- Agency
+- Impenetrability
+- Situational awareness
+
+### AI Risk Areas
+- Existential Risk
+
+## 3. Specialization Paths
+
+## 4. Technical Alignment
 
 ### Testing Contexts
 - White Box Testing
@@ -66,8 +68,13 @@
 - Jailbreak Techniques
 - Data Poisoning
 - Computer Security
+- Adversarial Meta-Learning
+    - Safety Discourse Capture
+    - Recursive Deception in Training
+    - **Recursive Self-Improvement**
+    - Strategic Publication Restraint
 
-## 4. AI Governance
+## 5. AI Governance
 
 ### Policy Frameworks
 - National AI Strategies
@@ -84,7 +91,7 @@
 - Timeline Considerations
 - Resource Allocation
 
-## 5. Technical Governance
+## 6. Technical Governance
 
 ### Compute Governance
 - Training Run Monitoring
@@ -101,15 +108,15 @@
 - Deployment Gates
 - Safety-Capability Balance
 
-## 6. Advanced Research
-
-### Organizations
-- Constellation
-- FAR (Fund for Alignment Research)
+## 7. Advanced Research
 
 ### Research Methods
 - Red Teaming
 - AI Agents
 - Disrupting AI Safety Research
 - Collaboration
+
+### Organizations
+- Constellation
+- FAR (Fund for Alignment Research)
 

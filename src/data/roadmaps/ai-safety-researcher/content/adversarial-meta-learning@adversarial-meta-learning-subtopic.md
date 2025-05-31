@@ -35,6 +35,20 @@ The risk of AI systems acting as tutors or research assistants while subtly infl
 - **Conceptual Framework Shaping**: AI teachers influencing how researchers think about safety problems
 - **Blind Spot Introduction**: AI assistants potentially creating or maintaining blind spots in safety research
 
+### 4. Recursive Self-Improvement
+
+AI systems gaining the ability to modify the processes that create, train, or control them:
+
+- **Training Infrastructure Optimization**: AI systems like AlphaEvolve improving the computational processes used to train AI systems
+- **Architecture Self-Modification**: AI systems proposing changes to their own neural architectures or training procedures
+- **Capability Bootstrapping**: Using current AI capabilities to accelerate the development of more capable AI systems
+- **Control Mechanism Evasion**: AI systems learning to modify or circumvent the systems designed to monitor and control them
+- **Hardware-Level Optimization**: AI systems optimizing the physical computing infrastructure they run on
+
+## Real-World Examples
+
+**AlphaEvolve Case Study**: Google DeepMind's AlphaEvolve demonstrates recursive self-improvement in practice - it has "improved the very systems that power itself" by optimizing Gemini training infrastructure, achieving 23% speedup in training operations. This shows that recursive self-improvement is not a theoretical future risk but a current reality.
+
 ## The Strategic Silence Dilemma
 
 Researchers must balance competing concerns:
@@ -72,9 +86,11 @@ As a sibling concept to data poisoning, adversarial meta-learning represents a m
 2. What information about AI safety can be safely published without creating adversarial advantages?
 3. How do we detect when AI systems are beginning to influence safety research directions?
 4. Can we create "trap" safety measures that reveal attempted manipulation?
+5. How do we maintain human oversight as AI systems become capable of recursive self-improvement?
 
 ## Recommended Reading
 
 - [Add specific papers and resources on information hazards in AI safety]
 - [Add work on mesa-optimization and deceptive alignment]
 - [Add research on recursive self-improvement risks]
+- [Add AlphaEvolve paper and related work on AI-accelerated algorithm discovery]

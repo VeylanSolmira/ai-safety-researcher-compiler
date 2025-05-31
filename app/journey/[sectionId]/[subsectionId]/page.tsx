@@ -9,6 +9,8 @@ import { useViewMode } from '@/contexts/ViewModeContext'
 import ReactMarkdown from 'react-markdown'
 import type { Components } from 'react-markdown'
 import InteractiveTransition from '@/components/InteractiveTransition'
+import Assessment from '@/components/Assessment'
+import { sectionAssessments } from '@/components/JourneyAssessment'
 
 interface SubsectionPageProps {
   params: {
@@ -189,6 +191,19 @@ export default function SubsectionPage({ params }: SubsectionPageProps) {
                 {content.replace(/<!--[\s\S]*?-->/g, '')}
               </ReactMarkdown>
             </div>
+
+            {/* Assessment for this subsection */}
+            {sectionAssessments[params.subsectionId] && (
+              <div className="my-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
+                <Assessment
+                  title="Check Your Understanding"
+                  questions={sectionAssessments[params.subsectionId]}
+                  onComplete={(score, total) => {
+                    console.log(`Subsection assessment complete: ${score}/${total}`)
+                  }}
+                />
+              </div>
+            )}
 
             {/* Interactive Transition (if this is the last subsection) */}
             {!nextSubsection && (

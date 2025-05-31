@@ -6,11 +6,15 @@ import type { Components } from 'react-markdown'
 import { useViewMode } from '@/contexts/ViewModeContext'
 import { externalResources } from '@/lib/external-resources'
 import InteractiveTransition from './InteractiveTransition'
+import Assessment from './Assessment'
+import { sectionAssessments } from './JourneyAssessment'
 
 interface JourneyContentProps {
   sectionId: string
   roadmapContentIds?: string[]  // IDs of roadmap content to load
   additionalContent?: React.ReactNode  // Journey-specific content
+  includeAssessment?: boolean  // Whether to include assessment at the end
+  nextSectionId?: string  // For navigation after assessment
 }
 
 // Map of content IDs to display titles
@@ -20,7 +24,13 @@ const contentTitles: { [key: string]: string } = {
   // Add more mappings as needed
 }
 
-export default function JourneyContent({ sectionId, roadmapContentIds = [], additionalContent }: JourneyContentProps) {
+export default function JourneyContent({ 
+  sectionId, 
+  roadmapContentIds = [], 
+  additionalContent,
+  includeAssessment = true,
+  nextSectionId = 'next'
+}: JourneyContentProps) {
   const [roadmapContent, setRoadmapContent] = useState<{ [key: string]: string }>({})
   const [loading, setLoading] = useState(true)
   const { viewMode } = useViewMode()
@@ -138,7 +148,7 @@ export default function JourneyContent({ sectionId, roadmapContentIds = [], addi
           )}
           
           {/* Add Interactive Transition after Prerequisites, before Foundations */}
-          {contentId === 'prerequisites-topic' && index < roadmapContentIds.length - 1 && (
+          {contentId === 'prerequisites-topic' && index < roadmapContentIds.length - 1 && sectionId === 'introduction' && (
             <InteractiveTransition 
               fromSection="prerequisites" 
               toSection="foundations"
@@ -163,6 +173,25 @@ export default function JourneyContent({ sectionId, roadmapContentIds = [], addi
           </div>
         </>
       )}
+
+      {/* Assessment Section */}
+      {(() => {
+        console.log('Assessment check:', { sectionId, includeAssessment, hasQuestions: !!sectionAssessments[sectionId] })
+        return includeAssessment && sectionAssessments[sectionId] && (
+          <>
+            <hr className="my-8 border-gray-300 dark:border-gray-600" />
+            <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
+              <Assessment
+                title="Check Your Understanding"
+                questions={sectionAssessments[sectionId]}
+                onComplete={(score, total) => {
+                  console.log(`Assessment complete: ${score}/${total}`)
+                }}
+              />
+            </div>
+          </>
+        )
+      })()}
     </div>
   )
 }

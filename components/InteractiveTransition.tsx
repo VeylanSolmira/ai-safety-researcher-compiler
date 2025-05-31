@@ -60,7 +60,14 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
       {/* Content Areas */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 min-h-[400px]">
         {activeTab === 'compass' && <AICompass />}
-        {activeTab === 'ai-teacher' && <AITeacher viewMode={viewMode} sectionId={sectionId} tutorMode={tutorMode} setTutorMode={setTutorMode} />}
+        {activeTab === 'ai-teacher' && (
+          <AITeacher 
+            viewMode={viewMode} 
+            sectionId={sectionId} 
+            tutorMode={tutorMode} 
+            setTutorMode={setTutorMode} 
+          />
+        )}
         {activeTab === 'quiz' && <ReadinessQuiz />}
       </div>
     </div>
@@ -343,7 +350,7 @@ function ReadinessQuiz() {
           <h4 className="font-semibold mb-2">Key Takeaways:</h4>
           <ul className="list-disc list-inside space-y-1 text-sm">
             <li>AI safety requires both technical depth and ethical grounding</li>
-            <li>Value pluralism doesn't mean relativism - evidence and reasoning matter</li>
+            <li>Value pluralism doesn&apos;t mean relativism - evidence and reasoning matter</li>
             <li>The intersection of STEM and ethics is where safety research happens</li>
           </ul>
         </div>

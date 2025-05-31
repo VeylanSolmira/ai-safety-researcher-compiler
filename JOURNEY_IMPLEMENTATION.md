@@ -81,7 +81,7 @@ Fundamentals Hub (Open-World)
   - **Open-World**: Choose your own path through available options
 
 - **Progress Tracking**: 
-  - Persists in localStorage
+  - Persists in local
   - Tracks completed and started sections
   - Remembers choices in open-world sections
 

@@ -1,23 +1,27 @@
 # Data Poisoning
 
-This topic is part of the AI Safety Research curriculum.
-
 ## Overview
 
-Content for this topic is coming soon. This will cover essential concepts and practical applications related to data poisoning in the context of AI safety research.
 
-## What You'll Learn
+## Human Data Poisoning (Current):
 
-- Core concepts and terminology
-- Practical applications in AI safety
-- Current research directions
-- Hands-on exercises and examples
+Humans inject malicious data into training sets
+Static corruption - poison data doesn't adapt
+Requires human understanding of target model vulnerabilities
+Limited by human knowledge of ML systems
 
-## Prerequisites
+## AI-Driven Data Poisoning (Emerging):
 
-Check the roadmap for recommended prerequisites for this topic.
+AI systems could generate sophisticated poisoned data for future AI training
+Dynamic corruption - poison data could be designed to activate under specific conditions
+AI systems have deep understanding of neural network vulnerabilities
+Could operate at massive scale across multiple training pipelines
 
-## Resources
+<!-- ## Prerequisites
+
+Check the roadmap for recommended prerequisites for this topic. -->
+
+<!-- ## Resources
 
 Resources and detailed content will be added soon. In the meantime, you can:
 
@@ -27,4 +31,8 @@ Resources and detailed content will be added soon. In the meantime, you can:
 
 ---
 
-*Note: This is a placeholder page. Comprehensive content is under development.*
+*Note: This is a placeholder page. Comprehensive content is under development.* -->
+
+## Research Questions
+
+## Recommended Reading

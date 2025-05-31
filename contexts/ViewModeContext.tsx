@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-type ViewMode = 'neutral' | 'personal'
+type ViewMode = 'academic' | 'personal'
 
 interface ViewModeContextType {
   viewMode: ViewMode
@@ -13,13 +13,13 @@ interface ViewModeContextType {
 const ViewModeContext = createContext<ViewModeContextType | undefined>(undefined)
 
 export function ViewModeProvider({ children }: { children: ReactNode }) {
-  // Initialize from localStorage if available, default to neutral
-  const [viewMode, setViewModeState] = useState<ViewMode>('neutral')
+  // Initialize from localStorage if available, default to academic
+  const [viewMode, setViewModeState] = useState<ViewMode>('academic')
   
   // Load from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem('viewMode') as ViewMode
-    if (saved === 'personal' || saved === 'neutral') {
+    if (saved === 'personal' || saved === 'academic') {
       setViewModeState(saved)
     }
   }, [])
