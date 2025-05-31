@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import ViewModeToggle from '@/components/ViewModeToggle'
+import PageHeader from '@/components/PageHeader'
 import { getJourneyProgress, saveJourneyProgress, JourneyProgress } from '@/lib/journey'
 
 export default function JourneyPage() {
@@ -40,21 +40,10 @@ export default function JourneyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={() => router.push('/roadmap/ai-safety-researcher')}
-            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-2"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Roadmap
-          </button>
-          
-          <ViewModeToggle />
-          
-          <div className="w-[140px]"></div>
-        </div>
+        <PageHeader 
+          backLink={{ href: '/roadmap/ai-safety-researcher', label: 'Back to Roadmap' }}
+          showViewModeToggle={true}
+        />
 
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">

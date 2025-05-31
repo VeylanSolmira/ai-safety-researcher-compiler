@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import ViewModeToggle from '@/components/ViewModeToggle'
+import PageHeader from '@/components/PageHeader'
 import { 
   getSection, 
   getJourneyProgress, 
@@ -74,24 +74,13 @@ export default function JourneySectionPage({ params }: { params: { sectionId: st
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <button
-              onClick={() => {
-                console.log('Journey Overview clicked')
-                router.push('/journey')
-              }}
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-2 cursor-pointer"
-              type="button"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Journey Overview
-            </button>
-            
-            <ViewModeToggle />
-            
+          <PageHeader 
+            backLink={{ href: '/journey', label: 'Journey Overview' }}
+            showViewModeToggle={true}
+          />
+          
+          {/* Section info */}
+          <div className="flex items-center justify-end mb-8 -mt-4">
             <div className="flex items-center gap-2">
               <span className={`
                 px-3 py-1 rounded-full text-sm font-medium
