@@ -10,12 +10,18 @@ export default function HomePage() {
         AI safety research capabilities - from foundations to advanced technical contributions
       </p>
       
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap justify-center">
         <Link 
           href="/roadmap/ai-safety-researcher"
           className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
         >
           Start Learning
+        </Link>
+        <Link 
+          href="/highlights"
+          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition"
+        >
+          View Highlights
         </Link>
         <Link 
           href="/about"
@@ -61,6 +67,57 @@ export default function HomePage() {
         <div className="text-center">
           <h3 className="font-semibold mb-2">Progressive Competency</h3>
           <p className="text-gray-600">Embedded assessments verify understanding at each stage</p>
+        </div>
+      </div>
+
+      {/* Featured Highlights Section */}
+      <div className="mt-16 max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold mb-6 text-center">Featured Deep Dives</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <Link href="/journey/deep-dives/case-studies/alpha-evolve" className="group">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition p-6 h-full">
+              <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">CASE STUDY</span>
+              <h3 className="font-semibold mt-2 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                AlphaEvolve Analysis
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Real-world recursive self-improvement in Google DeepMind's system
+              </p>
+            </div>
+          </Link>
+          
+          <Link href="/journey/deep-dives/experiments/recursive-improvement-notebook" className="group">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition p-6 h-full">
+              <span className="text-xs font-semibold text-green-600 dark:text-green-400">EXPERIMENT</span>
+              <h3 className="font-semibold mt-2 mb-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition">
+                Build Self-Improving Code
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Hands-on notebook creating recursive improvement systems
+              </p>
+            </div>
+          </Link>
+          
+          <Link href="/journey/deep-dives/explorations/dark-forest-philosophy" className="group">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition p-6 h-full">
+              <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">EXPLORATION</span>
+              <h3 className="font-semibold mt-2 mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
+                The Dark Forest of AI Safety
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Philosophy of information hazards in safety research
+              </p>
+            </div>
+          </Link>
+        </div>
+        
+        <div className="text-center mt-6">
+          <Link 
+            href="/highlights"
+            className="text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 underline"
+          >
+            View all highlights →
+          </Link>
         </div>
       </div>
     </div>

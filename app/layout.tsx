@@ -4,13 +4,14 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ViewModeProvider } from '@/contexts/ViewModeContext'
+import Footer from '@/components/Footer'
 
 // Load the Inter font (clean, modern font used by many tech sites)
 const inter = Inter({ subsets: ['latin'] })
 
 // Metadata that appears in browser tabs and search results
 export const metadata: Metadata = {
-  title: 'AI Safety Researcher Compiler',
+  title: 'AI Safety Researcher Compiler | Veylan Solmira',
   description: 'A comprehensive, interactive curriculum for systematically developing AI safety research capabilities',
 }
 
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ViewModeProvider>
-          <main>{children}</main>
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
         </ViewModeProvider>
       </body>
     </html>

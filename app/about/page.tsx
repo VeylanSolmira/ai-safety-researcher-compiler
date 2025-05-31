@@ -3,10 +3,10 @@ import PageHeader from '@/components/PageHeader'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8">
         <PageHeader 
-          backLink={{ href: '/roadmap/ai-safety-researcher', label: 'Back to Roadmap' }}
+          backLink={{ href: '/', label: 'Back to Home' }}
           showViewModeToggle={false}
         />
 
@@ -16,6 +16,58 @@ export default function AboutPage() {
           </h1>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 space-y-6">
+            {/* Author Section */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                Created By
+              </h2>
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-700 rounded-lg p-6">
+                <h3 className="text-xl font-bold mb-2">Veylan Solmira</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  AI Safety Researcher & Educator
+                </p>
+                
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  Veylan is passionate about making AI safety research accessible while maintaining 
+                  rigorous technical standards. They created this curriculum to bridge the gap between 
+                  theoretical AI safety concepts and practical implementation skills.
+                </p>
+
+                <div className="space-y-2">
+                  <h4 className="font-semibold mb-2">Connect</h4>
+                  <a 
+                    href="mailto:veylan@example.com" 
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 block"
+                  >
+                    ✉️ Email: veylan@example.com
+                  </a>
+                  <a 
+                    href="https://linkedin.com/in/veylansolmira" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 block"
+                  >
+                    💼 LinkedIn: /in/veylansolmira
+                  </a>
+                  <a 
+                    href="https://github.com/veylansolmira" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 block"
+                  >
+                    🐙 GitHub: @veylansolmira
+                  </a>
+                  <a 
+                    href="https://twitter.com/veylansolmira" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 block"
+                  >
+                    🐦 Twitter: @veylansolmira
+                  </a>
+                </div>
+              </div>
+            </section>
             <section>
               <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
                 Our Mission

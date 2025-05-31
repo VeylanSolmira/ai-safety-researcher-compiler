@@ -47,7 +47,7 @@ AI systems gaining the ability to modify the processes that create, train, or co
 
 ## Real-World Examples
 
-**AlphaEvolve Case Study**: Google DeepMind's AlphaEvolve demonstrates recursive self-improvement in practice - it has "improved the very systems that power itself" by optimizing Gemini training infrastructure, achieving 23% speedup in training operations. This shows that recursive self-improvement is not a theoretical future risk but a current reality.
+**[AlphaEvolve Case Study](/journey/deep-dives/case-studies/alpha-evolve)**: Google DeepMind's AlphaEvolve demonstrates recursive self-improvement in practice - it has "improved the very systems that power itself" by optimizing Gemini training infrastructure, achieving 23% speedup in training operations. This shows that recursive self-improvement is not a theoretical future risk but a current reality.
 
 ## The Strategic Silence Dilemma
 
