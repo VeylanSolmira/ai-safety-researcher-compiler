@@ -7,6 +7,8 @@ export interface JourneySection {
   estimatedTime: string // e.g., "30 minutes"
   prerequisites: string[] // Section IDs that must be completed first
   unlocks: string[] // Section IDs that this unlocks
+  roadmapContentIds?: string[] // IDs of roadmap content to include
+  hasAdditionalContent?: boolean // Whether this section has journey-specific extras
 }
 
 export interface JourneyProgress {
@@ -26,9 +28,11 @@ export const journeySections: JourneySection[] = [
     type: 'linear',
     contentType: 'mixed',
     description: 'Begin your journey into AI Safety Research',
-    estimatedTime: '15 minutes',
+    estimatedTime: '45 minutes',
     prerequisites: [],
-    unlocks: ['fundamentals-hub']
+    unlocks: ['fundamentals-hub'],
+    roadmapContentIds: ['prerequisites-topic', 'foundations-topic'],
+    hasAdditionalContent: true
   },
   {
     id: 'fundamentals-hub',

@@ -25,7 +25,31 @@ export default function HomePage() {
         </Link>
       </div>
       
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
+      <div className="mt-12 max-w-3xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-8 mb-8">
+        <h2 className="text-2xl font-bold mb-4 text-center">Two Modes, One Journey</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="text-center">
+            <h3 className="font-semibold mb-2 text-blue-700 dark:text-blue-300">🎓 Academic Mode</h3>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
+              Rigorous, technical content with formal definitions, mathematical proofs, and citations. 
+              Presenting established research, consensus positions, and empirical findings from the AI safety literature. 
+              This mode maintains academic neutrality - focusing on what we know, how we know it, and where uncertainty remains.
+            </p>
+          </div>
+          <div className="text-center">
+            <h3 className="font-semibold mb-2 text-purple-700 dark:text-purple-300">💭 Personal Mode</h3>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
+              My personal takes on AI&apos;s most disputed questions.
+              Covering impact, goals, and responses where evidence allows multiple views. These opinionated perspectives invite challenge and revision - modeling the intellectual humility and value pluralism this project advocates.
+            </p>
+          </div>
+        </div>
+        <p className="text-center mt-4 text-gray-600 dark:text-gray-400 text-sm italic">
+          Toggle between modes anytime to match your learning style and goals
+        </p>
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
         <div className="text-center">
           <h3 className="font-semibold mb-2">Value Pluralism</h3>
           <p className="text-gray-600">Acknowledging multiple valid approaches to AI safety</p>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import PageHeader from '@/components/PageHeader'
-import { getJourneyProgress, saveJourneyProgress, JourneyProgress } from '@/lib/journey'
+import { getJourneyProgress, saveJourneyProgress, JourneyProgress, journeySections, getAvailableSections } from '@/lib/journey'
 
 export default function JourneyPage() {
   const router = useRouter()
@@ -112,21 +112,75 @@ export default function JourneyPage() {
               </div>
             </div>
 
-            {progress?.sectionsCompleted && progress.sectionsCompleted.length > 0 && (
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Progress Tracker</h3>
-                <div className="flex flex-wrap gap-2">
-                  {progress.sectionsCompleted.map((section) => (
-                    <span
-                      key={section}
-                      className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-sm"
+            {/* Journey Sections Navigation */}
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-semibold mb-4">Journey Sections</h3>
+              <div className="space-y-3">
+                {journeySections.map((section) => {
+                  const isCompleted = progress?.sectionsCompleted?.includes(section.id) || false
+                  const isCurrent = progress?.currentSection === section.id
+                  const isStarted = progress?.sectionsStarted?.includes(section.id) || false
+                  const availableSections = progress ? getAvailableSections(progress.sectionsCompleted || []) : [journeySections[0]]
+                  const isAvailable = availableSections.some(s => s.id === section.id)
+                  const isLocked = !isAvailable && !isCompleted
+
+                  return (
+                    <div
+                      key={section.id}
+                      className={`
+                        p-4 rounded-lg border-2 transition-all
+                        ${isLocked ? 'opacity-50 cursor-not-allowed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800' :
+                          isCompleted ? 'cursor-pointer hover:shadow-md border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20' :
+                          isCurrent ? 'cursor-pointer hover:shadow-md border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20' :
+                          'cursor-pointer hover:shadow-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'}
+                      `}
+                      onClick={() => {
+                        if (!isLocked) {
+                          router.push(`/journey/${section.id}`)
+                        }
+                      }}
                     >
-                      {section}
-                    </span>
-                  ))}
-                </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className={`
+                            w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold
+                            ${isCompleted ? 'bg-green-500 text-white' :
+                              isCurrent ? 'bg-blue-500 text-white' :
+                              isStarted ? 'bg-yellow-500 text-white' :
+                              isLocked ? 'bg-gray-300 dark:bg-gray-600 text-gray-500' :
+                              'bg-gray-200 dark:bg-gray-700 text-gray-600'}
+                          `}>
+                            {isCompleted ? '✓' : isLocked ? '🔒' : journeySections.indexOf(section) + 1}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold">{section.title}</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{section.description}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`
+                            px-2 py-1 rounded text-xs font-medium
+                            ${section.contentType === 'build' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' :
+                              section.contentType === 'learn' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' :
+                              'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'}
+                          `}>
+                            {section.contentType === 'build' ? '🔨 Build' :
+                             section.contentType === 'learn' ? '📚 Learn' :
+                             '🎯 Mixed'}
+                          </span>
+                          <span className="text-sm text-gray-500">{section.estimatedTime}</span>
+                        </div>
+                      </div>
+                      {isLocked && section.prerequisites.length > 0 && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 ml-11">
+                          Complete prerequisites: {section.prerequisites.join(', ')}
+                        </p>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

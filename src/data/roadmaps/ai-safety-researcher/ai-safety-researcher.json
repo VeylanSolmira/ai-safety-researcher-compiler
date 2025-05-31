@@ -62,6 +62,27 @@
       "height": 30
     },
     {
+      "id": "prerequisites-topic",
+      "type": "topic",
+      "position": {
+        "x": 320,
+        "y": 220
+      },
+      "data": {
+        "label": "Core Prerequisites",
+        "parentId": "prerequisites-section",
+        "style": {
+          "fontSize": 16,
+          "justifyContent": "flex-start",
+          "textAlign": "center"
+        },
+        "viewMode": "both",
+        "isOpinionated": false
+      },
+      "width": 160,
+      "height": 40
+    },
+    {
       "id": "foundations-topic",
       "type": "topic",
       "position": {

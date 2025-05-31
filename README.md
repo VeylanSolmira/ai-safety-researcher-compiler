@@ -167,6 +167,8 @@ Current curriculum structure with implementation status:
 - [ ] Implement progress tracking
 - [ ] Add more learning pathways
 - [ ] Create community features
+- [ ] Add new journey paths that traverse the roadmap differently (e.g., "Fast Track for ML Engineers" or "Philosophy-First Approach")
+
 
 ## Documentation
 

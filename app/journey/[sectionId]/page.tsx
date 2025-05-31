@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import PageHeader from '@/components/PageHeader'
+import JourneyContent, { JourneyIntroductionExtras } from '@/components/JourneyContent'
 import { 
   getSection, 
   getJourneyProgress, 
@@ -155,33 +156,16 @@ export default function JourneySectionPage({ params }: { params: { sectionId: st
               </div>
             ) : (
               <div className="space-y-6">
-                {/* Placeholder content for linear sections */}
-                <div className="prose dark:prose-invert max-w-none">
-                  <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4">Section Content</h2>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      This is where the main content for "{section.title}" would go.
-                    </p>
-                    
-                    {section.contentType === 'build' && (
-                      <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-md">
-                        <h3 className="font-semibold text-green-800 dark:text-green-200">Build Project</h3>
-                        <p className="text-sm text-green-700 dark:text-green-300 mt-2">
-                          In this section, you'll build a practical AI safety tool or implementation.
-                        </p>
-                      </div>
-                    )}
-                    
-                    {section.contentType === 'learn' && (
-                      <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-md">
-                        <h3 className="font-semibold text-blue-800 dark:text-blue-200">Learning Module</h3>
-                        <p className="text-sm text-blue-700 dark:text-blue-300 mt-2">
-                          This section focuses on understanding key concepts and theories.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                {/* Load roadmap content and journey-specific extras */}
+                <JourneyContent 
+                  sectionId={section.id}
+                  roadmapContentIds={section.roadmapContentIds || []}
+                  additionalContent={
+                    section.hasAdditionalContent && section.id === 'introduction' ? (
+                      <JourneyIntroductionExtras />
+                    ) : undefined
+                  }
+                />
 
                 {/* Complete button for linear sections */}
                 <div className="flex justify-end">

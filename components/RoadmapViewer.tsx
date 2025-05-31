@@ -179,8 +179,8 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
         onEdgesChange={onEdgesChange}
         onNodeClick={onNodeClick}
         nodeTypes={nodeTypes}
-        defaultViewport={{ x: -100, y: -50, zoom: 0.75 }}
-        minZoom={0.25}
+        defaultViewport={{ x: 200, y: -50, zoom: 0.75 }}
+        minZoom={0.75}
         maxZoom={2}
         attributionPosition="bottom-left"
         nodesDraggable={false}
