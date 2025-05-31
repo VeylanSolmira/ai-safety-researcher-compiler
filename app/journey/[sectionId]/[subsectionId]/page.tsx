@@ -7,6 +7,7 @@ import PageHeader from '@/components/PageHeader'
 import { getSection, getJourneyProgress, markSubsectionComplete, markSectionStarted } from '@/lib/journey'
 import { useViewMode } from '@/contexts/ViewModeContext'
 import ReactMarkdown from 'react-markdown'
+import type { Components } from 'react-markdown'
 import InteractiveTransition from '@/components/InteractiveTransition'
 
 interface SubsectionPageProps {
@@ -92,6 +93,43 @@ export default function SubsectionPage({ params }: SubsectionPageProps) {
     return null
   }
 
+  // Markdown components configuration
+  const markdownComponents: Partial<Components> = {
+    h1: ({children}) => <h1 className="text-3xl font-bold mt-8 mb-4">{children}</h1>,
+    h2: ({children}) => <h2 className="text-2xl font-semibold mt-6 mb-3">{children}</h2>,
+    h3: ({children}) => <h3 className="text-xl font-semibold mt-4 mb-2">{children}</h3>,
+    ul: ({children}) => <ul className="list-disc pl-6 space-y-2 my-4">{children}</ul>,
+    ol: ({children}) => <ol className="list-decimal pl-6 space-y-2 my-4">{children}</ol>,
+    li: ({children}) => <li className="text-gray-700 dark:text-gray-300">{children}</li>,
+    p: ({children}) => <p className="mb-4 leading-relaxed">{children}</p>,
+    code: ({children, className}) => {
+      const isInline = !className
+      return isInline ? (
+        <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono">
+          {children}
+        </code>
+      ) : (
+        <code className={className}>{children}</code>
+      )
+    },
+    pre: ({children}) => (
+      <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto my-4">
+        {children}
+      </pre>
+    ),
+    blockquote: ({children}) => (
+      <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4">
+        {children}
+      </blockquote>
+    ),
+    strong: ({children}) => <strong className="font-bold">{children}</strong>,
+    a: ({children, href}) => (
+      <a href={href} className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">
+        {children}
+      </a>
+    ),
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8">
@@ -136,8 +174,18 @@ export default function SubsectionPage({ params }: SubsectionPageProps) {
             </div>
 
             {/* Content */}
-            <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
-              <ReactMarkdown>
+            <div className="prose prose-lg dark:prose-invert max-w-none mb-8
+              prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+              prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+              prose-p:text-gray-700 dark:prose-p:text-gray-300
+              prose-strong:text-gray-900 dark:prose-strong:text-gray-100
+              prose-code:text-blue-600 dark:prose-code:text-blue-400
+              prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
+              prose-li:text-gray-700 dark:prose-li:text-gray-300
+              prose-ul:list-disc prose-ol:list-decimal
+              prose-a:text-blue-600 hover:prose-a:text-blue-800 dark:prose-a:text-blue-400 dark:hover:prose-a:text-blue-300"
+            >
+              <ReactMarkdown components={markdownComponents}>
                 {content.replace(/<!--[\s\S]*?-->/g, '')}
               </ReactMarkdown>
             </div>
