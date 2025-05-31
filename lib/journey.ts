@@ -1,3 +1,10 @@
+export interface JourneySubsection {
+  id: string
+  title: string
+  roadmapContentId: string // ID of the roadmap content node
+  estimatedTime: string
+}
+
 export interface JourneySection {
   id: string
   title: string
@@ -9,6 +16,7 @@ export interface JourneySection {
   unlocks: string[] // Section IDs that this unlocks
   roadmapContentIds?: string[] // IDs of roadmap content to include
   hasAdditionalContent?: boolean // Whether this section has journey-specific extras
+  subsections?: JourneySubsection[] // Optional subsections that can be completed independently
 }
 
 export interface JourneyProgress {
@@ -16,6 +24,7 @@ export interface JourneyProgress {
   currentSection: string
   sectionsCompleted: string[]
   sectionsStarted: string[]
+  subsectionsCompleted: Record<string, string[]> // Track completed subsections per section
   choices: Record<string, any> // Store user choices in open-world sections
   lastUpdated: string
 }
@@ -70,9 +79,41 @@ export const journeySections: JourneySection[] = [
     type: 'linear',
     contentType: 'learn',
     description: 'Learn about potential AI risks and mitigation',
-    estimatedTime: '45 minutes',
+    estimatedTime: '2 hours',
     prerequisites: ['fundamentals-hub'],
-    unlocks: ['intermediate-hub']
+    unlocks: ['intermediate-hub'],
+    subsections: [
+      {
+        id: 'prompt-injection',
+        title: 'Prompt Injection Attacks',
+        roadmapContentId: 'prompt-injection-subtopic',
+        estimatedTime: '20 minutes'
+      },
+      {
+        id: 'jailbreak-techniques',
+        title: 'Jailbreak Techniques',
+        roadmapContentId: 'jailbreak-subtopic',
+        estimatedTime: '20 minutes'
+      },
+      {
+        id: 'data-poisoning',
+        title: 'Data Poisoning',
+        roadmapContentId: 'data-poisoning-subtopic',
+        estimatedTime: '20 minutes'
+      },
+      {
+        id: 'adversarial-meta-learning',
+        title: 'Adversarial Meta-Learning',
+        roadmapContentId: 'adversarial-meta-learning-subtopic',
+        estimatedTime: '30 minutes'
+      },
+      {
+        id: 'computer-security',
+        title: 'AI & Computer Security',
+        roadmapContentId: 'computer-security-subtopic',
+        estimatedTime: '30 minutes'
+      }
+    ]
   },
   {
     id: 'intermediate-hub',
@@ -96,7 +137,12 @@ export async function getJourneyProgress(): Promise<JourneyProgress | null> {
   if (!stored) return null
   
   try {
-    return JSON.parse(stored)
+    const progress = JSON.parse(stored)
+    // Ensure subsectionsCompleted exists for backward compatibility
+    if (!progress.subsectionsCompleted) {
+      progress.subsectionsCompleted = {}
+    }
+    return progress
   } catch {
     return null
   }
@@ -145,6 +191,7 @@ export async function markSectionComplete(sectionId: string): Promise<void> {
     currentSection: sectionId,
     sectionsCompleted: [],
     sectionsStarted: [],
+    subsectionsCompleted: {},
     choices: {},
     lastUpdated: new Date().toISOString()
   }
@@ -167,6 +214,7 @@ export async function markSectionStarted(sectionId: string): Promise<void> {
     currentSection: sectionId,
     sectionsCompleted: [],
     sectionsStarted: [],
+    subsectionsCompleted: {},
     choices: {},
     lastUpdated: new Date().toISOString()
   }
@@ -185,6 +233,7 @@ export async function saveChoice(sectionId: string, choiceKey: string, choiceVal
     currentSection: sectionId,
     sectionsCompleted: [],
     sectionsStarted: [],
+    subsectionsCompleted: {},
     choices: {},
     lastUpdated: new Date().toISOString()
   }
@@ -196,4 +245,55 @@ export async function saveChoice(sectionId: string, choiceKey: string, choiceVal
   progress.choices[sectionId][choiceKey] = choiceValue
   
   await saveJourneyProgress(progress)
+}
+
+export async function markSubsectionComplete(sectionId: string, subsectionId: string): Promise<void> {
+  const progress = await getJourneyProgress() || {
+    currentSection: sectionId,
+    sectionsCompleted: [],
+    sectionsStarted: [],
+    subsectionsCompleted: {},
+    choices: {},
+    lastUpdated: new Date().toISOString()
+  }
+  
+  if (!progress.subsectionsCompleted[sectionId]) {
+    progress.subsectionsCompleted[sectionId] = []
+  }
+  
+  if (!progress.subsectionsCompleted[sectionId].includes(subsectionId)) {
+    progress.subsectionsCompleted[sectionId].push(subsectionId)
+  }
+  
+  // Check if all subsections are complete
+  const section = getSection(sectionId)
+  if (section?.subsections) {
+    const allSubsectionsComplete = section.subsections.every(subsection =>
+      progress.subsectionsCompleted[sectionId]?.includes(subsection.id)
+    )
+    
+    if (allSubsectionsComplete) {
+      await markSectionComplete(sectionId)
+    }
+  }
+  
+  await saveJourneyProgress(progress)
+}
+
+export function getSubsectionProgress(sectionId: string, progress: JourneyProgress): {
+  completed: number
+  total: number
+  percentage: number
+} {
+  const section = getSection(sectionId)
+  if (!section?.subsections) {
+    return { completed: 0, total: 0, percentage: 0 }
+  }
+  
+  const completedSubsections = progress.subsectionsCompleted?.[sectionId] || []
+  const completed = completedSubsections.length
+  const total = section.subsections.length
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0
+  
+  return { completed, total, percentage }
 }

@@ -197,6 +197,19 @@ function AITeacher({
 
   return (
     <div className="flex flex-col h-full">
+      {/* Warning about AI teacher risks */}
+      <div className="mb-3 text-center">
+        <p className="text-sm">
+          <span className="text-amber-600 dark:text-amber-400">⚠️ Warning:</span>{' '}
+          <a 
+            href="/journey/study-risks/adversarial-meta-learning"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            There may be risks in using AI as a teacher
+          </a>
+        </p>
+      </div>
+
       {/* Mode Toggle */}
       <div className="flex justify-center mb-4">
         <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-1 flex gap-1">

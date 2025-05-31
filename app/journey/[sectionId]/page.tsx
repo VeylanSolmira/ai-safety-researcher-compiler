@@ -11,6 +11,7 @@ import {
   markSectionComplete,
   getAvailableSections,
   saveChoice,
+  getSubsectionProgress,
   JourneySection,
   JourneyProgress 
 } from '@/lib/journey'
@@ -154,7 +155,89 @@ export default function JourneySectionPage({ params }: { params: { sectionId: st
                   ))}
                 </div>
               </div>
+            ) : section.subsections && section.subsections.length > 0 ? (
+              // Section with subsections - show subsection list
+              <div className="space-y-6">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                    📚 Section Overview
+                  </h3>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    This section contains {section.subsections.length} subsections. Complete all subsections to finish this section.
+                  </p>
+                </div>
+
+                {/* Progress bar */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">Progress</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {progress ? getSubsectionProgress(section.id, progress).completed : 0}/{section.subsections.length} completed
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                    <div 
+                      className="bg-blue-600 h-full transition-all duration-300"
+                      style={{ width: `${progress ? getSubsectionProgress(section.id, progress).percentage : 0}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Subsection list */}
+                <div className="space-y-3">
+                  {section.subsections.map((subsection, index) => {
+                    const isComplete = progress?.subsectionsCompleted?.[section.id]?.includes(subsection.id) || false
+                    
+                    return (
+                      <div
+                        key={subsection.id}
+                        onClick={() => router.push(`/journey/${section.id}/${subsection.id}`)}
+                        className={`
+                          p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md
+                          ${isComplete 
+                            ? 'border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20' 
+                            : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-blue-400'
+                          }
+                        `}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className={`
+                              w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold
+                              ${isComplete ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-600'}
+                            `}>
+                              {isComplete ? '✓' : index + 1}
+                            </div>
+                            <div>
+                              <h4 className="font-semibold">{subsection.title}</h4>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                                {subsection.estimatedTime}
+                              </p>
+                            </div>
+                          </div>
+                          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {/* Show complete button only if all subsections are done */}
+                {progress && getSubsectionProgress(section.id, progress).completed === section.subsections.length && (
+                  <div className="flex justify-end">
+                    <button
+                      onClick={handleCompleteSection}
+                      className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg"
+                    >
+                      All Subsections Complete! ✓
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
+              // Regular section without subsections
               <div className="space-y-6">
                 {/* Load roadmap content and journey-specific extras */}
                 <JourneyContent 

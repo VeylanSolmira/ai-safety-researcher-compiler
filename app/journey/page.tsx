@@ -3,12 +3,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import PageHeader from '@/components/PageHeader'
-import { getJourneyProgress, saveJourneyProgress, JourneyProgress, journeySections, getAvailableSections } from '@/lib/journey'
+import { getJourneyProgress, saveJourneyProgress, JourneyProgress, journeySections, getAvailableSections, getSubsectionProgress } from '@/lib/journey'
 
 export default function JourneyPage() {
   const router = useRouter()
   const [progress, setProgress] = useState<JourneyProgress | null>(null)
   const [loading, setLoading] = useState(true)
+  const [devMode, setDevMode] = useState(false)
 
   useEffect(() => {
     const loadProgress = async () => {
@@ -46,9 +47,28 @@ export default function JourneyPage() {
         />
 
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            AI Safety Research Journey
-          </h1>
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex-1">
+              AI Safety Research Journey
+            </h1>
+            
+            {/* Development Mode Toggle */}
+            <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/20 px-3 py-1 rounded-lg">
+              <span className="text-xs font-medium text-yellow-800 dark:text-yellow-200">Dev Mode</span>
+              <button
+                onClick={() => setDevMode(!devMode)}
+                className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                  devMode ? 'bg-yellow-600' : 'bg-gray-300 dark:bg-gray-600'
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    devMode ? 'translate-x-5' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
             <div className="text-center mb-8">
@@ -122,7 +142,7 @@ export default function JourneyPage() {
                   const isStarted = progress?.sectionsStarted?.includes(section.id) || false
                   const availableSections = progress ? getAvailableSections(progress.sectionsCompleted || []) : [journeySections[0]]
                   const isAvailable = availableSections.some(s => s.id === section.id)
-                  const isLocked = !isAvailable && !isCompleted
+                  const isLocked = !devMode && !isAvailable && !isCompleted
 
                   return (
                     <div
@@ -150,7 +170,10 @@ export default function JourneyPage() {
                               isLocked ? 'bg-gray-300 dark:bg-gray-600 text-gray-500' :
                               'bg-gray-200 dark:bg-gray-700 text-gray-600'}
                           `}>
-                            {isCompleted ? '✓' : isLocked ? '🔒' : journeySections.indexOf(section) + 1}
+                            {isCompleted ? '✓' : 
+                             isLocked ? '🔒' : 
+                             (devMode && !isAvailable && !isCompleted) ? '🔓' :
+                             journeySections.indexOf(section) + 1}
                           </div>
                           <div>
                             <h4 className="font-semibold">{section.title}</h4>
@@ -171,10 +194,73 @@ export default function JourneyPage() {
                           <span className="text-sm text-gray-500">{section.estimatedTime}</span>
                         </div>
                       </div>
-                      {isLocked && section.prerequisites.length > 0 && (
+                      {((isLocked && section.prerequisites.length > 0) || 
+                        (devMode && !isAvailable && !isCompleted && section.prerequisites.length > 0)) && (
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 ml-11">
-                          Complete prerequisites: {section.prerequisites.join(', ')}
+                          {devMode && !isAvailable && !isCompleted ? 
+                            <span className="text-yellow-600 dark:text-yellow-400">
+                              [Dev Mode] Prerequisites bypassed: {section.prerequisites.join(', ')}
+                            </span> :
+                            `Complete prerequisites: ${section.prerequisites.join(', ')}`
+                          }
                         </p>
+                      )}
+                      
+                      {/* Show subsection progress if section has subsections */}
+                      {section.subsections && section.subsections.length > 0 && (
+                        <div className="mt-3 ml-11">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                              <div 
+                                className="bg-blue-500 h-full transition-all duration-300"
+                                style={{ width: `${progress ? getSubsectionProgress(section.id, progress).percentage : 0}%` }}
+                              />
+                            </div>
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
+                              {progress ? getSubsectionProgress(section.id, progress).completed : 0}/{section.subsections.length}
+                            </span>
+                          </div>
+                          <div className="space-y-1">
+                            {section.subsections.map((subsection) => {
+                              const isSubsectionComplete = progress?.subsectionsCompleted?.[section.id]?.includes(subsection.id) || false
+                              return (
+                                <div 
+                                  key={subsection.id} 
+                                  className={`flex items-center gap-2 text-xs p-1 rounded transition-colors ${
+                                    !isLocked ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''
+                                  }`}
+                                  onClick={(e) => {
+                                    if (!isLocked) {
+                                      e.stopPropagation()
+                                      router.push(`/journey/${section.id}/${subsection.id}`)
+                                    }
+                                  }}
+                                >
+                                  <span className={`
+                                    w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0
+                                    ${isSubsectionComplete ? 'bg-green-500 text-white' : 'bg-gray-300 dark:bg-gray-600'}
+                                  `}>
+                                    {isSubsectionComplete ? '✓' : ''}
+                                  </span>
+                                  <span className={`
+                                    ${isSubsectionComplete ? 'text-green-600 dark:text-green-400 line-through' : 'text-gray-600 dark:text-gray-400'}
+                                    ${!isLocked ? 'hover:text-blue-600 dark:hover:text-blue-400' : ''}
+                                  `}>
+                                    {subsection.title}
+                                  </span>
+                                  <span className="text-gray-400 dark:text-gray-500">
+                                    ({subsection.estimatedTime})
+                                  </span>
+                                  {!isLocked && (
+                                    <svg className="w-3 h-3 text-gray-400 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                  )}
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </div>
                       )}
                     </div>
                   )
