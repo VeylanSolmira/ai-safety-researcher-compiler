@@ -50,8 +50,12 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
               About
             </Link>
             <div className="text-center flex-1">
-              <h1 className="text-2xl font-bold">{roadmap.title}</h1>
-              <p className="text-gray-600">{roadmap.briefDescription}</p>
+              <Link href="/" className="inline-block hover:opacity-80 transition-opacity">
+                <h1 className="text-2xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+                  {roadmap.title}
+                </h1>
+                <p className="text-gray-600">{roadmap.briefDescription}</p>
+              </Link>
             </div>
             <div className="w-[48px]"></div>
           </div>

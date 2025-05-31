@@ -28,7 +28,7 @@ export const journeySections: JourneySection[] = [
     type: 'linear',
     contentType: 'mixed',
     description: 'Begin your journey into AI Safety Research',
-    estimatedTime: '45 minutes',
+    estimatedTime: '2-3 hours',
     prerequisites: [],
     unlocks: ['fundamentals-hub'],
     roadmapContentIds: ['prerequisites-topic', 'foundations-topic'],

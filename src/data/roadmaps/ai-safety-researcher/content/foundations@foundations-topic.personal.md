@@ -118,6 +118,18 @@ How to supervise AI systems that may become more capable than humans:
 - Safety standards and regulations
 - Long-term planning for transformative AI
 
+<!-- ### Linear Algebra
+- Vectors, matrices, and operations
+- Eigenvalues and eigenvectors
+- Matrix decomposition
+- Understanding of high-dimensional spaces -->
+
+<!-- ### Calculus
+- Differentiation and integration
+- Partial derivatives
+- Chain rule (crucial for backpropagation)
+- Basic optimization concepts -->
+
 ## Key Intuitions to Develop
 
 1. **Safety is not automatic**: Capabilities and safety are orthogonal

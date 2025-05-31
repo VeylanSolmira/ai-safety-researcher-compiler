@@ -841,6 +841,25 @@
       "height": 35
     },
     {
+      "id": "adversarial-meta-learning-subtopic",
+      "type": "subtopic", 
+      "position": {
+        "x": 370,
+        "y": 1940
+      },
+      "data": {
+        "label": "Adversarial Meta-Learning",
+        "parentId": "security-&-attacks-label",
+        "style": {
+          "fontSize": 14
+        },
+        "viewMode": "both",
+        "isOpinionated": false
+      },
+      "width": 180,
+      "height": 35
+    },
+    {
       "id": "computer-security-subtopic",
       "type": "subtopic",
       "position": {

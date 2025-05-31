@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import type { Components } from 'react-markdown'
 import { useViewMode } from '@/contexts/ViewModeContext'
+import { externalResources } from '@/lib/external-resources'
+import InteractiveTransition from './InteractiveTransition'
 
 interface JourneyContentProps {
   sectionId: string
@@ -134,6 +136,16 @@ export default function JourneyContent({ sectionId, roadmapContentIds = [], addi
           ) : (
             <p className="text-gray-500 italic">Content not found for {contentId}</p>
           )}
+          
+          {/* Add Interactive Transition after Prerequisites, before Foundations */}
+          {contentId === 'prerequisites-topic' && index < roadmapContentIds.length - 1 && (
+            <InteractiveTransition 
+              fromSection="prerequisites" 
+              toSection="foundations"
+              sectionId="prerequisites"
+            />
+          )}
+          
           {index < roadmapContentIds.length - 1 && (
             <hr className="my-8 border-gray-300 dark:border-gray-600" />
           )}
@@ -157,6 +169,8 @@ export default function JourneyContent({ sectionId, roadmapContentIds = [], addi
 
 // Journey-specific content components
 export function JourneyIntroductionExtras() {
+  const notebooks = externalResources.colabNotebooks
+  
   return (
     <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 space-y-4">
       <h2 className="text-2xl font-bold text-blue-800 dark:text-blue-200">
@@ -169,28 +183,28 @@ export function JourneyIntroductionExtras() {
           <ul className="space-y-2">
             <li>
               <a 
-                href="https://colab.research.google.com/drive/your-intro-notebook-id" 
+                href={notebooks.interactivePrerequisitesChecker.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
               >
-                📓 Interactive Prerequisites Checker
+                {notebooks.interactivePrerequisitesChecker.title}
               </a>
               <p className="text-sm text-gray-600 dark:text-gray-400 ml-6">
-                Test your Python, ML, and math foundations with hands-on exercises
+                {notebooks.interactivePrerequisitesChecker.description}
               </p>
             </li>
             <li>
               <a 
-                href="https://colab.research.google.com/drive/your-safety-notebook-id" 
+                href={notebooks.firstSafetyExperiment.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
               >
-                📓 Your First Safety Experiment
+                {notebooks.firstSafetyExperiment.title}
               </a>
               <p className="text-sm text-gray-600 dark:text-gray-400 ml-6">
-                Build a toy model and explore alignment challenges firsthand
+                {notebooks.firstSafetyExperiment.description}
               </p>
             </li>
           </ul>
