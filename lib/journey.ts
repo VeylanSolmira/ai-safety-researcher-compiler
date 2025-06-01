@@ -396,7 +396,11 @@ export const journeyTiers: Tier[] = [
           'Understand data poisoning attacks',
           'Learn about AI system security',
           'Identify systemic AI risks',
-          'Develop risk assessment skills'
+          'Develop risk assessment skills',
+          'Grasp the control problem and alignment challenges',
+          'Understand agency and goal-directed behavior in AI',
+          'Recognize situational awareness in AI systems',
+          'Appreciate the challenges of AI interpretability'
         ],
         paths: ['all'], // Important for everyone
         topics: [
@@ -428,6 +432,42 @@ export const journeyTiers: Tier[] = [
             roadmapContentId: 'risk-assessment-methodologies-subtopic',
             relatedExperiments: ['risk-assessment-workshop'],
             tags: ['risk-assessment', 'methodology', 'evaluation']
+          },
+          {
+            id: 'control-problem',
+            title: 'The Control Problem',
+            description: 'Understanding how to maintain control over advanced AI systems',
+            estimatedTime: '2 hours',
+            difficulty: 'intermediate',
+            roadmapContentId: 'control-subtopic',
+            tags: ['control', 'alignment', 'safety']
+          },
+          {
+            id: 'agency-in-ai',
+            title: 'Agency in AI Systems',
+            description: 'Exploring goal-directed behavior and autonomous decision-making in AI',
+            estimatedTime: '2 hours',
+            difficulty: 'intermediate',
+            roadmapContentId: 'agency-subtopic',
+            tags: ['agency', 'autonomy', 'goals']
+          },
+          {
+            id: 'situational-awareness',
+            title: 'AI Situational Awareness',
+            description: 'When AI systems understand their environment and context',
+            estimatedTime: '2 hours',
+            difficulty: 'intermediate',
+            roadmapContentId: 'situational-awareness-subtopic',
+            tags: ['awareness', 'understanding', 'context']
+          },
+          {
+            id: 'impenetrability',
+            title: 'Impenetrability of Advanced AI',
+            description: 'Challenges in understanding and inspecting sophisticated AI systems',
+            estimatedTime: '2 hours',
+            difficulty: 'intermediate',
+            roadmapContentId: 'impenetrability-subtopic',
+            tags: ['interpretability', 'opacity', 'understanding']
           }
         ]
       },
@@ -1128,7 +1168,8 @@ export const journeyTiers: Tier[] = [
         learningObjectives: [
           'Understand mesa-optimization risks',
           'Analyze deceptive alignment scenarios',
-          'Explore advanced alignment techniques',
+          'Master value learning and alignment techniques',
+          'Explore advanced alignment methods like RLHF and RLAIF',
           'Apply decision theory to AI safety'
         ],
         paths: ['technical-safety', 'research'],
@@ -1357,6 +1398,80 @@ export const journeyTiers: Tier[] = [
             `,
             relatedCaseStudies: ['goal-misgeneralization-examples'],
             tags: ['misgeneralization', 'objectives', 'robustness']
+          },
+          {
+            id: 'value-learning-alignment',
+            title: 'Value Learning & Alignment Techniques',
+            description: 'Teaching AI systems human values through various alignment methods',
+            estimatedTime: '14 hours',
+            difficulty: 'intermediate',
+            roadmapContentId: 'value-learning-subtopic',
+            content: `
+              <h2>Value Learning and Alignment Techniques</h2>
+              <p>Understanding how to teach AI systems to align with human values is one of the central challenges in AI safety.</p>
+              
+              <h3>The Value Learning Problem</h3>
+              <ul>
+                <li><strong>Value Specification:</strong> How do we formally specify human values?</li>
+                <li><strong>Value Learning:</strong> How can AI systems learn what humans value?</li>
+                <li><strong>Value Robustness:</strong> How do we ensure learned values generalize correctly?</li>
+                <li><strong>Value Stability:</strong> How do we maintain alignment as systems become more capable?</li>
+              </ul>
+              
+              <h3>Reinforcement Learning from Human Feedback (RLHF)</h3>
+              <ul>
+                <li><strong>Overview:</strong> Training AI systems using human preferences as reward signal</li>
+                <li><strong>Process:</strong>
+                  <ul>
+                    <li>Collect human demonstrations or preferences</li>
+                    <li>Train a reward model to predict human preferences</li>
+                    <li>Use RL to optimize against the learned reward model</li>
+                    <li>Apply KL penalties to prevent distribution shift</li>
+                  </ul>
+                </li>
+                <li><strong>Challenges:</strong> Reward hacking, distribution shift, scalability of human feedback</li>
+                <li><strong>Applications:</strong> ChatGPT, Claude, and other aligned language models</li>
+              </ul>
+              
+              <h3>Reinforcement Learning from AI Feedback (RLAIF)</h3>
+              <ul>
+                <li><strong>Motivation:</strong> Scaling alignment beyond human feedback capacity</li>
+                <li><strong>Approach:</strong> Using AI systems to provide feedback for training other AIs</li>
+                <li><strong>Constitutional AI:</strong> Teaching AI to critique and improve its own outputs</li>
+                <li><strong>Benefits:</strong> Scalability, consistency, ability to handle complex domains</li>
+                <li><strong>Risks:</strong> Amplifying AI biases, loss of human oversight</li>
+              </ul>
+              
+              <h3>Other Value Learning Approaches</h3>
+              <ul>
+                <li><strong>Inverse Reinforcement Learning (IRL):</strong> Inferring values from observed behavior</li>
+                <li><strong>Cooperative Inverse RL:</strong> Active value learning through interaction</li>
+                <li><strong>Preference Learning:</strong> Learning from pairwise comparisons</li>
+                <li><strong>Imitation Learning:</strong> Learning values through behavioral cloning</li>
+                <li><strong>Value Learning from Stories:</strong> Extracting values from narratives and examples</li>
+              </ul>
+              
+              <h3>Key Challenges</h3>
+              <ul>
+                <li><strong>Reward Misspecification:</strong> Goodhart's Law and specification gaming</li>
+                <li><strong>Distributional Shift:</strong> Values learned in training may not transfer</li>
+                <li><strong>Preference Instability:</strong> Human values can be inconsistent or change</li>
+                <li><strong>Power Dynamics:</strong> Whose values should AI systems learn?</li>
+                <li><strong>Value Lock-in:</strong> Risk of premature value crystallization</li>
+              </ul>
+              
+              <h3>Theoretical Foundations</h3>
+              <ul>
+                <li>Coherent Extrapolated Volition (CEV)</li>
+                <li>Value Learning under Uncertainty</li>
+                <li>Corrigibility and Value Modification</li>
+                <li>Multi-stakeholder Value Alignment</li>
+              </ul>
+            `,
+            relatedExperiments: ['rlhf-basics', 'preference-learning-lab', 'constitutional-ai-intro'],
+            relatedCaseStudies: ['chatgpt-alignment', 'claude-constitutional-ai'],
+            relatedExplorations: ['value-learning-theory', 'alignment-philosophy'],
+            tags: ['value-learning', 'alignment', 'rlhf', 'rlaif', 'preferences']
           }
         ]
       }
