@@ -11,11 +11,7 @@ import {
   JourneyProgress, 
   journeyTiers, 
   getTierProgress,
-  LearningPath,
-  // Legacy imports for compatibility
-  journeySections, 
-  getAvailableSections, 
-  getSubsectionProgress 
+  LearningPath
 } from '@/lib/journey'
 
 export default function JourneyPage() {
@@ -36,12 +32,9 @@ export default function JourneyPage() {
   }, [])
 
   const handleContinueJourney = () => {
-    // Check if user has new tier progress
+    // Check if user has tier progress
     if (progress?.currentTierId) {
       router.push(`/journey/${progress.currentTierId}`)
-    } else if (progress?.currentSection) {
-      // Fall back to legacy section
-      router.push(`/journey/legacy/${progress.currentSection}`)
     } else {
       // Start new journey with Foundation tier
       router.push('/journey/foundation')
@@ -348,141 +341,6 @@ export default function JourneyPage() {
               </div>
             </div>
 
-            {/* Legacy Journey Sections Navigation */}
-            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold mb-4">Journey Sections (Legacy)</h3>
-              <div className="space-y-3">
-                {journeySections.map((section) => {
-                  const isCompleted = progress?.sectionsCompleted?.includes(section.id) || false
-                  const isCurrent = progress?.currentSection === section.id
-                  const isStarted = progress?.sectionsStarted?.includes(section.id) || false
-                  const availableSections = progress ? getAvailableSections(progress.sectionsCompleted || []) : [journeySections[0]]
-                  const isAvailable = availableSections.some(s => s.id === section.id)
-                  const isLocked = !devMode && !isAvailable && !isCompleted
-
-                  return (
-                    <div
-                      key={section.id}
-                      className={`
-                        p-4 rounded-lg border-2 transition-all
-                        ${isLocked ? 'opacity-50 cursor-not-allowed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800' :
-                          isCompleted ? 'cursor-pointer hover:shadow-md border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20' :
-                          isCurrent ? 'cursor-pointer hover:shadow-md border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20' :
-                          'cursor-pointer hover:shadow-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'}
-                      `}
-                      onClick={() => {
-                        if (!isLocked) {
-                          router.push(`/journey/legacy/${section.id}`)
-                        }
-                      }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className={`
-                            w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold
-                            ${isCompleted ? 'bg-green-500 text-white' :
-                              isCurrent ? 'bg-blue-500 text-white' :
-                              isStarted ? 'bg-yellow-500 text-white' :
-                              isLocked ? 'bg-gray-300 dark:bg-gray-600 text-gray-500' :
-                              'bg-gray-200 dark:bg-gray-700 text-gray-600'}
-                          `}>
-                            {isCompleted ? '✓' : 
-                             isLocked ? '🔒' : 
-                             (devMode && !isAvailable && !isCompleted) ? '🔓' :
-                             journeySections.indexOf(section) + 1}
-                          </div>
-                          <div>
-                            <h4 className="font-semibold">{section.title}</h4>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">{section.description}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`
-                            px-2 py-1 rounded text-xs font-medium
-                            ${section.contentType === 'build' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' :
-                              section.contentType === 'learn' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' :
-                              'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'}
-                          `}>
-                            {section.contentType === 'build' ? '🔨 Build' :
-                             section.contentType === 'learn' ? '📚 Learn' :
-                             '🎯 Mixed'}
-                          </span>
-                          <span className="text-sm text-gray-500">{section.estimatedTime}</span>
-                        </div>
-                      </div>
-                      {((isLocked && section.prerequisites.length > 0) || 
-                        (devMode && !isAvailable && !isCompleted && section.prerequisites.length > 0)) && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 ml-11">
-                          {devMode && !isAvailable && !isCompleted ? 
-                            <span className="text-yellow-600 dark:text-yellow-400">
-                              [Dev Mode] Prerequisites bypassed: {section.prerequisites.join(', ')}
-                            </span> :
-                            `Complete prerequisites: ${section.prerequisites.join(', ')}`
-                          }
-                        </p>
-                      )}
-                      
-                      {/* Show subsection progress if section has subsections */}
-                      {section.subsections && section.subsections.length > 0 && (
-                        <div className="mt-3 ml-11">
-                          <div className="flex items-center gap-2 mb-2">
-                            <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                              <div 
-                                className="bg-blue-500 h-full transition-all duration-300"
-                                style={{ width: `${progress ? getSubsectionProgress(section.id, progress).percentage : 0}%` }}
-                              />
-                            </div>
-                            <span className="text-xs text-gray-600 dark:text-gray-400">
-                              {progress ? getSubsectionProgress(section.id, progress).completed : 0}/{section.subsections.length}
-                            </span>
-                          </div>
-                          <div className="space-y-1">
-                            {section.subsections.map((subsection) => {
-                              const isSubsectionComplete = progress?.subsectionsCompleted?.[section.id]?.includes(subsection.id) || false
-                              return (
-                                <div 
-                                  key={subsection.id} 
-                                  className={`flex items-center gap-2 text-xs p-1 rounded transition-colors ${
-                                    !isLocked ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''
-                                  }`}
-                                  onClick={(e) => {
-                                    if (!isLocked) {
-                                      e.stopPropagation()
-                                      router.push(`/journey/${section.id}/${subsection.id}`)
-                                    }
-                                  }}
-                                >
-                                  <span className={`
-                                    w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0
-                                    ${isSubsectionComplete ? 'bg-green-500 text-white' : 'bg-gray-300 dark:bg-gray-600'}
-                                  `}>
-                                    {isSubsectionComplete ? '✓' : ''}
-                                  </span>
-                                  <span className={`
-                                    ${isSubsectionComplete ? 'text-green-600 dark:text-green-400 line-through' : 'text-gray-600 dark:text-gray-400'}
-                                    ${!isLocked ? 'hover:text-blue-600 dark:hover:text-blue-400' : ''}
-                                  `}>
-                                    {subsection.title}
-                                  </span>
-                                  <span className="text-gray-400 dark:text-gray-500">
-                                    ({subsection.estimatedTime})
-                                  </span>
-                                  {!isLocked && (
-                                    <svg className="w-3 h-3 text-gray-400 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                  )}
-                                </div>
-                              )
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
           </div>
         </div>
       </div>
