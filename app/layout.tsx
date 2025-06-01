@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ViewModeProvider } from '@/contexts/ViewModeContext'
 import Footer from '@/components/Footer'
+import DatabaseToggle from '@/components/DatabaseToggle'
 
 // Load the Inter font (clean, modern font used by many tech sites)
 const inter = Inter({ subsets: ['latin'] })
@@ -29,6 +30,7 @@ export default function RootLayout({
             <main className="flex-grow">{children}</main>
             <Footer />
           </div>
+          <DatabaseToggle />
         </ViewModeProvider>
       </body>
     </html>

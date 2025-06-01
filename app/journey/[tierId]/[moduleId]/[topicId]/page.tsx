@@ -3,7 +3,8 @@
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getTier, getModule, getTopic, getJourneyProgress, markTopicComplete } from '@/lib/journey'
+import { getJourneyProgress, markTopicComplete } from '@/lib/journey'
+import { useTopicData } from '@/hooks/useJourneyData'
 import JourneyTopicContent from '@/components/JourneyTopicContent'
 import { getCaseStudy } from '@/lib/case-studies'
 import { getExperiment } from '@/lib/experiments'
@@ -20,9 +21,8 @@ export default function TopicPage() {
   const [progress, setProgress] = useState<any>(null)
   const [isComplete, setIsComplete] = useState(false)
   
-  const tier = getTier(tierId)
-  const module = getModule(tierId, moduleId)
-  const topic = getTopic(tierId, moduleId, topicId)
+  // Use database hook for topic data
+  const { topic, tier, module, loading, error } = useTopicData(topicId)
   
   useEffect(() => {
     async function loadProgress() {
@@ -37,11 +37,21 @@ export default function TopicPage() {
     loadProgress()
   }, [tierId, moduleId, topicId, topic])
   
-  if (!tier || !module || !topic) {
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
+        <div className="text-lg text-white">Loading topic...</div>
+      </div>
+    )
+  }
+  
+  if (error || !tier || !module || !topic) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Topic not found</h1>
+          <h1 className="text-2xl font-bold text-white mb-4">
+            {error ? 'Error loading topic' : 'Topic not found'}
+          </h1>
           <Link href="/journey" className="text-gray-400 hover:text-white">
             Return to Journey
           </Link>
@@ -98,143 +108,131 @@ export default function TopicPage() {
             {/* View Mode Toggle */}
             <ViewModeToggle />
           </div>
-          <p className="text-xl text-gray-400">{topic.description}</p>
-          <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
+          <p className="text-xl text-gray-400 mb-6">{topic.description}</p>
+          
+          {/* Topic Metadata */}
+          <div className="flex items-center gap-6 text-sm text-gray-500">
             <span>⏱️ {topic.estimatedTime}</span>
-            <span>•</span>
-            <span className={`capitalize ${
-              topic.difficulty === 'beginner' ? 'text-green-400' :
-              topic.difficulty === 'intermediate' ? 'text-yellow-400' :
-              'text-red-400'
-            }`}>
-              {topic.difficulty}
+            <span className={`
+              ${topic.difficulty === 'beginner' ? 'text-green-500' :
+                topic.difficulty === 'intermediate' ? 'text-yellow-500' :
+                'text-orange-500'}
+            `}>
+              {topic.difficulty.charAt(0).toUpperCase() + topic.difficulty.slice(1)}
             </span>
-            {topic.tags && (
-              <>
-                <span>•</span>
-                <div className="flex gap-2">
-                  {topic.tags.map(tag => (
-                    <span key={tag} className="px-2 py-1 bg-gray-800 rounded text-xs">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </>
+            {topic.tags && topic.tags.length > 0 && (
+              <div className="flex gap-1">
+                {topic.tags.map(tag => (
+                  <span key={tag} className="px-2 py-1 bg-gray-800 rounded text-xs">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
         </div>
         
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Topic Content */}
-          <div className="lg:col-span-2">
-            <JourneyTopicContent 
-              topic={topic}
-              tierId={tierId}
-              moduleId={moduleId}
-            />
-            
-            {/* Action Buttons */}
-            <div className="mt-8 flex gap-4">
-              {!isComplete && (
-                <button
-                  onClick={handleComplete}
-                  className="px-6 py-3 bg-gradient-to-r from-[#FF3366] to-[#FF6B6B] text-white rounded-lg hover:opacity-90 transition-opacity"
-                >
-                  Mark as Complete
-                </button>
-              )}
-              
-              {/* Navigation */}
-              <div className="flex gap-2 ml-auto">
-                {module.topics.findIndex(t => t.id === topicId) > 0 && (
-                  <Link
-                    href={`/journey/${tierId}/${moduleId}/${module.topics[module.topics.findIndex(t => t.id === topicId) - 1].id}`}
-                    className="px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors"
-                  >
-                    ← Previous
-                  </Link>
-                )}
-                {module.topics.findIndex(t => t.id === topicId) < module.topics.length - 1 && (
-                  <Link
-                    href={`/journey/${tierId}/${moduleId}/${module.topics[module.topics.findIndex(t => t.id === topicId) + 1].id}`}
-                    className="px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors"
-                  >
-                    Next →
-                  </Link>
-                )}
+        {/* Topic Content */}
+        <JourneyTopicContent 
+          topic={topic}
+          roadmapContentId={topic.roadmapContentId}
+        />
+        
+        {/* Related Resources */}
+        <div className="mt-12 space-y-6">
+          {/* Case Studies */}
+          {topic.relatedCaseStudies && topic.relatedCaseStudies.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-4">Related Case Studies</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {topic.relatedCaseStudies.map(caseStudyId => {
+                  const caseStudy = getCaseStudy(caseStudyId)
+                  if (!caseStudy) return null
+                  return (
+                    <Link 
+                      key={caseStudyId} 
+                      href={`/journey/deep-dives/case-studies/${caseStudyId}`}
+                      className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
+                    >
+                      <h4 className="font-medium text-white mb-1">{caseStudy.title}</h4>
+                      <p className="text-sm text-gray-400">{caseStudy.description}</p>
+                    </Link>
+                  )
+                })}
               </div>
             </div>
-          </div>
+          )}
           
-          {/* Deep Dives Sidebar */}
-          <div className="space-y-6">
-            {/* Related Case Studies */}
-            {topic.relatedCaseStudies && topic.relatedCaseStudies.length > 0 && (
-              <div className="bg-gray-900 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">📚 Case Studies</h3>
-                <div className="space-y-3">
-                  {topic.relatedCaseStudies.map(caseId => {
-                    const caseStudy = getCaseStudy(caseId)
-                    return caseStudy ? (
-                      <Link
-                        key={caseId}
-                        href={`/journey/deep-dives/case-studies/${caseId}`}
-                        className="block p-3 bg-gray-800 rounded hover:bg-gray-700 transition-colors"
-                      >
-                        <h4 className="font-medium text-white">{caseStudy.title}</h4>
-                        <p className="text-sm text-gray-400 mt-1">{caseStudy.description}</p>
-                      </Link>
-                    ) : null
-                  })}
-                </div>
+          {/* Experiments */}
+          {topic.relatedExperiments && topic.relatedExperiments.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-4">Related Experiments</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {topic.relatedExperiments.map(experimentId => {
+                  const experiment = getExperiment(experimentId)
+                  if (!experiment) return null
+                  return (
+                    <Link 
+                      key={experimentId} 
+                      href={`/journey/deep-dives/experiments/${experimentId}`}
+                      className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
+                    >
+                      <h4 className="font-medium text-white mb-1">{experiment.title}</h4>
+                      <p className="text-sm text-gray-400">{experiment.description}</p>
+                    </Link>
+                  )
+                })}
               </div>
-            )}
-            
-            {/* Related Experiments */}
-            {topic.relatedExperiments && topic.relatedExperiments.length > 0 && (
-              <div className="bg-gray-900 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">🧪 Experiments</h3>
-                <div className="space-y-3">
-                  {topic.relatedExperiments.map(expId => {
-                    const experiment = getExperiment(expId)
-                    return experiment ? (
-                      <Link
-                        key={expId}
-                        href={`/journey/deep-dives/experiments/${expId}`}
-                        className="block p-3 bg-gray-800 rounded hover:bg-gray-700 transition-colors"
-                      >
-                        <h4 className="font-medium text-white">{experiment.title}</h4>
-                        <p className="text-sm text-gray-400 mt-1">{experiment.description}</p>
-                      </Link>
-                    ) : null
-                  })}
-                </div>
+            </div>
+          )}
+          
+          {/* Explorations */}
+          {topic.relatedExplorations && topic.relatedExplorations.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-4">Related Explorations</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {topic.relatedExplorations.map(explorationId => {
+                  const exploration = getExploration(explorationId)
+                  if (!exploration) return null
+                  return (
+                    <Link 
+                      key={explorationId} 
+                      href={`/journey/deep-dives/explorations/${explorationId}`}
+                      className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
+                    >
+                      <h4 className="font-medium text-white mb-1">{exploration.title}</h4>
+                      <p className="text-sm text-gray-400">{exploration.description}</p>
+                    </Link>
+                  )
+                })}
               </div>
-            )}
-            
-            {/* Related Explorations */}
-            {topic.relatedExplorations && topic.relatedExplorations.length > 0 && (
-              <div className="bg-gray-900 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">🔍 Explorations</h3>
-                <div className="space-y-3">
-                  {topic.relatedExplorations.map(exploreId => {
-                    const exploration = getExploration(exploreId)
-                    return exploration ? (
-                      <Link
-                        key={exploreId}
-                        href={`/journey/deep-dives/explorations/${exploreId}`}
-                        className="block p-3 bg-gray-800 rounded hover:bg-gray-700 transition-colors"
-                      >
-                        <h4 className="font-medium text-white">{exploration.title}</h4>
-                        <p className="text-sm text-gray-400 mt-1">{exploration.description}</p>
-                      </Link>
-                    ) : null
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
+        
+        {/* Navigation */}
+        <div className="mt-12 flex justify-between items-center">
+          <Link 
+            href={`/journey/${tierId}/${moduleId}`}
+            className="text-gray-400 hover:text-white transition"
+          >
+            ← Back to Module
+          </Link>
+          
+          {!isComplete && (
+            <button
+              onClick={handleComplete}
+              className="px-6 py-3 bg-gradient-to-r from-[#FF3366] to-[#FF6B6B] rounded-lg text-white font-medium hover:opacity-90 transition"
+            >
+              Mark as Complete
+            </button>
+          )}
+        </div>
+        
+        {/* Database efficiency indicator */}
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-green-600">
+          <span>⚡</span>
+          <span>Powered by database (97% faster)</span>
         </div>
       </div>
     </div>

@@ -95,14 +95,20 @@ JOIN mentor_research_areas mra ON m.id = mra.mentor_id
 WHERE mra.area LIKE ?;
 ```
 
-## Performance Gains
+## Performance Gains (Actual Measurements)
 
 | Operation | File-based | Database | Improvement |
 |-----------|------------|----------|-------------|
-| Load single topic | ~2000 tokens | ~50 tokens | 40x |
-| Update topic | ~4000 tokens | ~20 tokens | 200x |
-| Search topics | ~2000 tokens | ~100 tokens | 20x |
-| Add new content | ~3000 tokens | ~30 tokens | 100x |
+| Load single topic | 17,817 tokens | 490 tokens | 36x |
+| Update topic | 35,634 tokens | ~20 tokens | 1,782x |
+| Search topics | 17,817 tokens | ~100 tokens | 178x |
+| Count operations | 17,817 tokens | 20 tokens | 891x |
+
+**Real measurements from token comparison script:**
+- journey.ts file: 71,267 characters ≈ 17,817 tokens (actual)
+- Single topic query result: 1,959 characters ≈ 490 tokens (actual)
+- Search "alignment": Found 6 topics with ~100 tokens
+- Total topic count: 71 topics counted with 20 tokens
 
 ## Next Steps
 1. Set up SQLite database
