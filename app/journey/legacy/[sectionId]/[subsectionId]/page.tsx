@@ -39,7 +39,7 @@ export default function SubsectionPage({ params }: SubsectionPageProps) {
       
       const subsectionData = sectionData.subsections?.find(s => s.id === params.subsectionId)
       if (!subsectionData) {
-        router.push(`/journey/${params.sectionId}`)
+        router.push(`/journey/legacy/${params.sectionId}`)
         return
       }
 
@@ -77,9 +77,9 @@ export default function SubsectionPage({ params }: SubsectionPageProps) {
     
     // Navigate to next subsection or back to section
     if (nextSubsection) {
-      router.push(`/journey/${params.sectionId}/${nextSubsection.id}`)
+      router.push(`/journey/legacy/${params.sectionId}/${nextSubsection.id}`)
     } else {
-      router.push(`/journey/${params.sectionId}`)
+      router.push(`/journey/legacy/${params.sectionId}`)
     }
   }
 
@@ -137,7 +137,7 @@ export default function SubsectionPage({ params }: SubsectionPageProps) {
       <div className="container mx-auto px-4 py-8">
         <PageHeader 
           backLink={{ 
-            href: `/journey/${params.sectionId}`, 
+            href: `/journey/legacy/${params.sectionId}`, 
             label: `Back to ${section.title}` 
           }}
           showViewModeToggle={true}

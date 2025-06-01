@@ -2,14 +2,29 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import PageHeader from '@/components/PageHeader'
-import { getJourneyProgress, saveJourneyProgress, JourneyProgress, journeySections, getAvailableSections, getSubsectionProgress } from '@/lib/journey'
+import { useLearningPath } from '@/hooks/useLearningPath'
+import { 
+  getJourneyProgress, 
+  saveJourneyProgress, 
+  JourneyProgress, 
+  journeyTiers, 
+  getAvailableTiers, 
+  getTierProgress,
+  LearningPath,
+  // Legacy imports for compatibility
+  journeySections, 
+  getAvailableSections, 
+  getSubsectionProgress 
+} from '@/lib/journey'
 
 export default function JourneyPage() {
   const router = useRouter()
   const [progress, setProgress] = useState<JourneyProgress | null>(null)
   const [loading, setLoading] = useState(true)
   const [devMode, setDevMode] = useState(false)
+  const { selectedPath, setSelectedPath } = useLearningPath()
 
   useEffect(() => {
     const loadProgress = async () => {
@@ -21,12 +36,15 @@ export default function JourneyPage() {
   }, [])
 
   const handleContinueJourney = () => {
-    // Navigate to the current section
-    if (progress?.currentSection) {
-      router.push(`/journey/${progress.currentSection}`)
+    // Check if user has new tier progress
+    if (progress?.currentTierId) {
+      router.push(`/journey/${progress.currentTierId}`)
+    } else if (progress?.currentSection) {
+      // Fall back to legacy section
+      router.push(`/journey/legacy/${progress.currentSection}`)
     } else {
-      // Start new journey
-      router.push('/journey/introduction')
+      // Start new journey with Foundation tier
+      router.push('/journey/foundation')
     }
   }
 
@@ -132,9 +150,162 @@ export default function JourneyPage() {
               </div>
             </div>
 
-            {/* Journey Sections Navigation */}
+            {/* New Tier-Based Journey */}
             <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold mb-4">Journey Sections</h3>
+              <h3 className="text-lg font-semibold mb-4">AI Safety Learning Path</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                A structured curriculum progressing from foundations to expertise
+              </p>
+              
+              {/* Learning Path Selector */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Select Your Learning Path:
+                  </label>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    Filter modules based on your interests
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+                  {[
+                    { value: 'all' as LearningPath, label: 'All Paths', icon: '🌍', color: 'gray' },
+                    { value: 'technical-safety' as LearningPath, label: 'Technical Safety', icon: '🔧', color: 'blue' },
+                    { value: 'governance' as LearningPath, label: 'Governance', icon: '⚖️', color: 'purple' },
+                    { value: 'engineering' as LearningPath, label: 'Engineering', icon: '👷', color: 'green' },
+                    { value: 'research' as LearningPath, label: 'Research', icon: '🔬', color: 'orange' }
+                  ].map((path) => (
+                    <button
+                      key={path.value}
+                      onClick={() => setSelectedPath(path.value)}
+                      className={`
+                        px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-1
+                        ${selectedPath === path.value
+                          ? path.color === 'gray' ? 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-2 border-gray-400' :
+                            path.color === 'blue' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-2 border-blue-400' :
+                            path.color === 'purple' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-2 border-purple-400' :
+                            path.color === 'green' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-2 border-green-400' :
+                            'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-2 border-orange-400'
+                          : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600'
+                        }
+                      `}
+                    >
+                      <span>{path.icon}</span>
+                      <span>{path.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {journeyTiers.map((tier) => {
+                  const tierProgress = progress ? getTierProgress(tier.id, progress) : null
+                  const isUnlocked = devMode || tier.prerequisites.length === 0 || 
+                    (progress && tier.prerequisites.every(prereq => progress.tiersCompleted?.includes(prereq)))
+                  
+                  // Filter modules based on selected path
+                  const visibleModules = selectedPath === 'all' 
+                    ? tier.modules 
+                    : tier.modules.filter(module => 
+                        module.paths?.includes('all' as LearningPath) || module.paths?.includes(selectedPath)
+                      )
+                  
+                  // Skip tier if no modules match the selected path
+                  if (visibleModules.length === 0) return null
+                  
+                  return (
+                    <Link
+                      key={tier.id}
+                      href={isUnlocked ? `/journey/${tier.id}` : '#'}
+                      className={`block ${!isUnlocked ? 'cursor-not-allowed' : ''}`}
+                    >
+                      <div className={`
+                        relative p-6 rounded-xl border-2 transition-all
+                        ${!isUnlocked 
+                          ? 'opacity-50 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800' 
+                          : tierProgress && tierProgress.percentage === 100
+                          ? 'hover:shadow-lg border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20'
+                          : tierProgress && tierProgress.percentage > 0
+                          ? 'hover:shadow-lg border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                          : 'hover:shadow-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'}
+                      `}>
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className={`
+                                px-3 py-1 rounded-full text-sm font-medium
+                                ${tier.level === 'foundation' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' :
+                                  tier.level === 'intermediate' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300' :
+                                  tier.level === 'advanced' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300' :
+                                  'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'}
+                              `}>
+                                {tier.level.charAt(0).toUpperCase() + tier.level.slice(1)}
+                              </span>
+                              <h4 className="text-xl font-bold">{tier.title}</h4>
+                              {!isUnlocked && (
+                                <span className="text-gray-500">🔒</span>
+                              )}
+                            </div>
+                            <p className="text-gray-600 dark:text-gray-400 mb-3">{tier.description}</p>
+                            
+                            <div className="flex items-center gap-6 text-sm">
+                              <span className="text-gray-500">
+                                ⏱️ {tier.estimatedDuration}
+                              </span>
+                              <span className="text-gray-500">
+                                📚 {visibleModules.length}{visibleModules.length !== tier.modules.length ? ` of ${tier.modules.length}` : ''} modules
+                              </span>
+                              {tierProgress && (
+                                <span className="text-gray-500">
+                                  ✅ {tierProgress.topicsCompleted}/{tierProgress.totalTopics} topics
+                                </span>
+                              )}
+                            </div>
+                            
+                            {/* Progress bar */}
+                            {tierProgress && tierProgress.percentage > 0 && (
+                              <div className="mt-4">
+                                <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                                  <div 
+                                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-500"
+                                    style={{ width: `${tierProgress.percentage}%` }}
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {isUnlocked && (
+                            <div className="ml-4">
+                              <span className="text-gray-400 text-2xl">→</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {!isUnlocked && tier.prerequisites.length > 0 && (
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
+                            Complete prerequisites: {tier.prerequisites.map(p => {
+                              const prereqTier = journeyTiers.find(t => t.id === p)
+                              return prereqTier?.title || p
+                            }).join(', ')}
+                          </p>
+                        )}
+                        {devMode && tier.prerequisites.length > 0 && 
+                         !(progress && tier.prerequisites.every(prereq => progress.tiersCompleted?.includes(prereq))) && (
+                          <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-3">
+                            [Dev Mode] Prerequisites bypassed
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Legacy Journey Sections Navigation */}
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-semibold mb-4">Journey Sections (Legacy)</h3>
               <div className="space-y-3">
                 {journeySections.map((section) => {
                   const isCompleted = progress?.sectionsCompleted?.includes(section.id) || false
@@ -156,7 +327,7 @@ export default function JourneyPage() {
                       `}
                       onClick={() => {
                         if (!isLocked) {
-                          router.push(`/journey/${section.id}`)
+                          router.push(`/journey/legacy/${section.id}`)
                         }
                       }}
                     >

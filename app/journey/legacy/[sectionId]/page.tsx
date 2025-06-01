@@ -52,7 +52,7 @@ export default function JourneySectionPage({ params }: { params: { sectionId: st
     
     if (section?.type === 'linear' && section.unlocks.length > 0) {
       // For linear sections, go to the first unlocked section
-      router.push(`/journey/${section.unlocks[0]}`)
+      router.push(`/journey/legacy/${section.unlocks[0]}`)
     } else {
       // For open-world or end sections, go back to journey overview
       router.push('/journey')
@@ -61,7 +61,7 @@ export default function JourneySectionPage({ params }: { params: { sectionId: st
 
   const handleChooseSection = async (chosenSectionId: string) => {
     await saveChoice(params.sectionId, 'nextSection', chosenSectionId)
-    router.push(`/journey/${chosenSectionId}`)
+    router.push(`/journey/legacy/${chosenSectionId}`)
   }
 
   if (loading || !section) {
@@ -191,7 +191,7 @@ export default function JourneySectionPage({ params }: { params: { sectionId: st
                     return (
                       <div
                         key={subsection.id}
-                        onClick={() => router.push(`/journey/${section.id}/${subsection.id}`)}
+                        onClick={() => router.push(`/journey/legacy/${section.id}/${subsection.id}`)}
                         className={`
                           p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md
                           ${isComplete 
