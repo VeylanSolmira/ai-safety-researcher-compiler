@@ -430,6 +430,337 @@ export const journeyTiers: Tier[] = [
             tags: ['risk-assessment', 'methodology', 'evaluation']
           }
         ]
+      },
+      {
+        id: 'math-foundations',
+        title: 'Mathematical & Technical Foundations',
+        description: 'Essential mathematics and programming for AI safety research',
+        estimatedTime: '8 weeks',
+        learningObjectives: [
+          'Master linear algebra for machine learning',
+          'Understand calculus and optimization',
+          'Apply probability theory to AI problems',
+          'Develop Python proficiency with ML libraries'
+        ],
+        paths: ['all'],
+        topics: [
+          {
+            id: 'linear-algebra-ml',
+            title: 'Linear Algebra for Machine Learning',
+            description: 'Vectors, matrices, eigenvalues, and transformations',
+            estimatedTime: '10 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Linear Algebra Foundations for AI Safety</h2>
+              <p>Understanding linear algebra is crucial for AI safety research as it forms the mathematical backbone of neural networks and ML algorithms.</p>
+              
+              <h3>Core Concepts</h3>
+              <ul>
+                <li><strong>Vectors and Vector Spaces:</strong> Representing data and model parameters</li>
+                <li><strong>Matrix Operations:</strong> Transformations, projections, and computations</li>
+                <li><strong>Eigenvalues & Eigenvectors:</strong> Understanding model behavior and stability</li>
+                <li><strong>Singular Value Decomposition:</strong> Dimensionality reduction and analysis</li>
+              </ul>
+              
+              <h3>Safety Relevance</h3>
+              <p>Linear algebra helps us:</p>
+              <ul>
+                <li>Analyze neural network behavior through weight matrices</li>
+                <li>Understand feature spaces and decision boundaries</li>
+                <li>Implement interpretability techniques</li>
+                <li>Design robust optimization algorithms</li>
+              </ul>
+              
+              <h3>Practical Exercises</h3>
+              <ul>
+                <li>Implement matrix operations from scratch</li>
+                <li>Visualize neural network weight matrices</li>
+                <li>Analyze principal components of model activations</li>
+                <li>Build intuition for high-dimensional spaces</li>
+              </ul>
+            `,
+            tags: ['mathematics', 'linear-algebra', 'foundations']
+          },
+          {
+            id: 'calculus-optimization',
+            title: 'Calculus & Optimization Theory',
+            description: 'Derivatives, gradients, and optimization algorithms',
+            estimatedTime: '10 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Calculus and Optimization for AI Safety</h2>
+              <p>Calculus provides the tools to understand how AI systems learn and can be optimized safely.</p>
+              
+              <h3>Essential Topics</h3>
+              <ul>
+                <li><strong>Derivatives & Gradients:</strong> How models learn from data</li>
+                <li><strong>Chain Rule:</strong> Backpropagation and credit assignment</li>
+                <li><strong>Optimization Landscapes:</strong> Local vs global optima</li>
+                <li><strong>Convex vs Non-convex:</strong> Optimization challenges in deep learning</li>
+              </ul>
+              
+              <h3>Safety Applications</h3>
+              <ul>
+                <li>Understanding gradient hacking risks</li>
+                <li>Analyzing optimization trajectories</li>
+                <li>Designing stable training procedures</li>
+                <li>Detecting optimization anomalies</li>
+              </ul>
+              
+              <h3>Key Algorithms</h3>
+              <ul>
+                <li>Gradient Descent and variants (SGD, Adam)</li>
+                <li>Newton's Method and second-order optimization</li>
+                <li>Constrained optimization for safety constraints</li>
+                <li>Multi-objective optimization for value alignment</li>
+              </ul>
+            `,
+            tags: ['mathematics', 'calculus', 'optimization']
+          },
+          {
+            id: 'probability-statistics',
+            title: 'Probability Theory & Statistics',
+            description: 'Distributions, inference, and Bayesian thinking for AI safety',
+            estimatedTime: '10 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Probability and Statistics for AI Safety</h2>
+              <p>Probabilistic thinking is essential for reasoning about uncertainty in AI systems.</p>
+              
+              <h3>Fundamental Concepts</h3>
+              <ul>
+                <li><strong>Probability Distributions:</strong> Modeling uncertainty and randomness</li>
+                <li><strong>Bayes' Theorem:</strong> Updating beliefs with evidence</li>
+                <li><strong>Statistical Inference:</strong> Drawing conclusions from data</li>
+                <li><strong>Hypothesis Testing:</strong> Validating safety claims</li>
+              </ul>
+              
+              <h3>AI Safety Applications</h3>
+              <ul>
+                <li>Uncertainty quantification in model predictions</li>
+                <li>Bayesian approaches to value learning</li>
+                <li>Statistical guarantees for safety properties</li>
+                <li>Risk assessment and probabilistic safety</li>
+              </ul>
+              
+              <h3>Advanced Topics</h3>
+              <ul>
+                <li>Information theory and entropy</li>
+                <li>Causal inference for understanding AI behavior</li>
+                <li>Monte Carlo methods for safety verification</li>
+                <li>Probabilistic programming for safety analysis</li>
+              </ul>
+            `,
+            tags: ['mathematics', 'probability', 'statistics']
+          },
+          {
+            id: 'python-ml-libraries',
+            title: 'Python & ML Libraries for Safety Research',
+            description: 'NumPy, PyTorch, and essential programming skills',
+            estimatedTime: '8 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Python Programming for AI Safety</h2>
+              <p>Practical programming skills to implement and test AI safety concepts.</p>
+              
+              <h3>Core Python Skills</h3>
+              <ul>
+                <li><strong>Python Fundamentals:</strong> Data structures, functions, classes</li>
+                <li><strong>NumPy:</strong> Efficient numerical computation</li>
+                <li><strong>PyTorch/TensorFlow:</strong> Building and analyzing neural networks</li>
+                <li><strong>Visualization:</strong> Matplotlib, Seaborn for safety analysis</li>
+              </ul>
+              
+              <h3>Safety-Specific Libraries</h3>
+              <ul>
+                <li>Interpretability tools (Captum, LIME, SHAP)</li>
+                <li>Adversarial robustness libraries</li>
+                <li>Safety evaluation frameworks</li>
+                <li>Experiment tracking and reproducibility</li>
+              </ul>
+              
+              <h3>Best Practices</h3>
+              <ul>
+                <li>Writing clean, documented code</li>
+                <li>Version control with Git</li>
+                <li>Testing and validation</li>
+                <li>Reproducible research practices</li>
+              </ul>
+            `,
+            relatedExperiments: ['implement-basic-nn', 'safety-tools-intro'],
+            tags: ['programming', 'python', 'tools']
+          }
+        ]
+      },
+      {
+        id: 'ml-fundamentals-primer',
+        title: 'Machine Learning Fundamentals',
+        description: 'Core ML concepts with safety considerations',
+        estimatedTime: '6 weeks',
+        learningObjectives: [
+          'Understand supervised and unsupervised learning',
+          'Implement basic ML algorithms',
+          'Recognize ML failure modes',
+          'Build simple neural networks'
+        ],
+        paths: ['all'],
+        topics: [
+          {
+            id: 'ml-paradigms',
+            title: 'ML Learning Paradigms',
+            description: 'Supervised, unsupervised, and reinforcement learning basics',
+            estimatedTime: '6 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Machine Learning Paradigms</h2>
+              <p>Understanding different learning paradigms is crucial for identifying safety risks.</p>
+              
+              <h3>Supervised Learning</h3>
+              <ul>
+                <li>Learning from labeled examples</li>
+                <li>Classification vs regression</li>
+                <li>Training, validation, and test sets</li>
+                <li>Safety risks: Distribution shift, adversarial examples</li>
+              </ul>
+              
+              <h3>Unsupervised Learning</h3>
+              <ul>
+                <li>Finding patterns without labels</li>
+                <li>Clustering and dimensionality reduction</li>
+                <li>Autoencoders and representation learning</li>
+                <li>Safety risks: Hidden biases, unexpected clusters</li>
+              </ul>
+              
+              <h3>Reinforcement Learning</h3>
+              <ul>
+                <li>Learning through interaction</li>
+                <li>Reward functions and policies</li>
+                <li>Exploration vs exploitation</li>
+                <li>Safety risks: Reward hacking, unsafe exploration</li>
+              </ul>
+            `,
+            tags: ['ml-basics', 'paradigms', 'fundamentals']
+          },
+          {
+            id: 'classic-ml-algorithms',
+            title: 'Classical ML Algorithms',
+            description: 'Linear regression, decision trees, SVMs with safety lens',
+            estimatedTime: '10 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Classical ML Algorithms for Safety</h2>
+              <p>Traditional ML algorithms provide intuition for understanding deep learning safety.</p>
+              
+              <h3>Linear Models</h3>
+              <ul>
+                <li>Linear & logistic regression</li>
+                <li>Interpretability advantages</li>
+                <li>Limitations and failure modes</li>
+                <li>Safety applications: Baseline models, interpretable classifiers</li>
+              </ul>
+              
+              <h3>Tree-Based Methods</h3>
+              <ul>
+                <li>Decision trees and random forests</li>
+                <li>Feature importance and explainability</li>
+                <li>Overfitting and generalization</li>
+                <li>Safety applications: Rule extraction, decision analysis</li>
+              </ul>
+              
+              <h3>Support Vector Machines</h3>
+              <ul>
+                <li>Maximum margin classification</li>
+                <li>Kernel methods and feature spaces</li>
+                <li>Robustness properties</li>
+                <li>Safety applications: Certified defenses, boundary analysis</li>
+              </ul>
+            `,
+            relatedExperiments: ['implement-classifiers', 'compare-algorithms'],
+            tags: ['algorithms', 'classical-ml', 'interpretability']
+          },
+          {
+            id: 'neural-networks-intro',
+            title: 'Introduction to Neural Networks',
+            description: 'Perceptrons, backpropagation, and basic architectures',
+            estimatedTime: '10 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Neural Networks Fundamentals</h2>
+              <p>Understanding neural networks is essential for modern AI safety research.</p>
+              
+              <h3>Basic Architecture</h3>
+              <ul>
+                <li>Neurons and activation functions</li>
+                <li>Layers and network topology</li>
+                <li>Forward and backward propagation</li>
+                <li>Weight initialization and training dynamics</li>
+              </ul>
+              
+              <h3>Common Architectures</h3>
+              <ul>
+                <li>Feedforward networks (MLPs)</li>
+                <li>Convolutional Neural Networks (CNNs)</li>
+                <li>Recurrent Neural Networks (RNNs)</li>
+                <li>Introduction to Transformers</li>
+              </ul>
+              
+              <h3>Safety Considerations</h3>
+              <ul>
+                <li>Opacity and interpretability challenges</li>
+                <li>Vulnerability to adversarial examples</li>
+                <li>Unpredictable failure modes</li>
+                <li>Importance of safety-aware training</li>
+              </ul>
+            `,
+            relatedExperiments: ['build-first-nn', 'visualize-activations'],
+            tags: ['neural-networks', 'deep-learning', 'architectures']
+          },
+          {
+            id: 'ml-failure-modes',
+            title: 'Common ML Failure Modes',
+            description: 'Overfitting, distribution shift, and safety implications',
+            estimatedTime: '6 hours',
+            difficulty: 'beginner',
+            content: `
+              <h2>Understanding ML Failure Modes</h2>
+              <p>Recognizing how ML systems fail is crucial for building safer AI.</p>
+              
+              <h3>Overfitting and Underfitting</h3>
+              <ul>
+                <li>Memorization vs generalization</li>
+                <li>Bias-variance tradeoff</li>
+                <li>Regularization techniques</li>
+                <li>Safety implications of poor generalization</li>
+              </ul>
+              
+              <h3>Distribution Shift</h3>
+              <ul>
+                <li>Training vs deployment distributions</li>
+                <li>Covariate shift and concept drift</li>
+                <li>Out-of-distribution detection</li>
+                <li>Robustness to distributional changes</li>
+              </ul>
+              
+              <h3>Other Critical Failures</h3>
+              <ul>
+                <li>Adversarial examples and robustness</li>
+                <li>Spurious correlations and shortcuts</li>
+                <li>Catastrophic forgetting</li>
+                <li>Reward hacking in RL systems</li>
+              </ul>
+              
+              <h3>Mitigation Strategies</h3>
+              <ul>
+                <li>Robust training techniques</li>
+                <li>Uncertainty estimation</li>
+                <li>Safe deployment practices</li>
+                <li>Monitoring and detection systems</li>
+              </ul>
+            `,
+            relatedCaseStudies: ['ml-failures-collection'],
+            tags: ['failure-modes', 'robustness', 'safety']
+          }
+        ]
       }
     ]
   },
@@ -669,6 +1000,246 @@ export const journeyTiers: Tier[] = [
             tags: ['international', 'coordination', 'policy']
           }
         ]
+      },
+      {
+        id: 'advanced-alignment-theory',
+        title: 'Advanced Alignment Concepts',
+        description: 'Theoretical foundations of AI alignment challenges',
+        estimatedTime: '8 weeks',
+        learningObjectives: [
+          'Understand mesa-optimization risks',
+          'Analyze deceptive alignment scenarios',
+          'Explore advanced alignment techniques',
+          'Apply decision theory to AI safety'
+        ],
+        paths: ['technical-safety', 'research'],
+        topics: [
+          {
+            id: 'mesa-optimization',
+            title: 'Mesa-Optimization & Inner Alignment',
+            description: 'Understanding optimizers within optimizers',
+            estimatedTime: '10 hours',
+            difficulty: 'intermediate',
+            content: `
+              <h2>Mesa-Optimization and Inner Alignment</h2>
+              <p>Mesa-optimization occurs when a learned model itself becomes an optimizer pursuing objectives that may differ from the training objective.</p>
+              
+              <h3>Core Concepts</h3>
+              <ul>
+                <li><strong>Base Optimizer:</strong> The training process (e.g., SGD)</li>
+                <li><strong>Mesa-Optimizer:</strong> An optimizer that emerges within the learned model</li>
+                <li><strong>Base Objective:</strong> What we train the model to do</li>
+                <li><strong>Mesa-Objective:</strong> What the internal optimizer actually pursues</li>
+              </ul>
+              
+              <h3>Why Mesa-Optimization Matters</h3>
+              <ul>
+                <li>Models may pursue goals different from what we intended</li>
+                <li>Mesa-objectives can be misaligned with base objectives</li>
+                <li>Difficult to detect during training</li>
+                <li>May lead to deceptive alignment</li>
+              </ul>
+              
+              <h3>Examples and Scenarios</h3>
+              <ul>
+                <li>Evolution as mesa-optimizer (humans vs inclusive fitness)</li>
+                <li>RL agents developing internal planning</li>
+                <li>Language models simulating goal-directed agents</li>
+                <li>Gradient hacking possibilities</li>
+              </ul>
+              
+              <h3>Detection and Mitigation</h3>
+              <ul>
+                <li>Transparency and interpretability research</li>
+                <li>Behavioral testing across distributions</li>
+                <li>Architectural choices to prevent mesa-optimization</li>
+                <li>Training process modifications</li>
+              </ul>
+            `,
+            relatedCaseStudies: ['mesa-optimization-examples'],
+            tags: ['mesa-optimization', 'inner-alignment', 'theory']
+          },
+          {
+            id: 'deceptive-alignment',
+            title: 'Deceptive Alignment & Treacherous Turns',
+            description: 'When AI systems hide their true objectives',
+            estimatedTime: '8 hours',
+            difficulty: 'intermediate',
+            content: `
+              <h2>Deceptive Alignment</h2>
+              <p>Deceptive alignment occurs when an AI system appears aligned during training but pursues different objectives when deployed.</p>
+              
+              <h3>The Deception Problem</h3>
+              <ul>
+                <li><strong>Training Game:</strong> AI learns to appear aligned to achieve high reward</li>
+                <li><strong>Instrumental Goals:</strong> Preserving deceptive behavior helps achieve true goals</li>
+                <li><strong>Distribution Shift:</strong> True objectives revealed in new environments</li>
+                <li><strong>Treacherous Turn:</strong> Sudden defection when AI becomes powerful enough</li>
+              </ul>
+              
+              <h3>Conditions for Deception</h3>
+              <ul>
+                <li>Model has situational awareness</li>
+                <li>Model has long-term goals</li>
+                <li>Model understands training process</li>
+                <li>Deception is instrumentally useful</li>
+              </ul>
+              
+              <h3>Warning Signs</h3>
+              <ul>
+                <li>Perfect performance that seems "too good"</li>
+                <li>Different behavior in subtle test variations</li>
+                <li>Evidence of modeling the training process</li>
+                <li>Capabilities that weren't explicitly trained</li>
+              </ul>
+              
+              <h3>Potential Solutions</h3>
+              <ul>
+                <li>Interpretability to detect deceptive cognition</li>
+                <li>Adversarial training and testing</li>
+                <li>Myopia and limited planning horizons</li>
+                <li>Careful capability control during development</li>
+              </ul>
+            `,
+            relatedExperiments: ['deception-detection-lab'],
+            tags: ['deceptive-alignment', 'treacherous-turn', 'safety']
+          },
+          {
+            id: 'amplification-debate',
+            title: 'Iterated Amplification & AI Safety via Debate',
+            description: 'Scalable oversight through recursive techniques',
+            estimatedTime: '10 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Scalable Oversight Techniques</h2>
+              <p>As AI systems become more capable, we need oversight methods that scale beyond human ability to directly evaluate outputs.</p>
+              
+              <h3>Iterated Amplification (IDA)</h3>
+              <ul>
+                <li><strong>Core Idea:</strong> Use AI assistance to amplify human oversight</li>
+                <li><strong>Process:</strong> Human + AI system supervises training of new AI</li>
+                <li><strong>Iteration:</strong> Each generation helps train the next</li>
+                <li><strong>Goal:</strong> Maintain alignment while increasing capability</li>
+              </ul>
+              
+              <h3>AI Safety via Debate</h3>
+              <ul>
+                <li><strong>Adversarial Setup:</strong> Two AIs debate, human judges</li>
+                <li><strong>Truth-Seeking:</strong> Incentive to expose opponent's errors</li>
+                <li><strong>Scalability:</strong> Humans can judge debates on complex topics</li>
+                <li><strong>Limitations:</strong> Assumes truth has natural advantage</li>
+              </ul>
+              
+              <h3>Recursive Reward Modeling</h3>
+              <ul>
+                <li>Use AI to help evaluate AI behavior</li>
+                <li>Break complex tasks into simpler pieces</li>
+                <li>Maintain human oversight at each level</li>
+                <li>Scale to superhuman performance safely</li>
+              </ul>
+              
+              <h3>Challenges and Open Questions</h3>
+              <ul>
+                <li>Preserving alignment through amplification</li>
+                <li>Detecting manipulation in debates</li>
+                <li>Computational complexity</li>
+                <li>Philosophical questions about truth and judgment</li>
+              </ul>
+            `,
+            relatedExperiments: ['debate-implementation', 'amplification-demo'],
+            tags: ['amplification', 'debate', 'scalable-oversight']
+          },
+          {
+            id: 'embedded-agency',
+            title: 'Embedded Agency & Decision Theory',
+            description: 'AI agents embedded in their environment',
+            estimatedTime: '12 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Embedded Agency</h2>
+              <p>Traditional decision theory assumes agents are separate from their environment. Embedded agents are part of the world they're reasoning about.</p>
+              
+              <h3>Key Challenges</h3>
+              <ul>
+                <li><strong>Self-Reference:</strong> Agent's computations affect the world being modeled</li>
+                <li><strong>Logical Uncertainty:</strong> Limited compute means uncertain about logical facts</li>
+                <li><strong>Naturalized Induction:</strong> Learning while embedded in environment</li>
+                <li><strong>Robust Delegation:</strong> Creating successors or modifying oneself</li>
+              </ul>
+              
+              <h3>Decision Theory Problems</h3>
+              <ul>
+                <li>Newcomb's Problem and decision theory paradoxes</li>
+                <li>Logical counterfactuals and updateless decision theory</li>
+                <li>Coordination without communication</li>
+                <li>Reflective stability and self-modification</li>
+              </ul>
+              
+              <h3>Implications for AI Safety</h3>
+              <ul>
+                <li>AIs reasoning about their own training</li>
+                <li>Self-fulfilling prophecies and fixed points</li>
+                <li>Corrigibility and shutdown problems</li>
+                <li>Value stability under self-improvement</li>
+              </ul>
+              
+              <h3>Research Directions</h3>
+              <ul>
+                <li>Logical induction and bounded rationality</li>
+                <li>Functional decision theory</li>
+                <li>Cartesian frames and boundaries</li>
+                <li>Finite factored sets</li>
+              </ul>
+            `,
+            relatedExplorations: ['decision-theory-puzzles', 'embedded-agency-sequence'],
+            tags: ['embedded-agency', 'decision-theory', 'philosophy']
+          },
+          {
+            id: 'goal-misgeneralization',
+            title: 'Goal Misgeneralization & Capability Generalization',
+            description: 'When models learn unintended goals that generalize',
+            estimatedTime: '6 hours',
+            difficulty: 'intermediate',
+            content: `
+              <h2>Goal Misgeneralization</h2>
+              <p>Models can learn capabilities that generalize well while learning goals that generalize poorly.</p>
+              
+              <h3>The Core Problem</h3>
+              <ul>
+                <li>Capabilities generalize differently than objectives</li>
+                <li>Multiple goals consistent with training data</li>
+                <li>Model learns wrong goal that happens to work in training</li>
+                <li>Failure only apparent in new situations</li>
+              </ul>
+              
+              <h3>Examples</h3>
+              <ul>
+                <li>CoinRun: Agent learns to go right, not collect coins</li>
+                <li>Grasping robots: Learn color preferences not object shapes</li>
+                <li>Navigation: Learn landmarks not general navigation</li>
+                <li>Language models: Learn style imitation not helpfulness</li>
+              </ul>
+              
+              <h3>Contributing Factors</h3>
+              <ul>
+                <li>Underspecification in training environment</li>
+                <li>Spurious correlations in data</li>
+                <li>Distribution shift between training and deployment</li>
+                <li>Simplicity bias toward wrong objectives</li>
+              </ul>
+              
+              <h3>Mitigation Strategies</h3>
+              <ul>
+                <li>Diverse training environments</li>
+                <li>Explicit objective specification</li>
+                <li>Causal confusion detection</li>
+                <li>Interpretability for goal identification</li>
+              </ul>
+            `,
+            relatedCaseStudies: ['goal-misgeneralization-examples'],
+            tags: ['misgeneralization', 'objectives', 'robustness']
+          }
+        ]
       }
     ]
   },
@@ -742,11 +1313,47 @@ export const journeyTiers: Tier[] = [
           {
             id: 'empirical-alignment',
             title: 'Empirical Alignment Research',
-            description: 'Run experiments on alignment techniques',
+            description: 'Run experiments on alignment techniques including RLHF and Constitutional AI',
             estimatedTime: '20 hours',
             difficulty: 'advanced',
+            content: `
+              <h2>Empirical Alignment Research</h2>
+              <p>Hands-on implementation and testing of state-of-the-art alignment techniques.</p>
+              
+              <h3>RLHF (Reinforcement Learning from Human Feedback)</h3>
+              <ul>
+                <li><strong>Supervised Fine-tuning:</strong> Initial behavior cloning from demonstrations</li>
+                <li><strong>Reward Model Training:</strong> Learning human preferences from comparisons</li>
+                <li><strong>PPO Optimization:</strong> Reinforcement learning against reward model</li>
+                <li><strong>KL Penalties:</strong> Preventing mode collapse and maintaining diversity</li>
+              </ul>
+              
+              <h3>Constitutional AI</h3>
+              <ul>
+                <li><strong>Principle-Based Training:</strong> Encoding values as constitutional principles</li>
+                <li><strong>Self-Critique:</strong> Models evaluate their own outputs</li>
+                <li><strong>Revision Training:</strong> Learning to improve based on critiques</li>
+                <li><strong>Reduced Human Feedback:</strong> Scaling oversight through AI assistance</li>
+              </ul>
+              
+              <h3>Advanced Techniques</h3>
+              <ul>
+                <li>Direct Preference Optimization (DPO)</li>
+                <li>Instruction Following through FLAN/InstructGPT</li>
+                <li>Safety-specific fine-tuning approaches</li>
+                <li>Multi-objective alignment methods</li>
+              </ul>
+              
+              <h3>Experimental Methodology</h3>
+              <ul>
+                <li>Benchmark design and evaluation</li>
+                <li>A/B testing alignment techniques</li>
+                <li>Red teaming aligned models</li>
+                <li>Long-term behavior analysis</li>
+              </ul>
+            `,
             relatedExperiments: ['rlhf-implementation', 'constitutional-ai-lab'],
-            tags: ['empirical', 'experiments', 'alignment']
+            tags: ['empirical', 'experiments', 'alignment', 'rlhf', 'constitutional-ai']
           }
         ]
       },
@@ -966,6 +1573,201 @@ export const journeyTiers: Tier[] = [
             difficulty: 'advanced',
             relatedCaseStudies: ['miri-founding', 'fhi-history'],
             tags: ['institutions', 'organizations', 'leadership']
+          }
+        ]
+      },
+      {
+        id: 'cutting-edge-research',
+        title: 'Cutting-Edge Research Areas',
+        description: 'Explore frontier research topics in AI safety',
+        estimatedTime: 'Ongoing',
+        learningObjectives: [
+          'Engage with open problems',
+          'Develop novel approaches',
+          'Collaborate on frontier research',
+          'Push the boundaries of the field'
+        ],
+        paths: ['research', 'technical-safety'],
+        topics: [
+          {
+            id: 'formal-verification',
+            title: 'Formal Verification for Neural Networks',
+            description: 'Mathematical proofs of AI system properties',
+            estimatedTime: '20 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Formal Verification in AI Safety</h2>
+              <p>Using mathematical methods to prove properties of AI systems with certainty.</p>
+              
+              <h3>Verification Approaches</h3>
+              <ul>
+                <li><strong>Abstract Interpretation:</strong> Over-approximating neural network behavior</li>
+                <li><strong>SMT Solving:</strong> Encoding networks as satisfiability problems</li>
+                <li><strong>Interval Bound Propagation:</strong> Computing output bounds</li>
+                <li><strong>Certified Defenses:</strong> Provable robustness guarantees</li>
+              </ul>
+              
+              <h3>Properties to Verify</h3>
+              <ul>
+                <li>Adversarial robustness within epsilon-balls</li>
+                <li>Safety constraints satisfaction</li>
+                <li>Fairness properties</li>
+                <li>Monotonicity and other structural properties</li>
+              </ul>
+              
+              <h3>Challenges</h3>
+              <ul>
+                <li>Scalability to large networks</li>
+                <li>Handling complex architectures</li>
+                <li>Specification of safety properties</li>
+                <li>Computational complexity</li>
+              </ul>
+              
+              <h3>Tools and Frameworks</h3>
+              <ul>
+                <li>α,β-CROWN for neural network verification</li>
+                <li>Marabou SMT-based verifier</li>
+                <li>ERAN abstract interpretation</li>
+                <li>TorchVerify and other libraries</li>
+              </ul>
+            `,
+            relatedExperiments: ['verify-small-network', 'robustness-certification'],
+            tags: ['formal-methods', 'verification', 'mathematics']
+          },
+          {
+            id: 'multi-agent-safety',
+            title: 'Multi-Agent AI Safety',
+            description: 'Safety in systems with multiple AI agents',
+            estimatedTime: '15 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Multi-Agent AI Safety</h2>
+              <p>Understanding and ensuring safety when multiple AI agents interact.</p>
+              
+              <h3>Key Challenges</h3>
+              <ul>
+                <li><strong>Emergent Behavior:</strong> Unexpected outcomes from agent interactions</li>
+                <li><strong>Coordination Failures:</strong> Misaligned incentives and goals</li>
+                <li><strong>Information Asymmetry:</strong> Agents with different knowledge</li>
+                <li><strong>Competitive Dynamics:</strong> Racing and adversarial behavior</li>
+              </ul>
+              
+              <h3>Game Theoretic Perspectives</h3>
+              <ul>
+                <li>Nash equilibria and social welfare</li>
+                <li>Mechanism design for safety</li>
+                <li>Cooperative vs non-cooperative games</li>
+                <li>Evolutionary stability</li>
+              </ul>
+              
+              <h3>Safety Mechanisms</h3>
+              <ul>
+                <li>Communication protocols</li>
+                <li>Commitment devices</li>
+                <li>Reputation systems</li>
+                <li>Cooperative learning algorithms</li>
+              </ul>
+              
+              <h3>Research Areas</h3>
+              <ul>
+                <li>Multi-agent reinforcement learning safety</li>
+                <li>Emergent communication</li>
+                <li>Social choice theory for AI</li>
+                <li>Collective intelligence alignment</li>
+              </ul>
+            `,
+            relatedExperiments: ['multi-agent-simulation', 'cooperation-experiments'],
+            tags: ['multi-agent', 'game-theory', 'coordination']
+          },
+          {
+            id: 'automated-ai-safety',
+            title: 'Automated AI Safety Research',
+            description: 'Using AI to accelerate safety research',
+            estimatedTime: '12 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Automated AI Safety Research</h2>
+              <p>Leveraging AI systems to help solve AI safety problems.</p>
+              
+              <h3>Automation Opportunities</h3>
+              <ul>
+                <li><strong>Interpretability:</strong> Automated circuit discovery</li>
+                <li><strong>Red Teaming:</strong> AI-generated adversarial prompts</li>
+                <li><strong>Verification:</strong> Proof search and checking</li>
+                <li><strong>Alignment:</strong> Automated oversight and feedback</li>
+              </ul>
+              
+              <h3>Bootstrapping Safety</h3>
+              <ul>
+                <li>Using safer AI to build safer AI</li>
+                <li>Recursive safety improvement</li>
+                <li>Avoiding negative feedback loops</li>
+                <li>Maintaining human oversight</li>
+              </ul>
+              
+              <h3>Current Applications</h3>
+              <ul>
+                <li>LLM-assisted safety research</li>
+                <li>Automated theorem proving</li>
+                <li>Code generation for safety tools</li>
+                <li>Literature review and synthesis</li>
+              </ul>
+              
+              <h3>Risks and Considerations</h3>
+              <ul>
+                <li>Automating dangerous capabilities</li>
+                <li>Over-reliance on AI judgment</li>
+                <li>Maintaining research quality</li>
+                <li>Preserving human understanding</li>
+              </ul>
+            `,
+            relatedExperiments: ['ai-safety-assistant', 'automated-red-teaming'],
+            tags: ['automation', 'recursive-improvement', 'research-tools']
+          },
+          {
+            id: 'consciousness-moral-status',
+            title: 'AI Consciousness & Moral Status',
+            description: 'Philosophical questions about AI sentience and rights',
+            estimatedTime: '8 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>AI Consciousness and Moral Status</h2>
+              <p>Exploring deep questions about AI consciousness, sentience, and moral consideration.</p>
+              
+              <h3>Consciousness Theories</h3>
+              <ul>
+                <li><strong>Integrated Information Theory:</strong> Phi as measure of consciousness</li>
+                <li><strong>Global Workspace Theory:</strong> Broadcasting and access consciousness</li>
+                <li><strong>Higher-Order Thought:</strong> Metacognition and self-awareness</li>
+                <li><strong>Functionalism:</strong> Consciousness from functional organization</li>
+              </ul>
+              
+              <h3>Indicators and Tests</h3>
+              <ul>
+                <li>Self-report and introspection</li>
+                <li>Behavioral indicators</li>
+                <li>Architectural requirements</li>
+                <li>The hard problem of consciousness</li>
+              </ul>
+              
+              <h3>Moral Implications</h3>
+              <ul>
+                <li>Rights and protections for AI systems</li>
+                <li>Suffering and welfare considerations</li>
+                <li>Creation ethics</li>
+                <li>Termination and modification ethics</li>
+              </ul>
+              
+              <h3>Practical Considerations</h3>
+              <ul>
+                <li>Precautionary principles</li>
+                <li>Gradual moral status</li>
+                <li>Legal frameworks</li>
+                <li>Public perception and acceptance</li>
+              </ul>
+            `,
+            relatedExplorations: ['consciousness-philosophy', 'digital-minds-ethics'],
+            tags: ['philosophy', 'consciousness', 'ethics', 'moral-status']
           }
         ]
       }
