@@ -166,6 +166,13 @@ Understanding the key figures in AI safety helps you navigate the field's intell
 - **Richard Ngo**: DeepMind, agent foundations
 - **Rohin Shah**: UC Berkeley, AI alignment newsletter curator
 
+### Current Mentors and Fellowship Opportunities
+For those looking to work directly with AI safety researchers, check out the [@link@CBAI Fellowship 2025 Mentors & Topics](/resources) resource page, which includes:
+- 18+ active AI safety mentors from leading organizations
+- Specific research topics and project ideas
+- Desired qualifications and application guidance
+- Organizations actively mentoring new researchers
+
 ## How to Follow the Field
 
 ### Key Resources

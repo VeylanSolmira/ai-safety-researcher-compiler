@@ -163,13 +163,13 @@ Current curriculum structure with implementation status:
 
 ### Other Development Goals
 
-- [ ] Add interactive assessments
+- [X] Add interactive assessments
 - [ ] Implement progress tracking
     - [X] localStorage during development
     - [ ] Full auth solution
-- [ ] Add more learning pathways
+- [X] Add more learning pathways
 - [ ] Create community features
-- [ ] Add new journey paths that traverse the roadmap differently (e.g., "Fast Track for ML Engineers" or "Philosophy-First Approach")
+- [X] Add new journey paths that traverse the roadmap differently (e.g., "Fast Track for ML Engineers" or "Philosophy-First Approach")
 
 
 ## Documentation

@@ -29,6 +29,12 @@ export default function HomePage() {
         >
           View Roadmap
         </Link>
+        <Link 
+          href="/resources"
+          className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-8 py-4 rounded-lg hover:from-emerald-700 hover:to-teal-700 transition transform hover:scale-105 shadow-lg text-lg font-semibold"
+        >
+          Resources
+        </Link>
       </div>
       
       <div className="mt-12 max-w-3xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-8 mb-8">

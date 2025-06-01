@@ -836,6 +836,51 @@ export const journeyTiers: Tier[] = [
             relatedExperiments: ['multimodal-jailbreak-lab'],
             relatedCaseStudies: ['visual-prompt-injection'],
             tags: ['multimodal', 'attacks', 'advanced']
+          },
+          {
+            id: 'model-organisms',
+            title: 'Model Organisms of Misalignment',
+            description: 'Creating and studying controlled examples of misaligned AI behavior',
+            estimatedTime: '14 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Model Organisms of Misalignment</h2>
+              <p>Deliberately creating AI systems with specific misalignment properties to study detection and mitigation strategies.</p>
+              
+              <h3>Purpose and Methodology</h3>
+              <ul>
+                <li><strong>Controlled Study:</strong> Create misalignment in controlled conditions</li>
+                <li><strong>Detection Research:</strong> Test detection methods on known cases</li>
+                <li><strong>Mitigation Testing:</strong> Evaluate interventions effectiveness</li>
+                <li><strong>Understanding Mechanisms:</strong> Study how misalignment emerges</li>
+              </ul>
+              
+              <h3>Types of Model Organisms</h3>
+              <ul>
+                <li>Deceptively aligned models that hide capabilities</li>
+                <li>Reward hackers that exploit specification gaps</li>
+                <li>Power-seeking agents in simplified environments</li>
+                <li>Models that manipulate their training process</li>
+              </ul>
+              
+              <h3>Safety Considerations</h3>
+              <ul>
+                <li>Containment protocols for dangerous behaviors</li>
+                <li>Limiting capabilities while preserving phenomena</li>
+                <li>Ethical considerations in creating misaligned systems</li>
+                <li>Information security for techniques</li>
+              </ul>
+              
+              <h3>Research Applications</h3>
+              <ul>
+                <li>Benchmarking detection methods</li>
+                <li>Training robust monitors</li>
+                <li>Understanding failure modes</li>
+                <li>Developing safety interventions</li>
+              </ul>
+            `,
+            relatedExperiments: ['create-deceptive-model', 'reward-hacking-organism'],
+            tags: ['model-organisms', 'misalignment', 'research']
           }
         ]
       },
@@ -950,6 +995,80 @@ export const journeyTiers: Tier[] = [
             difficulty: 'intermediate',
             relatedExperiments: ['debugger-build', 'behavior-tracer'],
             tags: ['debugging', 'tools', 'development']
+          },
+          {
+            id: 'llm-psychology',
+            title: 'LLM Psychology and Behavior Analysis',
+            description: 'Understanding what we can learn about LLMs from conversational interaction',
+            estimatedTime: '10 hours',
+            difficulty: 'intermediate',
+            content: `
+              <h2>LLM Psychology</h2>
+              <p>Studying the behavioral patterns and internal states of language models through conversational probing.</p>
+              
+              <h3>Key Approaches</h3>
+              <ul>
+                <li><strong>Conversational Probing:</strong> Systematic questioning to reveal model knowledge and beliefs</li>
+                <li><strong>Consistency Testing:</strong> Checking coherence across related queries</li>
+                <li><strong>Behavioral Patterns:</strong> Identifying systematic biases and tendencies</li>
+                <li><strong>Self-Report Analysis:</strong> Evaluating model claims about its own processes</li>
+              </ul>
+              
+              <h3>Research Questions</h3>
+              <ul>
+                <li>What can models reliably report about their internal states?</li>
+                <li>How do conversational contexts affect model behavior?</li>
+                <li>Can we detect deception through behavioral analysis?</li>
+                <li>What psychological frameworks apply to LLMs?</li>
+              </ul>
+              
+              <h3>Applications</h3>
+              <ul>
+                <li>Safety evaluation through behavioral testing</li>
+                <li>Understanding model capabilities and limitations</li>
+                <li>Detecting potential misalignment</li>
+                <li>Improving human-AI interaction</li>
+              </ul>
+            `,
+            relatedExperiments: ['llm-interview-protocols', 'consistency-testing'],
+            tags: ['llm-psychology', 'behavior', 'evaluation']
+          },
+          {
+            id: 'chain-of-thought-analysis',
+            title: 'Chain of Thought Analysis and Faithfulness',
+            description: 'Analyzing and improving the reliability of reasoning traces in LLMs',
+            estimatedTime: '12 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Chain of Thought Analysis</h2>
+              <p>Understanding when and how chain of thought reasoning is faithful to actual model computation.</p>
+              
+              <h3>Core Concepts</h3>
+              <ul>
+                <li><strong>Faithfulness:</strong> Whether CoT actually reflects model reasoning</li>
+                <li><strong>Post-hoc Rationalization:</strong> When models generate plausible but unfaithful explanations</li>
+                <li><strong>Causal Influence:</strong> Testing if CoT steps causally affect outputs</li>
+                <li><strong>Manipulation:</strong> How CoT can be used to influence model behavior</li>
+              </ul>
+              
+              <h3>Analysis Techniques</h3>
+              <ul>
+                <li>Perturbation studies on reasoning chains</li>
+                <li>Comparing CoT with internal activations</li>
+                <li>Testing consistency across problem variations</li>
+                <li>Measuring correlation with model confidence</li>
+              </ul>
+              
+              <h3>Improvement Methods</h3>
+              <ul>
+                <li>Training for faithful reasoning</li>
+                <li>Reinforcement learning on verified chains</li>
+                <li>Multi-step verification procedures</li>
+                <li>Combining with interpretability tools</li>
+              </ul>
+            `,
+            relatedExperiments: ['cot-faithfulness-test', 'reasoning-manipulation'],
+            tags: ['chain-of-thought', 'reasoning', 'faithfulness']
           }
         ]
       },
@@ -1354,6 +1473,51 @@ export const journeyTiers: Tier[] = [
             `,
             relatedExperiments: ['rlhf-implementation', 'constitutional-ai-lab'],
             tags: ['empirical', 'experiments', 'alignment', 'rlhf', 'constitutional-ai']
+          },
+          {
+            id: 'cognitive-oversight',
+            title: 'Cognitive Process Oversight',
+            description: 'Monitoring AI systems based on their internal cognitive processes',
+            estimatedTime: '16 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Cognitive Process Oversight</h2>
+              <p>Going beyond input/output behavior to monitor and evaluate the cognitive processes underlying AI decisions.</p>
+              
+              <h3>Core Concepts</h3>
+              <ul>
+                <li><strong>Process vs Output:</strong> Evaluating how decisions are made, not just what they are</li>
+                <li><strong>Internal Representations:</strong> Understanding information encoding and processing</li>
+                <li><strong>Cognitive Transparency:</strong> Making thought processes interpretable</li>
+                <li><strong>Deception Detection:</strong> Identifying when outputs don't match internal states</li>
+              </ul>
+              
+              <h3>Monitoring Techniques</h3>
+              <ul>
+                <li>Real-time activation monitoring</li>
+                <li>Attention pattern analysis</li>
+                <li>Internal consistency checking</li>
+                <li>Cognitive load measurement</li>
+              </ul>
+              
+              <h3>Applications</h3>
+              <ul>
+                <li>Detecting lies when ground truth is unavailable</li>
+                <li>Identifying manipulation attempts</li>
+                <li>Ensuring reasoning quality</li>
+                <li>Monitoring for emergent goals</li>
+              </ul>
+              
+              <h3>Challenges</h3>
+              <ul>
+                <li>Interpreting high-dimensional cognitive states</li>
+                <li>Distinguishing correlation from causation</li>
+                <li>Scaling to large models</li>
+                <li>Avoiding invasive monitoring</li>
+              </ul>
+            `,
+            relatedExperiments: ['cognitive-monitoring-tools', 'deception-detection-system'],
+            tags: ['cognitive-oversight', 'monitoring', 'transparency']
           }
         ]
       },
@@ -1435,6 +1599,51 @@ export const journeyTiers: Tier[] = [
             roadmapContentId: 'hardware-controls-subtopic',
             relatedExplorations: ['hardware-security-models'],
             tags: ['hardware', 'systems', 'security']
+          },
+          {
+            id: 'code-generation-safety',
+            title: 'Safe AI Code Generation',
+            description: 'Ensuring AI-generated code is safe, secure, and aligned with developer intent',
+            estimatedTime: '18 hours',
+            difficulty: 'advanced',
+            content: `
+              <h2>Safe AI Code Generation</h2>
+              <p>Developing techniques to ensure AI systems generate safe, secure, and reliable code.</p>
+              
+              <h3>Safety Challenges</h3>
+              <ul>
+                <li><strong>Security Vulnerabilities:</strong> Preventing generation of exploitable code</li>
+                <li><strong>Logic Errors:</strong> Ensuring correctness and avoiding subtle bugs</li>
+                <li><strong>Malicious Code:</strong> Detecting and preventing harmful code generation</li>
+                <li><strong>Dependency Risks:</strong> Managing external library and API usage</li>
+              </ul>
+              
+              <h3>Safety Techniques</h3>
+              <ul>
+                <li>Static analysis integration during generation</li>
+                <li>Sandboxed execution environments</li>
+                <li>Formal verification of generated code</li>
+                <li>Security pattern enforcement</li>
+              </ul>
+              
+              <h3>Control Mechanisms</h3>
+              <ul>
+                <li>Intent verification before generation</li>
+                <li>Output filtering and validation</li>
+                <li>Human-in-the-loop review systems</li>
+                <li>Capability restrictions by context</li>
+              </ul>
+              
+              <h3>Research Directions</h3>
+              <ul>
+                <li>Understanding code generation in LLMs</li>
+                <li>Adversarial code generation attacks</li>
+                <li>Safe exploration in programming environments</li>
+                <li>Automated testing of generated code</li>
+              </ul>
+            `,
+            relatedExperiments: ['secure-code-generator', 'code-safety-benchmark'],
+            tags: ['code-generation', 'safety', 'security']
           }
         ]
       },
