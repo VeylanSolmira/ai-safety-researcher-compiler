@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core'
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 
 // =====================================================
 // JOURNEY STRUCTURE TABLES
@@ -118,6 +118,59 @@ export const mentorResearchAreas = sqliteTable('mentor_research_areas', {
   area: text('area').notNull(),
 })
 
+export const researchTopics = sqliteTable('research_topics', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  category: text('category', {
+    enum: ['interpretability', 'alignment', 'governance', 'control', 'evaluation', 'formal-methods', 'policy']
+  }),
+  description: text('description'),
+  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`)
+})
+
+export const mentorResearchTopics = sqliteTable('mentor_research_topics', {
+  mentorId: text('mentor_id').references(() => mentors.id),
+  researchTopicId: text('research_topic_id').references(() => researchTopics.id),
+})
+
+export const researchJourneyMapping = sqliteTable('research_journey_mapping', {
+  researchTopicId: text('research_topic_id').references(() => researchTopics.id),
+  journeyTopicId: text('journey_topic_id').references(() => topics.id),
+})
+
+export const tierSkills = sqliteTable('tier_skills', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  tierId: text('tier_id').references(() => tiers.id),
+  skill: text('skill').notNull(),
+  position: integer('position').default(0)
+})
+
+export const tierCareers = sqliteTable('tier_careers', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  tierId: text('tier_id').references(() => tiers.id),
+  careerPath: text('career_path').notNull(),
+  position: integer('position').default(0)
+})
+
+export const moduleObjectives = sqliteTable('module_objectives', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  moduleId: text('module_id').references(() => modules.id),
+  objective: text('objective').notNull(),
+  position: integer('position').default(0)
+})
+
+export const modulePracticals = sqliteTable('module_practicals', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  moduleId: text('module_id').references(() => modules.id),
+  component: text('component').notNull(),
+  position: integer('position').default(0)
+})
+
+export const topicPaths = sqliteTable('topic_paths', {
+  topicId: text('topic_id').references(() => topics.id),
+  pathId: text('path_id').references(() => learningPaths.id),
+})
+
 // =====================================================
 // USER PROGRESS TABLES
 // =====================================================
@@ -196,7 +249,3 @@ export const organizationsRelations = relations(organizations, ({ many }) => ({
   mentors: many(mentors),
 }))
 
-// Helper to fix sql template literal
-function sql(strings: TemplateStringsArray, ...values: any[]) {
-  return strings[0]
-}
