@@ -12,22 +12,22 @@ export default function HomePage() {
       
       <div className="flex gap-4 flex-wrap justify-center">
         <Link 
-          href="/roadmap/ai-safety-researcher"
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+          href="/journey"
+          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg text-lg font-semibold"
         >
-          Start Learning
+          Start Journey
         </Link>
         <Link 
           href="/highlights"
-          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition"
+          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg hover:from-purple-700 hover:to-pink-700 transition transform hover:scale-105 shadow-lg text-lg font-semibold"
         >
           View Highlights
         </Link>
         <Link 
-          href="/about"
-          className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition"
+          href="/roadmap/ai-safety-researcher"
+          className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-4 rounded-lg hover:from-gray-700 hover:to-gray-800 transition transform hover:scale-105 shadow-lg text-lg font-semibold"
         >
-          Learn More
+          View Roadmap
         </Link>
       </div>
       

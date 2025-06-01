@@ -4,9 +4,9 @@ pdfUrl: '/pdfs/roadmaps/ai-safety-researcher.pdf'
 order: 5
 renderer: 'editor'
 briefTitle: 'AI Safety Researcher'
-briefDescription: 'Comprehensive pathway to becoming an AI Safety Researcher in 2025'
+briefDescription: 'Comprehensive course for becoming an AI Safety Researcher in 2025'
 title: 'AI Safety Researcher'
-description: 'Comprehensive pathway to becoming an AI Safety Researcher in 2025'
+description: 'Comprehensive course for becoming an AI Safety Researcher in 2025'
 hasTopics: true
 isNew: true
 dimensions:

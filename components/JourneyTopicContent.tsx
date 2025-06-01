@@ -7,6 +7,7 @@ import type { Components } from 'react-markdown'
 import { JourneyIntroductionExtras } from '@/components/JourneyContent'
 import Assessment from '@/components/Assessment'
 import InteractiveTransition from '@/components/InteractiveTransition'
+import AISafetyCompass from '@/components/AISafetyCompass'
 import { sectionAssessments } from '@/components/JourneyAssessment'
 import { Topic } from '@/lib/journey'
 
@@ -143,6 +144,11 @@ export default function JourneyTopicContent({ topic, tierId, moduleId }: Journey
         <div className="bg-gray-900 rounded-lg p-8 text-center">
           <p className="text-gray-400">Content coming soon...</p>
         </div>
+      )}
+      
+      {/* AI Safety Compass (for prerequisites) */}
+      {topic.id === 'prerequisites-foundations' && (
+        <AISafetyCompass />
       )}
       
       {/* Journey Extras (for introduction content) */}

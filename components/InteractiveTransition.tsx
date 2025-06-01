@@ -11,29 +11,19 @@ interface InteractiveTransitionProps {
 }
 
 export default function InteractiveTransition({ fromSection, toSection, sectionId = 'default' }: InteractiveTransitionProps) {
-  const [activeTab, setActiveTab] = useState<'compass' | 'ai-teacher' | 'quiz'>('compass')
+  const [activeTab, setActiveTab] = useState<'ai-teacher' | 'quiz'>('ai-teacher')
   const [tutorMode, setTutorMode] = useState<'teacher' | 'adversary'>('teacher')
   const { viewMode } = useViewMode()
 
   return (
     <div className="my-12 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
       <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-        Bridge to Foundations
+        Interactive Learning Tools
       </h2>
       
       {/* Tab Navigation */}
       <div className="flex justify-center mb-8">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex gap-1">
-          <button
-            onClick={() => setActiveTab('compass')}
-            className={`px-4 py-2 rounded-md transition-all ${
-              activeTab === 'compass' 
-                ? 'bg-indigo-600 text-white' 
-                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-            }`}
-          >
-            🧭 Your AI Safety Compass
-          </button>
           <button
             onClick={() => setActiveTab('ai-teacher')}
             className={`px-4 py-2 rounded-md transition-all ${
@@ -59,7 +49,6 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
 
       {/* Content Areas */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 min-h-[400px]">
-        {activeTab === 'compass' && <AICompass />}
         {activeTab === 'ai-teacher' && (
           <AITeacher 
             viewMode={viewMode} 
@@ -74,78 +63,6 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
   )
 }
 
-// AI Safety Compass Component
-function AICompass() {
-  const [values, setValues] = useState({
-    timeHorizon: 50, // 0 = near-term, 100 = long-term
-    approach: 50,    // 0 = technical, 100 = governance
-    focus: 50,       // 0 = capability, 100 = safety
-  })
-
-  return (
-    <div className="space-y-6">
-      <h3 className="text-xl font-semibold mb-4">Find Your Research Orientation</h3>
-      
-      <div className="space-y-4">
-        <div>
-          <label className="flex justify-between text-sm font-medium mb-2">
-            <span>Near-term (1-5 years)</span>
-            <span>Long-term (10+ years)</span>
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={values.timeHorizon}
-            onChange={(e) => setValues({...values, timeHorizon: parseInt(e.target.value)})}
-            className="w-full"
-          />
-        </div>
-
-        <div>
-          <label className="flex justify-between text-sm font-medium mb-2">
-            <span>Technical Solutions</span>
-            <span>Governance & Policy</span>
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={values.approach}
-            onChange={(e) => setValues({...values, approach: parseInt(e.target.value)})}
-            className="w-full"
-          />
-        </div>
-
-        <div>
-          <label className="flex justify-between text-sm font-medium mb-2">
-            <span>Capability Research</span>
-            <span>Safety Research</span>
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={values.focus}
-            onChange={(e) => setValues({...values, focus: parseInt(e.target.value)})}
-            className="w-full"
-          />
-        </div>
-      </div>
-
-      <div className="mt-6 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
-        <h4 className="font-semibold mb-2">Your Profile Suggests Focusing On:</h4>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          {values.timeHorizon > 70 && <li>Alignment theory and existential safety</li>}
-          {values.timeHorizon < 30 && <li>Current model safety and deployment practices</li>}
-          {values.approach > 70 && <li>AI governance frameworks and policy</li>}
-          {values.approach < 30 && <li>Technical alignment solutions</li>}
-          {values.focus > 70 && <li>Safety-first research methodologies</li>}
-        </ul>
-      </div>
-    </div>
-  )
-}
 
 // AI Teacher Component with placeholder for future API integration
 function AITeacher({ 

@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getTier, getModule, getJourneyProgress, getModuleProgress } from '@/lib/journey'
+import ViewModeToggle from '@/components/ViewModeToggle'
 
 export default function ModulePage() {
   const params = useParams()
@@ -65,7 +66,10 @@ export default function ModulePage() {
         
         {/* Module Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">{module.title}</h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-4xl font-bold text-white">{module.title}</h1>
+            <ViewModeToggle />
+          </div>
           <p className="text-xl text-gray-400 mb-6">{module.description}</p>
           
           {/* Module Metadata */}

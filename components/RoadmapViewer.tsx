@@ -16,7 +16,6 @@ import 'reactflow/dist/style.css'
 import TopicContent from './TopicContent'
 import { useProgress } from '@/hooks/useProgress'
 import { useViewMode } from '@/contexts/ViewModeContext'
-import { useRouter } from 'next/navigation'
 
 // Simple node components
 const TitleNode = ({ data }: { data: any }) => (
@@ -130,7 +129,6 @@ interface RoadmapViewerProps {
 export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
   const { viewMode } = useViewMode()
   const { isCompleted, isStarted, toggleComplete, markStarted } = useProgress()
-  const router = useRouter()
   
   // Filter nodes based on view mode
   const filteredNodes = useMemo(() => {
@@ -163,15 +161,6 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
   
   return (
     <div className="w-full h-[800px] border rounded-lg overflow-hidden bg-gray-50 dark:bg-[#2a2635] relative">
-      <button
-        onClick={() => router.push('/journey')}
-        className="absolute top-4 right-4 z-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-colors duration-200 flex items-center gap-2"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
-        Start Journey
-      </button>
       <ReactFlow
         nodes={nodes}
         edges={edges}

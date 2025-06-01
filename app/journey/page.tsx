@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import PageHeader from '@/components/PageHeader'
+import ViewModeToggle from '@/components/ViewModeToggle'
 import { useLearningPath } from '@/hooks/useLearningPath'
 import { 
   getJourneyProgress, 
-  saveJourneyProgress, 
   JourneyProgress, 
   journeyTiers, 
-  getAvailableTiers, 
   getTierProgress,
   LearningPath,
   // Legacy imports for compatibility
@@ -24,6 +23,7 @@ export default function JourneyPage() {
   const [progress, setProgress] = useState<JourneyProgress | null>(null)
   const [loading, setLoading] = useState(true)
   const [devMode, setDevMode] = useState(false)
+  const [overviewExpanded, setOverviewExpanded] = useState(false)
   const { selectedPath, setSelectedPath } = useLearningPath()
 
   useEffect(() => {
@@ -58,35 +58,49 @@ export default function JourneyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+      {/* Header Banner */}
+      <header className="bg-white shadow-sm border-b dark:bg-gray-800 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <Link href="/" className="inline-block hover:opacity-80 transition-opacity">
+                <h1 className="text-2xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer text-center">
+                  AI Safety Research Journey
+                </h1>
+                <p className="text-gray-600 dark:text-gray-400 text-center">Interactive learning path through AI safety</p>
+              </Link>
+            </div>
+            <div className="flex items-center gap-4">
+              {/* View Mode Toggle */}
+              <ViewModeToggle />
+              
+              {/* Development Mode Toggle */}
+              <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/20 px-3 py-1 rounded-lg">
+                <span className="text-xs font-medium text-yellow-800 dark:text-yellow-200">Dev Mode</span>
+                <button
+                  onClick={() => setDevMode(!devMode)}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                    devMode ? 'bg-yellow-600' : 'bg-gray-300 dark:bg-gray-600'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      devMode ? 'translate-x-5' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
       <div className="container mx-auto px-4 py-8">
         <PageHeader 
-          backLink={{ href: '/roadmap/ai-safety-researcher', label: 'Back to Roadmap' }}
-          showViewModeToggle={true}
+          showViewModeToggle={false}
         />
 
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex-1">
-              AI Safety Research Journey
-            </h1>
-            
-            {/* Development Mode Toggle */}
-            <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/20 px-3 py-1 rounded-lg">
-              <span className="text-xs font-medium text-yellow-800 dark:text-yellow-200">Dev Mode</span>
-              <button
-                onClick={() => setDevMode(!devMode)}
-                className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                  devMode ? 'bg-yellow-600' : 'bg-gray-300 dark:bg-gray-600'
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    devMode ? 'translate-x-5' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
             <div className="text-center mb-8">
@@ -118,36 +132,67 @@ export default function JourneyPage() {
                 </div>
               )}
 
-              <button
-                onClick={handleContinueJourney}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-transform hover:scale-105"
-              >
-                {progress?.sectionsCompleted && progress.sectionsCompleted.length > 0 ? 'Continue Journey' : 'Start Journey'}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={handleContinueJourney}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-transform hover:scale-105"
+                >
+                  {progress?.sectionsCompleted && progress.sectionsCompleted.length > 0 ? 'Continue Journey' : 'Start Journey'}
+                </button>
+                
+                <Link
+                  href="/roadmap/ai-safety-researcher"
+                  className="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold py-3 px-6 rounded-lg shadow transition-colors flex items-center gap-2 justify-center"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  Show Roadmap
+                </Link>
+              </div>
             </div>
 
             <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold mb-4">Journey Overview</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2">Building (60-70%)</h4>
-                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                    <li>• Create AI safety tools</li>
-                    <li>• Implement alignment techniques</li>
-                    <li>• Build evaluation frameworks</li>
-                    <li>• Develop monitoring systems</li>
-                  </ul>
-                </div>
-                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
-                  <h4 className="font-semibold text-purple-700 dark:text-purple-300 mb-2">Learning (30-40%)</h4>
-                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                    <li>• Core AI safety concepts</li>
-                    <li>• Research methodologies</li>
-                    <li>• Case studies & examples</li>
-                    <li>• Best practices</li>
-                  </ul>
-                </div>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">Journey Overview</h3>
+                <button
+                  onClick={() => setOverviewExpanded(!overviewExpanded)}
+                  className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  aria-label={overviewExpanded ? "Collapse overview" : "Expand overview"}
+                >
+                  <svg 
+                    className={`w-5 h-5 text-gray-600 dark:text-gray-400 transform transition-transform ${overviewExpanded ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
               </div>
+              
+              {overviewExpanded && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fadeIn">
+                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2">Building (60-70%)</h4>
+                    <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                      <li>• Create AI safety tools</li>
+                      <li>• Implement alignment techniques</li>
+                      <li>• Build evaluation frameworks</li>
+                      <li>• Develop monitoring systems</li>
+                    </ul>
+                  </div>
+                  <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-purple-700 dark:text-purple-300 mb-2">Learning (30-40%)</h4>
+                    <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                      <li>• Core AI safety concepts</li>
+                      <li>• Research methodologies</li>
+                      <li>• Case studies & examples</li>
+                      <li>• Best practices</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* New Tier-Based Journey */}

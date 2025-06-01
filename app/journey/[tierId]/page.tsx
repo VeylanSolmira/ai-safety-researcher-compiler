@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getTier, getJourneyProgress, getTierProgress, LearningPath } from '@/lib/journey'
 import { useLearningPath } from '@/hooks/useLearningPath'
+import ViewModeToggle from '@/components/ViewModeToggle'
 
 export default function TierPage() {
   const params = useParams()
@@ -83,16 +84,19 @@ export default function TierPage() {
         
         {/* Tier Header */}
         <div className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <h1 className="text-5xl font-bold text-white">{tier.title}</h1>
-            <span className={`px-3 py-1 rounded-full text-sm ${
-              tier.level === 'foundation' ? 'bg-green-500/20 text-green-400' :
-              tier.level === 'intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
-              tier.level === 'advanced' ? 'bg-orange-500/20 text-orange-400' :
-              'bg-purple-500/20 text-purple-400'
-            }`}>
-              {tier.level.charAt(0).toUpperCase() + tier.level.slice(1)}
-            </span>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <h1 className="text-5xl font-bold text-white">{tier.title}</h1>
+              <span className={`px-3 py-1 rounded-full text-sm ${
+                tier.level === 'foundation' ? 'bg-green-500/20 text-green-400' :
+                tier.level === 'intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
+                tier.level === 'advanced' ? 'bg-orange-500/20 text-orange-400' :
+                'bg-purple-500/20 text-purple-400'
+              }`}>
+                {tier.level.charAt(0).toUpperCase() + tier.level.slice(1)}
+              </span>
+            </div>
+            <ViewModeToggle />
           </div>
           <p className="text-xl text-gray-400 mb-6">{tier.description}</p>
           

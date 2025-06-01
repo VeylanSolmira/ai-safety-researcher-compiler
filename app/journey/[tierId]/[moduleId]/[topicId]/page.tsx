@@ -8,6 +8,7 @@ import JourneyTopicContent from '@/components/JourneyTopicContent'
 import { getCaseStudy } from '@/lib/case-studies'
 import { getExperiment } from '@/lib/experiments'
 import { getExploration } from '@/lib/explorations'
+import ViewModeToggle from '@/components/ViewModeToggle'
 
 export default function TopicPage() {
   const params = useParams()
@@ -85,13 +86,17 @@ export default function TopicPage() {
         
         {/* Topic Header */}
         <div className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <h1 className="text-4xl font-bold text-white">{topic.title}</h1>
-            {isComplete && (
-              <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
-                Completed
-              </span>
-            )}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <h1 className="text-4xl font-bold text-white">{topic.title}</h1>
+              {isComplete && (
+                <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
+                  Completed
+                </span>
+              )}
+            </div>
+            {/* View Mode Toggle */}
+            <ViewModeToggle />
           </div>
           <p className="text-xl text-gray-400">{topic.description}</p>
           <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">

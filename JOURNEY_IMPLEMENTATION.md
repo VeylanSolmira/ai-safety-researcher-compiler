@@ -110,7 +110,7 @@ Fundamentals Hub (Open-World)
 - [ ] Achievement/badge system for completing sections
 - [ ] Save points within longer sections
 - [ ] Branching storylines based on user choices
-- [ ] Difficulty levels (beginner/intermediate/advanced paths)
+- [X] Difficulty levels (beginner/intermediate/advanced paths)
 - [ ] Time tracking and study streaks
 - [ ] Collaborative features (share progress, compete with others)
 

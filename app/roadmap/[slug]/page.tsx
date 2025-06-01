@@ -44,10 +44,10 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link
-              href="/about"
-              className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+              href="/journey"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-semibold"
             >
-              About
+              Return to Journey
             </Link>
             <div className="text-center flex-1">
               <Link href="/" className="inline-block hover:opacity-80 transition-opacity">
@@ -57,7 +57,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
                 <p className="text-gray-600">{roadmap.briefDescription}</p>
               </Link>
             </div>
-            <div className="w-[48px]"></div>
+            <div className="w-[150px]"></div>
           </div>
         </div>
       </header>
