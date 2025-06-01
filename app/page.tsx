@@ -37,6 +37,16 @@ export default function HomePage() {
         </Link>
       </div>
       
+      <div className="mt-4">
+        <Link 
+          href="/database-demo"
+          className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+        >
+          <span className="text-green-600 dark:text-green-400">🚀</span>
+          See Database Migration Demo (97.5% token reduction!)
+        </Link>
+      </div>
+      
       <div className="mt-12 max-w-3xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-8 mb-8">
         <h2 className="text-2xl font-bold mb-4 text-center">Two Modes, One Journey</h2>
         <div className="grid md:grid-cols-2 gap-6">
