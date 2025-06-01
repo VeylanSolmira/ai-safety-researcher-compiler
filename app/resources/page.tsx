@@ -57,7 +57,8 @@ const resources: ResourceCard[] = [
     description: 'Latest developments in AI safety research, policy, and governance.',
     icon: NewspaperIcon,
     href: '/resources/news',
-    available: false
+    available: true,
+    badge: 'New'
   },
   {
     title: 'External Resources',
