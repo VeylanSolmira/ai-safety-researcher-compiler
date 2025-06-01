@@ -30,12 +30,22 @@ export async function GET(request: NextRequest) {
     // First, try to find a personal version if in personal mode
     let topicFile = null
     if (viewMode === 'personal') {
-      topicFile = files.find(file => file.endsWith(`@${topicId}.personal.md`))
+      // Check if topicId already includes the @ pattern
+      if (topicId.includes('@')) {
+        topicFile = files.find(file => file === `${topicId}.personal.md`)
+      } else {
+        topicFile = files.find(file => file.endsWith(`@${topicId}.personal.md`))
+      }
     }
     
     // If no personal version found, or in neutral mode, use the regular file
     if (!topicFile) {
-      topicFile = files.find(file => file.endsWith(`@${topicId}.md`) && !file.includes('.personal.'))
+      // Check if topicId already includes the @ pattern
+      if (topicId.includes('@')) {
+        topicFile = files.find(file => file === `${topicId}.md` && !file.includes('.personal.'))
+      } else {
+        topicFile = files.find(file => file.endsWith(`@${topicId}.md`) && !file.includes('.personal.'))
+      }
     }
 
     if (!topicFile) {

@@ -20,11 +20,13 @@ import { useViewMode } from '@/contexts/ViewModeContext'
 // Simple node components
 const TitleNode = ({ data }: { data: any }) => (
   <>
-    <Handle type="target" position={Position.Top} id="y1" />
+    <Handle type="target" position={Position.Top} id="top" />
+    <Handle type="target" position={Position.Left} id="left" />
     <div style={data.style} className="px-4 py-2">
       {data.label}
     </div>
-    <Handle type="source" position={Position.Bottom} id="y2" />
+    <Handle type="source" position={Position.Bottom} id="bottom" />
+    <Handle type="source" position={Position.Right} id="right" />
   </>
 )
 
@@ -35,7 +37,8 @@ const TopicNode = ({ data, id }: { data: any; id: string }) => {
   
   return (
     <>
-      <Handle type="target" position={Position.Top} id="y1" />
+      <Handle type="target" position={Position.Top} id="top" />
+      <Handle type="target" position={Position.Left} id="left" />
       <div 
         style={data.style} 
         className={`
@@ -53,7 +56,8 @@ const TopicNode = ({ data, id }: { data: any; id: string }) => {
           {data.label}
         </div>
       </div>
-      <Handle type="source" position={Position.Bottom} id="y2" />
+      <Handle type="source" position={Position.Bottom} id="bottom" />
+      <Handle type="source" position={Position.Right} id="right" />
     </>
   )
 }
@@ -64,23 +68,29 @@ const SubtopicNode = ({ data, id }: { data: any; id: string }) => {
   const started = isStarted(id)
   
   return (
-    <div 
-      style={data.style} 
-      className={`
-        ${completed 
-          ? 'bg-green-50 dark:bg-green-900 border-green-400 dark:border-green-600' 
-          : started
-          ? 'bg-yellow-50 dark:bg-yellow-900 border-yellow-400 dark:border-yellow-600'
-          : 'bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
-        }
-        border rounded-md px-3 py-1 hover:opacity-90 cursor-pointer text-sm dark:text-gray-200
-      `}
-    >
-      <div className="flex items-center gap-1">
-        {completed && <span className="text-green-600 dark:text-green-400 text-xs">✓</span>}
-        {data.label}
+    <>
+      <Handle type="target" position={Position.Top} id="top" />
+      <Handle type="target" position={Position.Left} id="left" />
+      <div 
+        style={data.style} 
+        className={`
+          ${completed 
+            ? 'bg-green-50 dark:bg-green-900 border-green-400 dark:border-green-600' 
+            : started
+            ? 'bg-yellow-50 dark:bg-yellow-900 border-yellow-400 dark:border-yellow-600'
+            : 'bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
+          }
+          border rounded-md px-3 py-1 hover:opacity-90 cursor-pointer text-sm dark:text-gray-200
+        `}
+      >
+        <div className="flex items-center gap-1">
+          {completed && <span className="text-green-600 dark:text-green-400 text-xs">✓</span>}
+          {data.label}
+        </div>
       </div>
-    </div>
+      <Handle type="source" position={Position.Bottom} id="bottom" />
+      <Handle type="source" position={Position.Right} id="right" />
+    </>
   )
 }
 
@@ -141,9 +151,12 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
   // Filter edges to only include those between visible nodes
   const filteredEdges = useMemo(() => {
     const visibleNodeIds = new Set(filteredNodes.map(n => n.id))
-    return roadmapData.edges.filter(edge => 
+    const filtered = roadmapData.edges.filter(edge => 
       visibleNodeIds.has(edge.source) && visibleNodeIds.has(edge.target)
     )
+    console.log('Nodes:', filteredNodes.length, 'Edges:', filtered.length)
+    console.log('Sample edge:', filtered[0])
+    return filtered
   }, [roadmapData.edges, filteredNodes])
   
   const [nodes, , onNodesChange] = useNodesState(filteredNodes)
@@ -172,11 +185,14 @@ export default function RoadmapViewer({ roadmapData }: RoadmapViewerProps) {
         minZoom={0.75}
         maxZoom={2}
         attributionPosition="bottom-left"
-        nodesDraggable={false}
+        nodesDraggable={true}
         nodesConnectable={false}
-        elementsSelectable={false}
+        elementsSelectable={true}
+        fitView
+        proOptions={{ hideAttribution: true }}
       >
         <Controls />
+        <Background />
       </ReactFlow>
       
       {selectedNode && (

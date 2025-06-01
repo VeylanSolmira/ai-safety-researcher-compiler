@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents Module - Interactive Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0A0A0B;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            color: #10B981;
+        }
+        .diagram-container {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .mermaid {
+            text-align: center;
+        }
+        .description {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            border-left: 4px solid #10B981;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .card h3 {
+            color: #3B82F6;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI Agents & Tool Use Module - Visual Overview</h1>
+        
+        <div class="description">
+            <p>This interactive visualization shows the structure and relationships of the AI Agents & Tool Use module in our AI Safety curriculum. The module reflects 2025 priorities for autonomous AI systems safety.</p>
+        </div>
+
+        <h2>Module Structure</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TB
+    subgraph "🤖 AI AGENTS & TOOL USE MODULE"
+        A[AI Agents & Tool Use<br/>4 topics | Intermediate Tier]
+        
+        A --> T1[Agent Architectures & Design]
+        A --> T2[Agent Safety Fundamentals]
+        A --> T3[Agent Evaluation & Testing]
+        A --> T4[Tool Use & External APIs]
+        
+        T1 --> S1[Single Agent Systems]
+        T1 --> S2[Multi-Modal Agents]
+        T1 --> S3[Recursive Agents]
+        
+        T2 --> S4[Goal Misalignment]
+        T2 --> S5[Safety Constraints]
+        T2 --> S6[Sandboxing]
+        
+        T3 --> S7[Behavioral Testing]
+        T3 --> S8[Capability Assessment]
+        T3 --> S9[Red Team Scenarios]
+        
+        T4 --> S10[API Security]
+        T4 --> S11[Tool Authorization]
+        T4 --> S12[Action Space Limits]
+    end
+    
+    style A fill:#10B981,stroke:#333,stroke-width:4px,color:#fff
+    style T1 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style T2 fill:#EF4444,stroke:#333,stroke-width:2px,color:#fff
+    style T3 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    style T4 fill:#8B5CF6,stroke:#333,stroke-width:2px,color:#fff
+            </div>
+        </div>
+
+        <h2>Learning Path Integration</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph LR
+    subgraph "Prerequisites"
+        P1[Essential ML for Safety]
+        P2[How LLMs Actually Work]
+        P3[Basic Interpretability]
+    end
+    
+    subgraph "Current Module"
+        M[AI Agents & Tool Use]
+    end
+    
+    subgraph "Advanced Topics"
+        A1[Multi-Agent Systems]
+        A2[Agent Ecosystems]
+        A3[Automated AI Safety]
+    end
+    
+    P1 --> M
+    P2 --> M
+    P3 --> M
+    M --> A1
+    M --> A2
+    M --> A3
+    
+    style M fill:#10B981,stroke:#333,stroke-width:3px,color:#fff
+    style P1 fill:#3B82F6,stroke:#333,color:#fff
+    style P2 fill:#3B82F6,stroke:#333,color:#fff
+    style P3 fill:#3B82F6,stroke:#333,color:#fff
+    style A1 fill:#F59E0B,stroke:#333,color:#fff
+    style A2 fill:#F59E0B,stroke:#333,color:#fff
+    style A3 fill:#F59E0B,stroke:#333,color:#fff
+            </div>
+        </div>
+
+        <h2>Module Connections Network</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TD
+    subgraph "Foundation"
+        F1[Understanding AI Risks]
+        F2[The Control Problem]
+        F3[AI Agency and Autonomy]
+    end
+    
+    subgraph "Intermediate"
+        AGENTS[AI Agents & Tool Use]
+        I1[Advanced Red Teaming]
+        I2[Testing & Evaluation]
+        I3[Production Safety]
+    end
+    
+    subgraph "Advanced"
+        A1[Multi-Agent & Complex Systems]
+        A2[Distributed Safety Systems]
+        A3[Automated AI Safety Research]
+    end
+    
+    F1 --> AGENTS
+    F2 --> AGENTS
+    F3 --> AGENTS
+    
+    AGENTS <--> I1
+    AGENTS <--> I2
+    AGENTS <--> I3
+    
+    AGENTS --> A1
+    AGENTS --> A2
+    AGENTS --> A3
+    
+    style AGENTS fill:#10B981,stroke:#333,stroke-width:4px,color:#fff
+    style F1 fill:#3B82F6,stroke:#333,color:#fff
+    style F2 fill:#3B82F6,stroke:#333,color:#fff
+    style F3 fill:#3B82F6,stroke:#333,color:#fff
+    style A1 fill:#F59E0B,stroke:#333,color:#fff
+    style A2 fill:#F59E0B,stroke:#333,color:#fff
+    style A3 fill:#F59E0B,stroke:#333,color:#fff
+            </div>
+        </div>
+
+        <h2>2025 Landscape: Why This Module Matters</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TB
+    subgraph "Current Landscape"
+        C1[GPT-4 with Tools]
+        C2[Claude with Computer Use]
+        C3[Gemini with Extensions]
+    end
+    
+    subgraph "Emerging Risks"
+        R1[Autonomous Code Execution]
+        R2[Unsupervised Web Actions]
+        R3[Multi-System Coordination]
+    end
+    
+    subgraph "Safety Needs"
+        S1[Robust Containment]
+        S2[Behavior Monitoring]
+        S3[Capability Limits]
+    end
+    
+    C1 --> R1
+    C2 --> R2
+    C3 --> R3
+    
+    R1 --> S1
+    R2 --> S2
+    R3 --> S3
+    
+    style C1 fill:#3B82F6,stroke:#333,color:#fff
+    style C2 fill:#3B82F6,stroke:#333,color:#fff
+    style C3 fill:#3B82F6,stroke:#333,color:#fff
+    style R1 fill:#EF4444,stroke:#333,color:#fff
+    style R2 fill:#EF4444,stroke:#333,color:#fff
+    style R3 fill:#EF4444,stroke:#333,color:#fff
+    style S1 fill:#10B981,stroke:#333,color:#fff
+    style S2 fill:#10B981,stroke:#333,color:#fff
+    style S3 fill:#10B981,stroke:#333,color:#fff
+            </div>
+        </div>
+
+        <h2>Module Timeline</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+gantt
+    title AI Agents Module Learning Timeline
+    dateFormat  YYYY-MM-DD
+    section Core Topics
+    Agent Architectures    :a1, 2025-01-01, 7d
+    Safety Fundamentals    :a2, after a1, 7d
+    Evaluation & Testing   :a3, after a2, 7d
+    Tool Use & APIs       :a4, after a3, 7d
+    section Projects
+    Build Safe Agent      :p1, after a2, 14d
+    Red Team Exercise     :p2, after a3, 7d
+    Final Assessment      :p3, after a4, 7d
+            </div>
+        </div>
+
+        <h2>Topic Details</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>1. Agent Architectures & Design</h3>
+                <p><strong>Focus:</strong> Understanding how autonomous AI agents are structured</p>
+                <ul>
+                    <li>ReAct, Chain-of-Thought, Tool-augmented LLMs</li>
+                    <li>Build a simple agent with safety constraints</li>
+                    <li>Design patterns that promote safe behavior</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>2. Agent Safety Fundamentals</h3>
+                <p><strong>Focus:</strong> Core safety challenges unique to agents</p>
+                <ul>
+                    <li>Goal specification, reward hacking, instrumental goals</li>
+                    <li>Implement safety monitors and kill switches</li>
+                    <li>Preventing unintended autonomous actions</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>3. Agent Evaluation & Testing</h3>
+                <p><strong>Focus:</strong> Assessing agent behavior and capabilities</p>
+                <ul>
+                    <li>Sandboxed environments, behavioral unit tests</li>
+                    <li>Create test suites for agent safety properties</li>
+                    <li>Detecting deceptive or harmful behaviors</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>4. Tool Use & External APIs</h3>
+                <p><strong>Focus:</strong> Managing agent interactions with external systems</p>
+                <ul>
+                    <li>API security, rate limiting, action authorization</li>
+                    <li>Build secure tool-use frameworks</li>
+                    <li>Preventing unauthorized system access</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                darkMode: true,
+                background: '#0A0A0B',
+                primaryColor: '#10B981',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#333',
+                lineColor: '#666',
+                secondaryColor: '#3B82F6',
+                tertiaryColor: '#F59E0B',
+                noteBkgColor: '#1a1a1a',
+                noteTextColor: '#fff',
+                textColor: '#fff',
+                mainBkg: '#1a1a1a',
+                secondBkg: '#2a2a2a',
+                tertiaryTextColor: '#fff',
+                clusterBkg: '#1a1a1a',
+                clusterBorder: '#333'
+            }
+        });
+    </script>
+</body>
+</html>

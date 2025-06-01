@@ -119,8 +119,9 @@ export function useTopicData(topicId: string) {
           const response = await fetch(`/api/journey/topics/${topicId}`)
           if (!response.ok) throw new Error('Failed to fetch topic')
           const data = await response.json()
+          // API returns topic with nested tier and module
           setData({
-            topic: data.topic,
+            topic: data,
             tier: data.tier,
             module: data.module
           })

@@ -45,7 +45,31 @@ export async function getRoadmapData(slug: string): Promise<RoadmapData | null> 
     // Read the JSON file with visual structure
     const jsonPath = path.join(roadmapPath, `${slug}.json`)
     const jsonContent = fs.readFileSync(jsonPath, 'utf8')
-    const jsonData = JSON.parse(jsonContent)
+    const rawJsonData = JSON.parse(jsonContent)
+    
+    // Transform nodes to ReactFlow format
+    const transformedNodes = rawJsonData.nodes.map((node: any) => ({
+      id: node.id,
+      type: node.type || 'default',
+      position: node.position || { x: node.x || 0, y: node.y || 0 },
+      data: {
+        label: node.data?.label || node.title || node.label || '',
+        style: node.data?.style || node.style || {},
+        viewMode: node.data?.viewMode || node.viewMode || 'both',
+        description: node.data?.description || node.description,
+        parentId: node.data?.parentId || node.parentId,
+        width: node.data?.width || node.width,
+        height: node.data?.height || node.height
+      },
+      width: node.width,
+      height: node.height
+    }))
+    
+    // Transform the JSON data to include transformed nodes
+    const jsonData = {
+      ...rawJsonData,
+      nodes: transformedNodes
+    }
     
     return {
       ...(data as RoadmapMetadata),

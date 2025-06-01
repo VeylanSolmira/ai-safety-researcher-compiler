@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Safety Research Compiler - Complete Structure</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0A0A0B;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #10B981;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .stats {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 18px;
+            color: #9CA3AF;
+        }
+        .stats span {
+            margin: 0 15px;
+            color: #10B981;
+            font-weight: bold;
+        }
+        .diagram-container {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            overflow-x: auto;
+            min-height: 800px;
+        }
+        .mermaid {
+            text-align: center;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .highlights {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .highlights h2 {
+            color: #10B981;
+            margin-bottom: 20px;
+        }
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .highlight-card {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #10B981;
+        }
+        .highlight-card h3 {
+            margin: 0 0 10px 0;
+            color: #3B82F6;
+        }
+        .path-section {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .path-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .path-card {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .path-card h3 {
+            color: #F59E0B;
+            margin-bottom: 10px;
+        }
+        .database-benefit {
+            background-color: #065F46;
+            color: #10B981;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 AI Safety Research Compiler - Complete Structure</h1>
+        
+        <div class="stats">
+            <span>4 Tiers</span> | 
+            <span>24 Modules</span> | 
+            <span>113 Topics</span> | 
+            <span>97% Faster with Database</span>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box" style="background-color: #3B82F6;"></div>
+                <span>Foundation (35 topics)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background-color: #10B981;"></div>
+                <span>Intermediate (42 topics)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background-color: #F59E0B;"></div>
+                <span>Advanced (28 topics)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background-color: #EF4444;"></div>
+                <span>Expert (8 topics)</span>
+            </div>
+        </div>
+
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TD
+    subgraph "🎓 EXPERT TIER (3 modules, 8 topics)"
+        E1[Research Leadership<br/>2 topics]
+        E2[Field Building<br/>2 topics]
+        E3[Cutting-Edge Research<br/>4 topics]
+    end
+    
+    subgraph "🚀 ADVANCED TIER (6 modules, 28 topics)"
+        A1[Alignment Research Methods<br/>5 topics]
+        A2[Advanced Training<br/>3 topics]
+        A3[Multi-Agent Systems<br/>4 topics]
+        A4[Cutting-Edge Interpretability<br/>2 topics]
+        A5[Advanced Safety Systems<br/>4 topics]
+        A6[Advanced AI Governance<br/>10 topics]
+    end
+    
+    subgraph "🔧 INTERMEDIATE TIER (8 modules, 42 topics)"
+        I1[Advanced Red Teaming<br/>8 topics]
+        I2[Research Methods<br/>4 topics]
+        I3[AI Agents & Tool Use<br/>4 topics]
+        I4[Testing & Evaluation<br/>4 topics]
+        I5[Production Safety<br/>9 topics]
+        I6[Applied Interpretability<br/>5 topics]
+        I7[AI Governance Fundamentals<br/>3 topics]
+        I8[Advanced Alignment<br/>5 topics]
+    end
+    
+    subgraph "📚 FOUNDATION TIER (7 modules, 35 topics)"
+        F1[AI Safety: Why It Matters<br/>4 topics]
+        F2[Practical AI Safety<br/>6 topics]
+        F3[Essential ML for Safety<br/>3 topics]
+        F4[Policy & Ethics Primer<br/>4 topics]
+        F5[Understanding AI Risks<br/>7 topics]
+        F6[Math & Tech Foundations<br/>7 topics]
+        F7[ML Fundamentals<br/>4 topics]
+    end
+    
+    %% Progression paths
+    F1 --> I1
+    F2 --> I1
+    F3 --> I3
+    F4 --> I7
+    F5 --> I8
+    F6 --> I2
+    F7 --> I4
+    
+    I1 --> A3
+    I2 --> A1
+    I3 --> A3
+    I4 --> A4
+    I5 --> A5
+    I6 --> A4
+    I7 --> A6
+    I8 --> A1
+    
+    A1 --> E1
+    A3 --> E3
+    A6 --> E2
+    
+    %% Styling
+    style F1 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style F2 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style F3 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style F4 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style F5 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style F6 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    style F7 fill:#3B82F6,stroke:#333,stroke-width:2px,color:#fff
+    
+    style I1 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I2 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I3 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I4 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I5 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I6 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I7 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    style I8 fill:#10B981,stroke:#333,stroke-width:2px,color:#fff
+    
+    style A1 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    style A2 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    style A3 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    style A4 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    style A5 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    style A6 fill:#F59E0B,stroke:#333,stroke-width:2px,color:#fff
+    
+    style E1 fill:#EF4444,stroke:#333,stroke-width:2px,color:#fff
+    style E2 fill:#EF4444,stroke:#333,stroke-width:2px,color:#fff
+    style E3 fill:#EF4444,stroke:#333,stroke-width:2px,color:#fff
+            </div>
+        </div>
+
+        <div class="highlights">
+            <h2>🌟 Key Highlights</h2>
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <h3>Largest Modules</h3>
+                    <ol>
+                        <li>Advanced AI Governance & Policy - 10 topics</li>
+                        <li>Production Safety Engineering - 9 topics</li>
+                        <li>Advanced Red Teaming & Adversarial ML - 8 topics</li>
+                    </ol>
+                </div>
+                <div class="highlight-card">
+                    <h3>Distribution by Tier</h3>
+                    <ul>
+                        <li>Foundation: 35 topics (31%)</li>
+                        <li>Intermediate: 42 topics (37%)</li>
+                        <li>Advanced: 28 topics (25%)</li>
+                        <li>Expert: 8 topics (7%)</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>New for 2025</h3>
+                    <ul>
+                        <li>🤖 AI Agents & Tool Use module</li>
+                        <li>📊 Database-driven architecture</li>
+                        <li>🎯 Personalized learning paths</li>
+                        <li>⚡ 97% performance improvement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="path-section">
+            <h2>🛤️ Learning Paths</h2>
+            <div class="path-grid">
+                <div class="path-card">
+                    <h3>Technical Track</h3>
+                    <p>Foundation ML → Production Safety → Advanced Systems</p>
+                </div>
+                <div class="path-card">
+                    <h3>Research Track</h3>
+                    <p>Research Methods → Alignment Research → Research Leadership</p>
+                </div>
+                <div class="path-card">
+                    <h3>Policy Track</h3>
+                    <p>Ethics Primer → Governance Fundamentals → Advanced Governance</p>
+                </div>
+                <div class="path-card">
+                    <h3>AI Agents Track</h3>
+                    <p>Essential ML → AI Agents & Tool Use → Multi-Agent Systems</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="database-benefit">
+            ⚡ Database-powered for 97% faster loading and dynamic content updates
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                darkMode: true,
+                background: '#0A0A0B',
+                primaryColor: '#10B981',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#333',
+                lineColor: '#666',
+                secondaryColor: '#3B82F6',
+                tertiaryColor: '#F59E0B',
+                noteBkgColor: '#1a1a1a',
+                noteTextColor: '#fff',
+                textColor: '#fff',
+                mainBkg: '#1a1a1a',
+                secondBkg: '#2a2a2a',
+                tertiaryTextColor: '#fff',
+                clusterBkg: 'rgba(30, 30, 30, 0.5)',
+                clusterBorder: '#333'
+            },
+            flowchart: {
+                htmlLabels: true,
+                curve: 'linear',
+                rankSpacing: 80,
+                nodeSpacing: 30,
+                padding: 20
+            }
+        });
+    </script>
+</body>
+</html>
