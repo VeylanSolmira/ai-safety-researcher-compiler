@@ -10,7 +10,9 @@ export interface Topic {
   
   // Content sources
   roadmapContentId?: string // Link to roadmap content
+  additionalContentIds?: string[] // Additional roadmap content to load
   content?: string // Direct markdown content
+  hasJourneyExtras?: boolean // Include JourneyIntroductionExtras component
   
   // Deep dive connections
   relatedCaseStudies?: string[] // IDs of relevant case studies
@@ -21,6 +23,8 @@ export interface Topic {
   difficulty: 'beginner' | 'intermediate' | 'advanced'
   tags?: string[]
   prerequisites?: string[] // Topic IDs that should be completed first
+  assessmentId?: string // ID to look up assessment questions
+  hasInteractiveTransition?: boolean // Show AI Teacher interface after
   
   // Path relevance
   paths?: LearningPath[] // Which learning paths this topic belongs to
@@ -252,6 +256,18 @@ export const journeyTiers: Tier[] = [
         paths: ['all'], // Everyone takes this module
         topics: [
           {
+            id: 'prerequisites-foundations',
+            title: 'Prerequisites & Foundations',
+            description: 'Core prerequisites and AI safety foundations',
+            estimatedTime: '2 hours',
+            difficulty: 'beginner',
+            roadmapContentId: 'prerequisites-topic', // Will load both prerequisites and foundations
+            additionalContentIds: ['foundations-topic'],
+            hasJourneyExtras: true, // Signals to include JourneyIntroductionExtras
+            assessmentId: 'introduction', // Links to legacy assessment
+            tags: ['prerequisites', 'foundations', 'introduction']
+          },
+          {
             id: 'why-ai-safety',
             title: 'Why AI Safety Matters',
             description: 'Visceral examples of AI failures and near-misses',
@@ -302,6 +318,16 @@ export const journeyTiers: Tier[] = [
         paths: ['technical-safety', 'engineering', 'research'],
         topics: [
           {
+            id: 'build-first-safety-tool',
+            title: 'Build Your First Safety Tool',
+            description: 'Create a simple AI output validator',
+            estimatedTime: '1 hour',
+            difficulty: 'beginner',
+            relatedExperiments: ['build-output-validator'],
+            assessmentId: 'build-first-tool',
+            tags: ['build', 'practical', 'safety-tool']
+          },
+          {
             id: 'intro-red-teaming',
             title: 'Red Teaming Fundamentals',
             description: 'Learn to think like an attacker to build better defenses',
@@ -321,6 +347,25 @@ export const journeyTiers: Tier[] = [
             roadmapContentId: 'interpretability-subtopic',
             relatedExperiments: ['attention-visualization', 'feature-attribution'],
             tags: ['interpretability', 'technical', 'visualization']
+          },
+          {
+            id: 'prompt-injection-attacks',
+            title: 'Prompt Injection Attacks',
+            description: 'Understand and defend against prompt injection',
+            estimatedTime: '20 minutes',
+            difficulty: 'beginner',
+            roadmapContentId: 'prompt-injection-subtopic',
+            assessmentId: 'prompt-injection',
+            tags: ['prompt-injection', 'attacks', 'security']
+          },
+          {
+            id: 'jailbreak-techniques',
+            title: 'Jailbreak Techniques',
+            description: 'Learn about AI jailbreaking methods and defenses',
+            estimatedTime: '20 minutes',
+            difficulty: 'beginner',
+            roadmapContentId: 'jailbreak-subtopic',
+            tags: ['jailbreak', 'security', 'defenses']
           },
           {
             id: 'safety-evaluation-101',
@@ -422,6 +467,50 @@ export const journeyTiers: Tier[] = [
             tags: ['governance', 'institutions', 'oversight']
           }
         ]
+      },
+      {
+        id: 'ai-risks-fundamentals',
+        title: 'Understanding AI Risks',
+        description: 'Deep dive into AI security threats and systemic risks',
+        estimatedTime: '2 weeks',
+        learningObjectives: [
+          'Understand data poisoning attacks',
+          'Learn about AI system security',
+          'Identify systemic AI risks',
+          'Develop risk assessment skills'
+        ],
+        paths: ['all'], // Important for everyone
+        topics: [
+          {
+            id: 'data-poisoning',
+            title: 'Data Poisoning',
+            description: 'How malicious data can corrupt AI systems',
+            estimatedTime: '20 minutes',
+            difficulty: 'beginner',
+            roadmapContentId: 'data-poisoning-subtopic',
+            assessmentId: 'data-poisoning',
+            tags: ['data-poisoning', 'attacks', 'security']
+          },
+          {
+            id: 'ai-computer-security',
+            title: 'AI & Computer Security',
+            description: 'Intersection of AI and traditional security',
+            estimatedTime: '30 minutes',
+            difficulty: 'intermediate',
+            roadmapContentId: 'computer-security-subtopic',
+            tags: ['security', 'systems', 'infrastructure']
+          },
+          {
+            id: 'risk-assessment-intro',
+            title: 'AI Risk Assessment',
+            description: 'Learn to identify and evaluate AI risks',
+            estimatedTime: '2 hours',
+            difficulty: 'intermediate',
+            roadmapContentId: 'risk-assessment-methodologies-subtopic',
+            relatedExperiments: ['risk-assessment-workshop'],
+            tags: ['risk-assessment', 'methodology', 'evaluation']
+          }
+        ]
       }
     ]
   },
@@ -483,6 +572,7 @@ export const journeyTiers: Tier[] = [
             estimatedTime: '10 hours',
             difficulty: 'advanced',
             roadmapContentId: 'adversarial-meta-learning-subtopic',
+            assessmentId: 'adversarial-meta-learning', // Legacy assessment
             relatedExperiments: ['robustness-testing-lab'],
             relatedExplorations: ['certified-defenses'],
             tags: ['defense', 'robustness', 'adversarial']
@@ -700,6 +790,16 @@ export const journeyTiers: Tier[] = [
         assessmentType: 'peer-review',
         paths: ['research', 'technical-safety'],
         topics: [
+          {
+            id: 'alignment-principles-deep',
+            title: 'Deep Dive: Alignment Principles',
+            description: 'Comprehensive exploration of AI alignment theory',
+            estimatedTime: '45 minutes',
+            difficulty: 'advanced',
+            assessmentId: 'explore-alignment', // Legacy assessment
+            hasInteractiveTransition: true, // Include AI Teacher
+            tags: ['alignment', 'theory', 'principles']
+          },
           {
             id: 'research-methodology',
             title: 'AI Safety Research Methodology',

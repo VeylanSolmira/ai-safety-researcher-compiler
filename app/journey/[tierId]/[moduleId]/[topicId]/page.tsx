@@ -4,8 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getTier, getModule, getTopic, getJourneyProgress, markTopicComplete } from '@/lib/journey'
-import TopicContent from '@/components/TopicContent'
-import { getRoadmapContent } from '@/lib/roadmap'
+import JourneyTopicContent from '@/components/JourneyTopicContent'
 import { getCaseStudy } from '@/lib/case-studies'
 import { getExperiment } from '@/lib/experiments'
 import { getExploration } from '@/lib/explorations'
@@ -66,8 +65,7 @@ export default function TopicPage() {
     }
   }
   
-  // Get roadmap content if linked
-  const roadmapContent = topic.roadmapContentId ? getRoadmapContent(topic.roadmapContentId) : null
+  // Roadmap content will be loaded by EnhancedTopicContent component
   
   return (
     <div className="min-h-screen bg-[#0A0A0B]">
@@ -125,21 +123,11 @@ export default function TopicPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Topic Content */}
           <div className="lg:col-span-2">
-            {roadmapContent ? (
-              <TopicContent
-                topicId={topic.roadmapContentId!}
-                title={roadmapContent.title}
-                description={roadmapContent.description}
-              />
-            ) : topic.content ? (
-              <div className="prose prose-invert max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: topic.content }} />
-              </div>
-            ) : (
-              <div className="bg-gray-900 rounded-lg p-8 text-center">
-                <p className="text-gray-400">Content coming soon...</p>
-              </div>
-            )}
+            <JourneyTopicContent 
+              topic={topic}
+              tierId={tierId}
+              moduleId={moduleId}
+            />
             
             {/* Action Buttons */}
             <div className="mt-8 flex gap-4">
