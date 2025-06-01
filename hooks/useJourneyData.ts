@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import type { Tier, Module, Topic } from '@/lib/journey'
 
-// Mock API calls for now - in production these would be actual API endpoints
-// This demonstrates how components would use the database instead of importing files
+// Check if we should use database
+const USE_DATABASE = process.env.NEXT_PUBLIC_USE_DATABASE_FOR_JOURNEY === 'true'
 
 interface JourneyData {
   tiers: Tier[]
@@ -20,20 +20,27 @@ export function useJourneyData() {
   })
 
   useEffect(() => {
-    // In production, this would be an API call
-    // For now, we'll import the file data as a fallback
     async function loadData() {
       try {
-        // This would be: const response = await fetch('/api/journey/tiers')
-        // const tiers = await response.json()
-        
-        // Temporary: import the file
-        const { journeyTiers } = await import('@/lib/journey')
-        setData({
-          tiers: journeyTiers,
-          loading: false,
-          error: null
-        })
+        if (USE_DATABASE) {
+          // Use API endpoint when database is enabled
+          const response = await fetch('/api/journey/tiers')
+          if (!response.ok) throw new Error('Failed to fetch tiers')
+          const tiers = await response.json()
+          setData({
+            tiers,
+            loading: false,
+            error: null
+          })
+        } else {
+          // Fallback to file import
+          const { journeyTiers } = await import('@/lib/journey')
+          setData({
+            tiers: journeyTiers,
+            loading: false,
+            error: null
+          })
+        }
       } catch (error) {
         setData({
           tiers: [],
@@ -61,14 +68,19 @@ export function useTierData(tierId: string) {
     async function loadTier() {
       try {
         setLoading(true)
-        // This would be: const response = await fetch(`/api/journey/tiers/${tierId}`)
-        // const tier = await response.json()
         
-        // Temporary: import and find
-        const { journeyTiers } = await import('@/lib/journey')
-        const foundTier = journeyTiers.find(t => t.id === tierId)
+        if (USE_DATABASE) {
+          const response = await fetch(`/api/journey/tiers/${tierId}`)
+          if (!response.ok) throw new Error('Failed to fetch tier')
+          const tier = await response.json()
+          setTier(tier)
+        } else {
+          // Fallback to file import
+          const { journeyTiers } = await import('@/lib/journey')
+          const foundTier = journeyTiers.find(t => t.id === tierId)
+          setTier(foundTier || null)
+        }
         
-        setTier(foundTier || null)
         setError(null)
       } catch (err) {
         setError(err as Error)
@@ -102,33 +114,43 @@ export function useTopicData(topicId: string) {
     async function loadTopic() {
       try {
         setLoading(true)
-        // This would be: const response = await fetch(`/api/journey/topics/${topicId}`)
-        // const topic = await response.json()
         
-        // Temporary: import and search
-        const { journeyTiers } = await import('@/lib/journey')
-        let foundTopic: Topic | null = null
-        let foundTier: Tier | null = null
-        let foundModule: Module | null = null
-        
-        for (const tier of journeyTiers) {
-          for (const module of tier.modules) {
-            const topic = module.topics.find(t => t.id === topicId)
-            if (topic) {
-              foundTopic = topic
-              foundTier = tier
-              foundModule = module
-              break
+        if (USE_DATABASE) {
+          const response = await fetch(`/api/journey/topics/${topicId}`)
+          if (!response.ok) throw new Error('Failed to fetch topic')
+          const data = await response.json()
+          setData({
+            topic: data.topic,
+            tier: data.tier,
+            module: data.module
+          })
+        } else {
+          // Fallback to file import
+          const { journeyTiers } = await import('@/lib/journey')
+          let foundTopic: Topic | null = null
+          let foundTier: Tier | null = null
+          let foundModule: Module | null = null
+          
+          for (const tier of journeyTiers) {
+            for (const module of tier.modules) {
+              const topic = module.topics.find(t => t.id === topicId)
+              if (topic) {
+                foundTopic = topic
+                foundTier = tier
+                foundModule = module
+                break
+              }
             }
+            if (foundTopic) break
           }
-          if (foundTopic) break
+          
+          setData({
+            topic: foundTopic,
+            tier: foundTier,
+            module: foundModule
+          })
         }
         
-        setData({
-          topic: foundTopic,
-          tier: foundTier,
-          module: foundModule
-        })
         setError(null)
       } catch (err) {
         setError(err as Error)
@@ -165,33 +187,37 @@ export function useTopicSearch(query: string) {
     const searchTopics = async () => {
       setLoading(true)
       try {
-        // This would be: const response = await fetch(`/api/journey/search?q=${query}`)
-        // const results = await response.json()
-        
-        // Temporary: import and search
-        const { journeyTiers } = await import('@/lib/journey')
-        const searchResults: any[] = []
-        
-        for (const tier of journeyTiers) {
-          for (const module of tier.modules) {
-            for (const topic of module.topics) {
-              if (
-                topic.title.toLowerCase().includes(query.toLowerCase()) ||
-                topic.description.toLowerCase().includes(query.toLowerCase())
-              ) {
-                searchResults.push({
-                  id: topic.id,
-                  title: topic.title,
-                  description: topic.description,
-                  moduleTitle: module.title,
-                  tierTitle: tier.title
-                })
+        if (USE_DATABASE) {
+          const response = await fetch(`/api/journey/search?q=${encodeURIComponent(query)}`)
+          if (!response.ok) throw new Error('Search failed')
+          const results = await response.json()
+          setResults(results)
+        } else {
+          // Fallback to file import
+          const { journeyTiers } = await import('@/lib/journey')
+          const searchResults: any[] = []
+          
+          for (const tier of journeyTiers) {
+            for (const module of tier.modules) {
+              for (const topic of module.topics) {
+                if (
+                  topic.title.toLowerCase().includes(query.toLowerCase()) ||
+                  topic.description.toLowerCase().includes(query.toLowerCase())
+                ) {
+                  searchResults.push({
+                    id: topic.id,
+                    title: topic.title,
+                    description: topic.description,
+                    moduleTitle: module.title,
+                    tierTitle: tier.title
+                  })
+                }
               }
             }
           }
+          
+          setResults(searchResults)
         }
-        
-        setResults(searchResults)
       } catch (error) {
         console.error('Search error:', error)
         setResults([])
