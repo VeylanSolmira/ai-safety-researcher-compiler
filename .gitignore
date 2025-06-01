@@ -46,3 +46,9 @@ Thumbs.db
 
 # Development resources (not for production)
 development-resources/
+
+# Database files
+journey.db
+*.db
+*.db-journal
+*.db-wal
