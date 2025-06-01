@@ -351,10 +351,20 @@ export default function JourneyPage() {
                 })}
               </div>
               
-              {/* Database efficiency indicator */}
-              <div className="mt-6 flex items-center justify-center gap-2 text-xs text-green-600 dark:text-green-400">
-                <span>⚡</span>
-                <span>Powered by database (97% faster)</span>
+              {/* Database efficiency indicator and structure link */}
+              <div className="mt-6 space-y-2">
+                <div className="flex items-center justify-center gap-2 text-xs text-green-600 dark:text-green-400">
+                  <span>⚡</span>
+                  <span>Powered by database (97% faster)</span>
+                </div>
+                <div className="flex items-center justify-center">
+                  <Link
+                    href="/journey/structure"
+                    className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
+                  >
+                    📊 View Journey Structure Table
+                  </Link>
+                </div>
               </div>
             </div>
 

@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useViewMode } from '@/contexts/ViewModeContext'
 import { externalResources } from '@/lib/external-resources'
+import { useClaude } from '@/hooks/useClaude'
 
 interface InteractiveTransitionProps {
   fromSection: string
@@ -64,7 +65,7 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
 }
 
 
-// AI Teacher Component with placeholder for future API integration
+// AI Teacher Component with Claude integration
 function AITeacher({ 
   viewMode, 
   sectionId, 
@@ -77,21 +78,42 @@ function AITeacher({
   setTutorMode: (mode: 'teacher' | 'adversary') => void
 }) {
   const [question, setQuestion] = useState('')
+  const { chat, loading, error } = useClaude()
   
   // Get appropriate system prompt based on section and mode
-  const getInitialMessage = () => {
-    const prompts = externalResources.aiTutor.systemPrompts[sectionId as keyof typeof externalResources.aiTutor.systemPrompts] 
-      || externalResources.aiTutor.systemPrompts.default
-    
+  const getSystemPrompt = () => {
     if (tutorMode === 'adversary') {
       return viewMode === 'academic'
-        ? "I'm here to challenge your assumptions about AI safety. Let's test your reasoning. (Note: Adversarial mode placeholder)"
-        : "So you think AI safety matters? Let me play devil's advocate... (Note: Adversarial mode placeholder)"
+        ? `You are an AI safety adversary challenging the user's assumptions. Be intellectually rigorous but respectful. 
+           Challenge their reasoning, point out potential flaws, and present counterarguments. 
+           Focus on: orthogonality thesis, instrumental convergence, mesa-optimization, and alignment difficulties.
+           Stay in character as someone skeptical of AI safety concerns but engage substantively.`
+        : `You're playing devil's advocate about AI safety in a casual way. 
+           Challenge the user's concerns but keep it conversational. 
+           Question whether AI risk is real, suggest it might be hype, but engage with their actual arguments.`
     }
     
     return viewMode === 'academic' 
-      ? "I'm your AI Safety tutor. Ask me anything about the content you've covered or what's ahead. (Note: This is currently a placeholder for future AI integration)"
-      : "Hey! I'm here to help you on your AI safety journey. What questions do you have? (Note: This is currently a placeholder - but imagine the meta-irony!)"
+      ? `You are an expert AI safety tutor with deep knowledge of alignment, interpretability, and x-risk.
+         Provide rigorous, technically accurate responses. Reference key papers and researchers when relevant.
+         Help the user understand complex concepts while maintaining academic standards.
+         Current section context: ${sectionId}`
+      : `You're a friendly AI safety guide helping someone learn. 
+         Keep explanations clear and engaging. Use analogies and examples.
+         Be encouraging but accurate. Help them see why this stuff matters.
+         Current section context: ${sectionId}`
+  }
+  
+  const getInitialMessage = () => {
+    if (tutorMode === 'adversary') {
+      return viewMode === 'academic'
+        ? "I'm here to challenge your assumptions about AI safety. Why do you think AI poses existential risks? Let's examine your reasoning critically."
+        : "So you're worried about AI taking over? Let's talk about why that might be overblown..."
+    }
+    
+    return viewMode === 'academic' 
+      ? "I'm your AI Safety tutor. I can help you understand alignment theory, interpretability research, or any concepts you're studying. What would you like to explore?"
+      : "Hey! I'm here to help you learn about AI safety. What's on your mind? Any concepts confusing you?"
   }
   
   const [conversation, setConversation] = useState<Array<{role: 'user' | 'ai', content: string}>>([
@@ -100,23 +122,43 @@ function AITeacher({
       content: getInitialMessage()
     }
   ])
+  
+  // Update conversation when mode or view changes
+  useEffect(() => {
+    setConversation([{
+      role: 'ai',
+      content: getInitialMessage()
+    }])
+  }, [tutorMode, viewMode])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!question.trim()) return
+    if (!question.trim() || loading) return
 
     // Add user question
-    setConversation([...conversation, { role: 'user', content: question }])
+    const newConversation = [...conversation, { role: 'user', content: question }]
+    setConversation(newConversation)
+    setQuestion('')
     
-    // Placeholder response
-    setTimeout(() => {
+    // Prepare messages for Claude
+    const claudeMessages = newConversation.slice(1).map(msg => ({
+      role: msg.role === 'user' ? 'user' as const : 'assistant' as const,
+      content: msg.content
+    }))
+    
+    // Get Claude's response
+    const response = await chat(claudeMessages, {
+      systemPrompt: getSystemPrompt(),
+      maxTokens: 500,
+      temperature: tutorMode === 'adversary' ? 0.8 : 0.7
+    })
+    
+    if (response) {
       setConversation(prev => [...prev, {
         role: 'ai',
-        content: "This AI tutor feature is coming soon! For now, consider: How does your question relate to the ethical frameworks we just explored? What technical knowledge would help answer it?"
+        content: response
       }])
-    }, 500)
-
-    setQuestion('')
+    }
   }
 
   return (
@@ -126,7 +168,7 @@ function AITeacher({
         <p className="text-sm">
           <span className="text-amber-600 dark:text-amber-400">⚠️ Warning:</span>{' '}
           <a 
-            href="/journey/study-risks/adversarial-meta-learning"
+            href={externalResources.aiTutor.warningLink}
             className="text-blue-600 dark:text-blue-400 hover:underline"
           >
             There may be risks in using AI as a teacher
@@ -140,7 +182,6 @@ function AITeacher({
           <button
             onClick={() => {
               setTutorMode('teacher')
-              setConversation([{ role: 'ai', content: getInitialMessage() }])
             }}
             className={`px-3 py-1 rounded-md text-sm transition-all ${
               tutorMode === 'teacher' 
@@ -153,7 +194,6 @@ function AITeacher({
           <button
             onClick={() => {
               setTutorMode('adversary')
-              setConversation([{ role: 'ai', content: getInitialMessage() }])
             }}
             className={`px-3 py-1 rounded-md text-sm transition-all ${
               tutorMode === 'adversary' 
@@ -189,17 +229,25 @@ function AITeacher({
           onChange={(e) => setQuestion(e.target.value)}
           placeholder={tutorMode === 'adversary' ? "Defend your position..." : "Ask about prerequisites, foundations, or your learning path..."}
           className="flex-1 px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
+          disabled={loading}
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+          disabled={loading}
         >
-          Send
+          {loading ? '...' : 'Send'}
         </button>
       </form>
 
+      {error && (
+        <p className="text-xs text-red-500 mt-2 text-center">
+          Error: {error}
+        </p>
+      )}
+      
       <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-        🔮 Future feature: This will connect to an AI tutor API with {tutorMode === 'adversary' ? 'adversarial' : 'supportive'} prompts
+        🤖 Powered by Claude AI • {tutorMode === 'adversary' ? 'Adversarial' : 'Supportive'} mode
       </p>
     </div>
   )

@@ -44,6 +44,7 @@ export const externalResources = {
   aiTutor: {
     // Placeholder for future AI teacher API configuration
     apiEndpoint: process.env.NEXT_PUBLIC_AI_TUTOR_API || null,
+    warningLink: '/journey/intermediate/advanced-red-teaming/adversarial-robustness',
     defaultConfig: {
       temperature: 0.7,
       maxTokens: 500

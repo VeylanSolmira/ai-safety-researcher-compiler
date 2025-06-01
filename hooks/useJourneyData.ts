@@ -46,7 +46,10 @@ export function useJourneyData() {
     loadData()
   }, [])
 
-  return data
+  return {
+    ...data,
+    data: data.tiers // Also expose as 'data' for components expecting this format
+  }
 }
 
 export function useTierData(tierId: string) {
@@ -83,7 +86,15 @@ export function useTierData(tierId: string) {
 }
 
 export function useTopicData(topicId: string) {
-  const [topic, setTopic] = useState<Topic | null>(null)
+  const [data, setData] = useState<{
+    topic: Topic | null
+    tier: Tier | null
+    module: Module | null
+  }>({
+    topic: null,
+    tier: null,
+    module: null
+  })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
@@ -97,19 +108,27 @@ export function useTopicData(topicId: string) {
         // Temporary: import and search
         const { journeyTiers } = await import('@/lib/journey')
         let foundTopic: Topic | null = null
+        let foundTier: Tier | null = null
+        let foundModule: Module | null = null
         
         for (const tier of journeyTiers) {
           for (const module of tier.modules) {
             const topic = module.topics.find(t => t.id === topicId)
             if (topic) {
               foundTopic = topic
+              foundTier = tier
+              foundModule = module
               break
             }
           }
           if (foundTopic) break
         }
         
-        setTopic(foundTopic)
+        setData({
+          topic: foundTopic,
+          tier: foundTier,
+          module: foundModule
+        })
         setError(null)
       } catch (err) {
         setError(err as Error)
@@ -123,7 +142,13 @@ export function useTopicData(topicId: string) {
     }
   }, [topicId])
 
-  return { topic, loading, error }
+  return { 
+    topic: data.topic, 
+    tier: data.tier, 
+    module: data.module, 
+    loading, 
+    error 
+  }
 }
 
 // Hook for search functionality
