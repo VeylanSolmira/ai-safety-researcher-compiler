@@ -4,14 +4,16 @@ import { useState, useEffect } from 'react'
 import { useViewMode } from '@/contexts/ViewModeContext'
 import { externalResources } from '@/lib/external-resources'
 import { useClaude } from '@/hooks/useClaude'
+import { getSectionPrompt, getParadigmPrompt } from '@/lib/prompts'
 
 interface InteractiveTransitionProps {
   fromSection: string
   toSection: string
   sectionId?: string // To determine which prompts to use
+  paradigmId?: string // Specific paradigm for focused discussion
 }
 
-export default function InteractiveTransition({ fromSection, toSection, sectionId = 'default' }: InteractiveTransitionProps) {
+export default function InteractiveTransition({ fromSection, toSection, sectionId = 'default', paradigmId }: InteractiveTransitionProps) {
   const [activeTab, setActiveTab] = useState<'ai-teacher' | 'quiz'>('ai-teacher')
   const [tutorMode, setTutorMode] = useState<'teacher' | 'adversary'>('teacher')
   const { viewMode } = useViewMode()
@@ -53,7 +55,8 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
         {activeTab === 'ai-teacher' && (
           <AITeacher 
             viewMode={viewMode} 
-            sectionId={sectionId} 
+            sectionId={sectionId}
+            paradigmId={paradigmId}
             tutorMode={tutorMode} 
             setTutorMode={setTutorMode} 
           />
@@ -68,12 +71,14 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
 // AI Teacher Component with Claude integration
 function AITeacher({ 
   viewMode, 
-  sectionId, 
+  sectionId,
+  paradigmId,
   tutorMode,
   setTutorMode 
 }: { 
   viewMode: 'academic' | 'personal'
   sectionId: string
+  paradigmId?: string
   tutorMode: 'teacher' | 'adversary'
   setTutorMode: (mode: 'teacher' | 'adversary') => void
 }) {
@@ -82,26 +87,11 @@ function AITeacher({
   
   // Get appropriate system prompt based on section and mode
   const getSystemPrompt = () => {
-    if (tutorMode === 'adversary') {
-      return viewMode === 'academic'
-        ? `You are an AI safety adversary challenging the user's assumptions. Be intellectually rigorous but respectful. 
-           Challenge their reasoning, point out potential flaws, and present counterarguments. 
-           Focus on: orthogonality thesis, instrumental convergence, mesa-optimization, and alignment difficulties.
-           Stay in character as someone skeptical of AI safety concerns but engage substantively.`
-        : `You're playing devil's advocate about AI safety in a casual way. 
-           Challenge the user's concerns but keep it conversational. 
-           Question whether AI risk is real, suggest it might be hype, but engage with their actual arguments.`
+    // Use paradigm prompt if paradigmId is provided, otherwise use section prompt
+    if (paradigmId) {
+      return getParadigmPrompt(paradigmId, tutorMode, viewMode)
     }
-    
-    return viewMode === 'academic' 
-      ? `You are an expert AI safety tutor with deep knowledge of alignment, interpretability, and x-risk.
-         Provide rigorous, technically accurate responses. Reference key papers and researchers when relevant.
-         Help the user understand complex concepts while maintaining academic standards.
-         Current section context: ${sectionId}`
-      : `You're a friendly AI safety guide helping someone learn. 
-         Keep explanations clear and engaging. Use analogies and examples.
-         Be encouraging but accurate. Help them see why this stuff matters.
-         Current section context: ${sectionId}`
+    return getSectionPrompt(sectionId, tutorMode, viewMode)
   }
   
   const getInitialMessage = () => {

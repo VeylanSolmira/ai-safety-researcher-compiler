@@ -1,69 +1,13 @@
 import Link from 'next/link'
 import PageHeader from '@/components/PageHeader'
+import { courseHighlights } from '@/lib/course-highlights'
 
-interface Highlight {
-  id: string
-  title: string
-  category: 'case-study' | 'experiment' | 'exploration'
-  description: string
-  link: string
-  featured?: boolean
-  tags: string[]
-}
-
-const highlights: Highlight[] = [
-  {
-    id: 'alpha-evolve',
-    title: 'AlphaEvolve: Recursive Self-Improvement in Practice',
-    category: 'case-study',
-    description: 'Deep analysis of Google DeepMind\'s AlphaEvolve demonstrating real-world recursive self-improvement - AI systems improving their own training infrastructure.',
-    link: '/journey/deep-dives/case-studies/alpha-evolve',
-    featured: true,
-    tags: ['Recursive Self-Improvement', 'Adversarial Meta-Learning', 'Real-World Impact']
-  },
-  {
-    id: 'recursive-improvement-notebook',
-    title: 'Building a Self-Improving Code Generator',
-    category: 'experiment',
-    description: 'Hands-on experiment creating a simple recursive self-improvement system that generates and evaluates its own code improvements.',
-    link: '/journey/deep-dives/experiments/recursive-improvement-notebook',
-    featured: true,
-    tags: ['Recursive Self-Improvement', 'Interactive', 'Python', 'Code Generation']
-  },
-  {
-    id: 'dark-forest-philosophy',
-    title: 'The Dark Forest of AI Safety',
-    category: 'exploration',
-    description: 'A philosophical exploration of the tension between open scientific collaboration and the risks of publishing AI safety research.',
-    link: '/journey/deep-dives/explorations/dark-forest-philosophy',
-    featured: true,
-    tags: ['Philosophy', 'Information Hazards', 'Research Ethics']
-  },
-  {
-    id: 'adversarial-prompting-lab',
-    title: 'Red-Teaming Language Models',
-    category: 'experiment',
-    description: 'Interactive lab for exploring adversarial prompting techniques, jailbreaks, and understanding AI manipulation.',
-    link: '/journey/deep-dives/experiments/adversarial-prompting-lab',
-    tags: ['Red-Teaming', 'Jailbreaking', 'Interactive', 'LLM Security']
-  },
-  {
-    id: 'value-alignment-paradox',
-    title: 'The Value Alignment Paradox',
-    category: 'exploration',
-    description: 'An exploration of the fundamental challenges in aligning AI systems with human values across cultures and time.',
-    link: '/journey/deep-dives/explorations/value-alignment-paradox',
-    tags: ['Philosophy', 'Value Alignment', 'Ethics', 'AI Governance']
-  },
-  {
-    id: 'consciousness-safety-interface',
-    title: 'Consciousness and AI Safety',
-    category: 'exploration',
-    description: 'Exploring how questions of machine consciousness intersect with AI safety and control.',
-    link: '/journey/deep-dives/explorations/consciousness-safety-interface',
-    tags: ['Philosophy', 'Consciousness', 'Ethics', 'Moral Status']
-  }
-]
+// For now, we'll use the static data until all content is created
+const highlights = courseHighlights.map(h => ({
+  ...h,
+  category: h.type,
+  link: h.path
+}))
 
 export default function HighlightsPage() {
   const featuredHighlights = highlights.filter(h => h.featured)
