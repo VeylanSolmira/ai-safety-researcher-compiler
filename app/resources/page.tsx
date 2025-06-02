@@ -44,7 +44,8 @@ const resources: ResourceCard[] = [
     description: 'AI safety organizations, research groups, and communities worldwide.',
     icon: UserGroupIcon,
     href: '/resources/communities',
-    available: false
+    available: true,
+    badge: 'New'
   },
   {
     title: 'Tools & Frameworks',
