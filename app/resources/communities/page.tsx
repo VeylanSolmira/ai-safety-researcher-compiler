@@ -198,6 +198,20 @@ const communities: Community[] = [
     location: 'London, UK',
     focus: ['Controllability', 'Interpretability', 'Safety Tools']
   },
+  {
+    id: 'far-ai',
+    name: 'FAR.AI (FAR Labs)',
+    type: 'lab',
+    category: 'research',
+    description: 'Research organization focused on making AI go well for humanity through technical research and field-building.',
+    website: 'https://far.ai',
+    location: 'Berkeley, CA',
+    focus: ['AI Safety Research', 'Field Building', 'Technical Alignment', 'Research Infrastructure'],
+    resources: [
+      { type: 'blog', title: 'FAR.AI Blog', url: 'https://far.ai/blog' },
+      { type: 'paper', title: 'Research Publications', url: 'https://far.ai/research' }
+    ]
+  },
 
   // Educational Programs
   {
