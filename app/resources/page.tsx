@@ -5,7 +5,8 @@ import {
   UserGroupIcon, 
   BeakerIcon,
   NewspaperIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
+  LightBulbIcon
 } from '@heroicons/react/24/outline'
 
 export const metadata = {
@@ -135,7 +136,29 @@ export default function ResourcesPage() {
           })}
         </div>
 
-        <div className="mt-12 text-center">
+        {/* Ideas Lab - Secondary Section */}
+        <div className="mt-12 p-6 bg-yellow-50 dark:bg-yellow-900/10 rounded-xl border border-yellow-200 dark:border-yellow-800">
+          <div className="flex items-start gap-4">
+            <LightBulbIcon className="h-8 w-8 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                🧪 Ideas Lab - Experimental Content
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                A scratchpad for rough ideas, contrarian takes, and experimental thoughts about AI safety. 
+                Not ready for the main curriculum but potentially valuable for sparking discussions.
+              </p>
+              <Link
+                href="/resources/ideas-lab"
+                className="inline-flex items-center gap-2 text-yellow-700 dark:text-yellow-300 hover:text-yellow-800 dark:hover:text-yellow-200 font-medium"
+              >
+                Explore experimental ideas →
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             More resources coming soon. Have suggestions?{' '}
             <a 
