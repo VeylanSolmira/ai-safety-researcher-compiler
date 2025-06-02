@@ -30,7 +30,7 @@ async function compareMarkdownToDb() {
       SELECT 
         id,
         title,
-        content_markdown,
+        content_academic,
         module_id
       FROM topics
     `).all()
@@ -38,7 +38,7 @@ async function compareMarkdownToDb() {
     // Create a map for easy lookup
     const dbContentMap = new Map()
     dbTopics.forEach(topic => {
-      dbContentMap.set(topic.id, topic.content_markdown || '')
+      dbContentMap.set(topic.id, topic.content_academic || '')
     })
     
     let matches = 0
@@ -153,7 +153,7 @@ async function compareMarkdownToDb() {
     
     // Also check for database topics that don't have files
     console.log('\n🔍 Checking for database topics without markdown files...')
-    const dbTopicsWithContent = dbTopics.filter(t => t.content_markdown && t.content_markdown.length > 0)
+    const dbTopicsWithContent = dbTopics.filter(t => t.content_academic && t.content_academic.length > 0)
     const filesSet = new Set(markdownFiles.map(f => {
       if (f.includes('@')) {
         return f.split('@')[0]

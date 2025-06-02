@@ -30,7 +30,7 @@ async function importMissingContent() {
     
     // Get all topics from database
     const dbTopics = db.prepare(`
-      SELECT id, title, content_markdown, module_id
+      SELECT id, title, content_academic, module_id
       FROM topics
     `).all()
     
@@ -55,7 +55,7 @@ async function importMissingContent() {
     // Prepare update statements
     const updateContent = db.prepare(`
       UPDATE topics 
-      SET content_markdown = ?,
+      SET content_academic = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `)
@@ -94,11 +94,11 @@ async function importMissingContent() {
       }
       
       // Only import if database content is empty or different
-      if (!dbTopic.content_markdown || dbTopic.content_markdown === '') {
+      if (!dbTopic.content_academic || dbTopic.content_academic === '') {
         updateContent.run(content, topicId)
         console.log(`✅ Imported: ${file} -> ${topicId}`)
         imported++
-      } else if (dbTopic.content_markdown.trim() !== content.trim()) {
+      } else if (dbTopic.content_academic.trim() !== content.trim()) {
         console.log(`⚠️  Content differs: ${file} (keeping existing DB content)`)
         skipped++
       } else {
@@ -147,7 +147,7 @@ async function importMissingContent() {
     const emptyTopics = db.prepare(`
       SELECT id, title, module_id
       FROM topics
-      WHERE (content_markdown IS NULL OR content_markdown = '')
+      WHERE (content_academic IS NULL OR content_academic = '')
         AND (content_personal IS NULL OR content_personal = '')
       ORDER BY id
     `).all()

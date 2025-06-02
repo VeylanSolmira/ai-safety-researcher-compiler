@@ -142,26 +142,30 @@ export default function TierPage() {
           
           {/* Skills & Career Relevance */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-3">Skills You'll Gain</h3>
-              <div className="flex flex-wrap gap-2">
-                {tier.skillsGained.map((skill, index) => (
-                  <span key={index} className="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">
-                    {skill}
-                  </span>
-                ))}
+            {tier.skillsGained && tier.skillsGained.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-3">Skills You'll Gain</h3>
+                <div className="flex flex-wrap gap-2">
+                  {tier.skillsGained.map((skill, index) => (
+                    <span key={index} className="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-3">Career Relevance</h3>
-              <ul className="space-y-1">
-                {tier.careerRelevance.map((career, index) => (
-                  <li key={index} className="text-gray-400 text-sm">
-                    • {career}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            )}
+            {tier.careerRelevance && tier.careerRelevance.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-3">Career Relevance</h3>
+                <ul className="space-y-1">
+                  {tier.careerRelevance.map((career, index) => (
+                    <li key={index} className="text-gray-400 text-sm">
+                      • {career}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
         
@@ -277,7 +281,7 @@ export default function TierPage() {
         </div>
         
         {/* Next Tier Preview */}
-        {tier.unlocks.length > 0 && (
+        {tier.unlocks && tier.unlocks.length > 0 && (
           <div className="mt-12 p-6 bg-gradient-to-r from-gray-900 to-gray-900/50 rounded-lg border border-gray-800">
             <p className="text-sm text-gray-500 mb-1">Complete this tier to unlock:</p>
             <p className="text-lg font-semibold text-white">

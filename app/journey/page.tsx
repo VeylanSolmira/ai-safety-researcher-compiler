@@ -262,6 +262,25 @@ export default function JourneyPage() {
                   // Skip tier if no modules match the selected path
                   if (visibleModules.length === 0) return null
                   
+                  // Calculate visible topics count
+                  const visibleTopicsCount = visibleModules.reduce((sum, module) => 
+                    sum + module.topics.length, 0
+                  )
+                  
+                  // Calculate completed topics in visible modules
+                  let visibleTopicsCompleted = 0
+                  if (progress) {
+                    visibleModules.forEach(module => {
+                      const completedInModule = progress.topicsCompleted?.[tier.id]?.[module.id] || []
+                      visibleTopicsCompleted += completedInModule.length
+                    })
+                  }
+                  
+                  // Calculate progress percentage based on visible topics
+                  const visibleProgressPercentage = visibleTopicsCount > 0 
+                    ? Math.round((visibleTopicsCompleted / visibleTopicsCount) * 100) 
+                    : 0
+                  
                   return (
                     <Link
                       key={tier.id}
@@ -272,9 +291,9 @@ export default function JourneyPage() {
                         relative p-6 rounded-xl border-2 transition-all
                         ${!isUnlocked 
                           ? 'opacity-50 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800' 
-                          : tierProgress && tierProgress.percentage === 100
+                          : progress && visibleProgressPercentage === 100
                           ? 'hover:shadow-lg border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20'
-                          : tierProgress && tierProgress.percentage > 0
+                          : progress && visibleProgressPercentage > 0
                           ? 'hover:shadow-lg border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20'
                           : 'hover:shadow-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'}
                       `}>
@@ -304,20 +323,20 @@ export default function JourneyPage() {
                               <span className="text-gray-500">
                                 📚 {visibleModules.length}{visibleModules.length !== tier.modules.length ? ` of ${tier.modules.length}` : ''} modules
                               </span>
-                              {tierProgress && (
+                              {progress && (
                                 <span className="text-gray-500">
-                                  ✅ {tierProgress.topicsCompleted}/{tierProgress.totalTopics} topics
+                                  ✅ {visibleTopicsCompleted}/{visibleTopicsCount} topics
                                 </span>
                               )}
                             </div>
                             
                             {/* Progress bar */}
-                            {tierProgress && tierProgress.percentage > 0 && (
+                            {progress && visibleProgressPercentage > 0 && (
                               <div className="mt-4">
                                 <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                                   <div 
                                     className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-500"
-                                    style={{ width: `${tierProgress.percentage}%` }}
+                                    style={{ width: `${visibleProgressPercentage}%` }}
                                   />
                                 </div>
                               </div>

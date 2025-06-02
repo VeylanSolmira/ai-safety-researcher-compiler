@@ -31,7 +31,7 @@ async function convertHtmlToMarkdown() {
       SELECT 
         t.id,
         t.title,
-        t.content_markdown,
+        t.content_academic,
         t.content_personal,
         m.title as module_title,
         tier.title as tier_title
@@ -39,17 +39,17 @@ async function convertHtmlToMarkdown() {
       JOIN modules m ON t.module_id = m.id
       JOIN tiers tier ON m.tier_id = tier.id
       WHERE (
-        (t.content_markdown LIKE '%<p>%' 
-         OR t.content_markdown LIKE '%<h1>%' 
-         OR t.content_markdown LIKE '%<h2>%'
-         OR t.content_markdown LIKE '%<h3>%'
-         OR t.content_markdown LIKE '%<div>%'
-         OR t.content_markdown LIKE '%<ul>%'
-         OR t.content_markdown LIKE '%<ol>%'
-         OR t.content_markdown LIKE '%<li>%'
-         OR t.content_markdown LIKE '%<strong>%'
-         OR t.content_markdown LIKE '%<em>%')
-        AND t.content_markdown IS NOT NULL
+        (t.content_academic LIKE '%<p>%' 
+         OR t.content_academic LIKE '%<h1>%' 
+         OR t.content_academic LIKE '%<h2>%'
+         OR t.content_academic LIKE '%<h3>%'
+         OR t.content_academic LIKE '%<div>%'
+         OR t.content_academic LIKE '%<ul>%'
+         OR t.content_academic LIKE '%<ol>%'
+         OR t.content_academic LIKE '%<li>%'
+         OR t.content_academic LIKE '%<strong>%'
+         OR t.content_academic LIKE '%<em>%')
+        AND t.content_academic IS NOT NULL
       )
       OR (
         (t.content_personal LIKE '%<p>%' 
@@ -72,7 +72,7 @@ async function convertHtmlToMarkdown() {
     // Prepare update statements
     const updateMarkdown = db.prepare(`
       UPDATE topics 
-      SET content_markdown = ?,
+      SET content_academic = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `)
@@ -92,9 +92,9 @@ async function convertHtmlToMarkdown() {
       console.log(`Processing: ${topic.id} - ${topic.title}`)
       
       // Convert academic content
-      if (topic.content_markdown && containsHtml(topic.content_markdown)) {
+      if (topic.content_academic && containsHtml(topic.content_academic)) {
         try {
-          const markdown = turndown.turndown(topic.content_markdown)
+          const markdown = turndown.turndown(topic.content_academic)
           updateMarkdown.run(markdown, topic.id)
           console.log(`  ✅ Converted academic content`)
           convertedAcademic++
@@ -130,10 +130,10 @@ async function convertHtmlToMarkdown() {
       SELECT COUNT(*) as count
       FROM topics 
       WHERE (
-        (content_markdown LIKE '%<p>%' 
-         OR content_markdown LIKE '%<h1>%' 
-         OR content_markdown LIKE '%<h2>%')
-        AND content_markdown IS NOT NULL
+        (content_academic LIKE '%<p>%' 
+         OR content_academic LIKE '%<h1>%' 
+         OR content_academic LIKE '%<h2>%')
+        AND content_academic IS NOT NULL
       )
     `).get()
     

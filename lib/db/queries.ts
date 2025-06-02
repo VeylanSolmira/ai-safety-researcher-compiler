@@ -98,7 +98,7 @@ export const contentUpdates = {
 
   // Update topic content
   async updateTopicContent(topicId: string, content: string) {
-    // SQL: UPDATE topics SET content_markdown = ?
+    // SQL: UPDATE topics SET content_academic = ?
     // Token usage: ~20 tokens vs ~4000 for file editing
   },
 
@@ -113,7 +113,7 @@ export const contentUpdates = {
 export const searchQueries = {
   // Full text search across content
   async searchContent(query: string) {
-    // SQL: WHERE content_markdown LIKE ? OR title LIKE ?
+    // SQL: WHERE content_academic LIKE ? OR title LIKE ?
     // With FTS5: WHERE topics MATCH ?
     return []
   },

@@ -35,7 +35,7 @@ async function importParadigmContent() {
     
     const updateTopic = db.prepare(`
       UPDATE topics 
-      SET content_markdown = ?,
+      SET content_academic = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `)
@@ -61,8 +61,8 @@ async function importParadigmContent() {
     console.log('\nVerifying import...')
     const verifyQuery = db.prepare(`
       SELECT id, title, 
-             CASE WHEN content_markdown IS NOT NULL THEN 'Has content' ELSE 'No content' END as status,
-             LENGTH(content_markdown) as content_length
+             CASE WHEN content_academic IS NOT NULL THEN 'Has content' ELSE 'No content' END as status,
+             LENGTH(content_academic) as content_length
       FROM topics 
       WHERE module_id = 'paradigms-mental-models'
     `)

@@ -50,11 +50,19 @@ export async function getAllTiers() {
             .orderBy(asc(schema.modulePracticals.position))
             .all()
           
+          // Get module paths
+          const paths = await db
+            .select({ pathId: schema.modulePaths.pathId })
+            .from(schema.modulePaths)
+            .where(eq(schema.modulePaths.moduleId, module.id))
+            .all()
+          
           return {
             ...module,
             topics,
             learningObjectives: objectives.map(o => o.objective),
-            practicalComponents: practicals.map(p => p.component)
+            practicalComponents: practicals.map(p => p.component),
+            paths: paths.map(p => p.pathId)
           }
         })
       )
@@ -141,11 +149,19 @@ export async function getModulesByTierId(tierId: string) {
         .where(eq(schema.moduleObjectives.moduleId, module.id))
         .all()
       
+      // Get module paths
+      const paths = await db
+        .select({ pathId: schema.modulePaths.pathId })
+        .from(schema.modulePaths)
+        .where(eq(schema.modulePaths.moduleId, module.id))
+        .all()
+      
       return {
         ...module,
         topics,
         learningObjectives: objectives.map(o => o.objective),
-        practicalComponents: [] // Add if needed
+        practicalComponents: [], // Add if needed
+        paths: paths.map(p => p.pathId)
       }
     })
   )
@@ -171,7 +187,7 @@ export async function getTopicsByModuleId(moduleId: string) {
       return {
         ...topic,
         tags: tags.map(t => t.tag),
-        content: topic.contentMarkdown || undefined,
+        content: topic.contentAcademic || undefined,
         relatedCaseStudies: [], // Would need to query these
         relatedExperiments: [],
         relatedExplorations: []
@@ -208,7 +224,7 @@ export async function getTopicById(topicId: string) {
     tags: tags.map(t => t.tag),
     module: result.module,
     tier: result.tier,
-    content: result.topic.contentMarkdown || undefined,
+    content: result.topic.contentAcademic || undefined,
     contentPersonal: result.topic.contentPersonal || undefined
   }
 }

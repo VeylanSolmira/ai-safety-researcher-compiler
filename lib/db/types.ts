@@ -33,7 +33,8 @@ export interface Topic {
   estimatedTime: string | null
   difficulty: 'beginner' | 'intermediate' | 'advanced' | null
   roadmapContentId: string | null
-  contentMarkdown: string | null
+  contentAcademic: string | null
+  contentPersonal: string | null
   hasJourneyExtras: boolean
   hasInteractiveTransition: boolean
   assessmentId: string | null

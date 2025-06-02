@@ -19,7 +19,7 @@ async function exportContentToMarkdown() {
       SELECT 
         t.id,
         t.title,
-        t.content_markdown,
+        t.content_academic,
         t.content_personal,
         t.roadmap_content_id,
         m.id as module_id,
@@ -29,7 +29,7 @@ async function exportContentToMarkdown() {
       FROM topics t
       JOIN modules m ON t.module_id = m.id
       JOIN tiers tier ON m.tier_id = tier.id
-      WHERE (t.content_markdown IS NOT NULL AND t.content_markdown != '')
+      WHERE (t.content_academic IS NOT NULL AND t.content_academic != '')
          OR (t.content_personal IS NOT NULL AND t.content_personal != '')
       ORDER BY tier.position, m.position, t.position
     `).all()
@@ -56,7 +56,7 @@ async function exportContentToMarkdown() {
     
     for (const topic of topicsWithContent) {
       // Export academic content
-      if (topic.content_markdown) {
+      if (topic.content_academic) {
         const filename = `${topic.id}@${topic.id}-subtopic.md`
         const filePath = path.join(contentDir, filename)
         
@@ -68,8 +68,8 @@ async function exportContentToMarkdown() {
           const existingContent = fs.readFileSync(filePath, 'utf8')
           
           // Only update if content is different
-          if (existingContent !== topic.content_markdown) {
-            fs.writeFileSync(filePath, topic.content_markdown)
+          if (existingContent !== topic.content_academic) {
+            fs.writeFileSync(filePath, topic.content_academic)
             console.log(`✅ Updated: ${filename} (${topic.tier_title} > ${topic.module_title} > ${topic.title})`)
             updated++
           } else {
@@ -78,7 +78,7 @@ async function exportContentToMarkdown() {
           }
         } else {
           // Create new file
-          fs.writeFileSync(filePath, topic.content_markdown)
+          fs.writeFileSync(filePath, topic.content_academic)
           console.log(`✅ Created: ${filename} (${topic.tier_title} > ${topic.module_title} > ${topic.title})`)
           created++
         }
@@ -135,7 +135,7 @@ async function exportContentToMarkdown() {
       FROM topics t
       JOIN modules m ON t.module_id = m.id
       JOIN tiers tier ON m.tier_id = tier.id
-      WHERE t.content_markdown IS NULL OR t.content_markdown = ''
+      WHERE t.content_academic IS NULL OR t.content_academic = ''
       ORDER BY tier.position, m.position, t.position
     `).all()
     

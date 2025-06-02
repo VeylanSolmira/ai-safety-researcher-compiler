@@ -111,7 +111,7 @@ async function migrateJourneyData() {
               estimatedTime: topic.estimatedTime,
               difficulty: topic.difficulty,
               roadmapContentId: topic.roadmapContentId || null,
-              contentMarkdown: topic.content || null,
+              contentAcademic: topic.content || null,
               hasJourneyExtras: topic.hasJourneyExtras || false,
               hasInteractiveTransition: topic.hasInteractiveTransition || false,
               assessmentId: topic.assessmentId || null,

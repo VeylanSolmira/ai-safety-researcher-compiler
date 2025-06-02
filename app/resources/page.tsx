@@ -36,7 +36,8 @@ const resources: ResourceCard[] = [
     description: 'Curated collection of essential AI safety papers organized by topic and difficulty level.',
     icon: BookOpenIcon,
     href: '/resources/papers',
-    available: false
+    available: true,
+    badge: 'New'
   },
   {
     title: 'Community Directory',
