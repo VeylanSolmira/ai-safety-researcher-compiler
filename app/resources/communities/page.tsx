@@ -8,8 +8,10 @@ import {
   BuildingLibraryIcon,
   GlobeAltIcon,
   ChatBubbleLeftRightIcon,
-  BeakerIcon
+  BeakerIcon,
+  DocumentTextIcon
 } from '@heroicons/react/24/outline'
+import { profiles } from '@/lib/community-profiles'
 
 interface Community {
   id: string
@@ -434,7 +436,7 @@ export default function CommunitiesPage() {
 
                 {/* Resources */}
                 {community.resources && community.resources.length > 0 && (
-                  <div>
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                     <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Key Resources:</p>
                     <div className="space-y-1">
                       {community.resources.map((resource, index) => (
@@ -449,6 +451,19 @@ export default function CommunitiesPage() {
                         </a>
                       ))}
                     </div>
+                  </div>
+                )}
+
+                {/* View Profile Button */}
+                {profiles[community.id] && (
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <Link
+                      href={`/resources/communities/${community.id}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
+                    >
+                      <DocumentTextIcon className="h-4 w-4" />
+                      View Detailed Profile
+                    </Link>
                   </div>
                 )}
               </div>
