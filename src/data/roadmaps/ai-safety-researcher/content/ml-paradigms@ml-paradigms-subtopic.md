@@ -1,28 +1,24 @@
+## Machine Learning Paradigms
 
-              <h2>Machine Learning Paradigms</h2>
-              <p>Understanding different learning paradigms is crucial for identifying safety risks.</p>
-              
-              <h3>Supervised Learning</h3>
-              <ul>
-                <li>Learning from labeled examples</li>
-                <li>Classification vs regression</li>
-                <li>Training, validation, and test sets</li>
-                <li>Safety risks: Distribution shift, adversarial examples</li>
-              </ul>
-              
-              <h3>Unsupervised Learning</h3>
-              <ul>
-                <li>Finding patterns without labels</li>
-                <li>Clustering and dimensionality reduction</li>
-                <li>Autoencoders and representation learning</li>
-                <li>Safety risks: Hidden biases, unexpected clusters</li>
-              </ul>
-              
-              <h3>Reinforcement Learning</h3>
-              <ul>
-                <li>Learning through interaction</li>
-                <li>Reward functions and policies</li>
-                <li>Exploration vs exploitation</li>
-                <li>Safety risks: Reward hacking, unsafe exploration</li>
-              </ul>
-            
+Understanding different learning paradigms is crucial for identifying safety risks.
+
+### Supervised Learning
+
+-   Learning from labeled examples
+-   Classification vs regression
+-   Training, validation, and test sets
+-   Safety risks: Distribution shift, adversarial examples
+
+### Unsupervised Learning
+
+-   Finding patterns without labels
+-   Clustering and dimensionality reduction
+-   Autoencoders and representation learning
+-   Safety risks: Hidden biases, unexpected clusters
+
+### Reinforcement Learning
+
+-   Learning through interaction
+-   Reward functions and policies
+-   Exploration vs exploitation
+-   Safety risks: Reward hacking, unsafe exploration

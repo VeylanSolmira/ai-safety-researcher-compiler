@@ -1,36 +1,31 @@
+## Safe AI Code Generation
 
-              <h2>Safe AI Code Generation</h2>
-              <p>Developing techniques to ensure AI systems generate safe, secure, and reliable code.</p>
-              
-              <h3>Safety Challenges</h3>
-              <ul>
-                <li><strong>Security Vulnerabilities:</strong> Preventing generation of exploitable code</li>
-                <li><strong>Logic Errors:</strong> Ensuring correctness and avoiding subtle bugs</li>
-                <li><strong>Malicious Code:</strong> Detecting and preventing harmful code generation</li>
-                <li><strong>Dependency Risks:</strong> Managing external library and API usage</li>
-              </ul>
-              
-              <h3>Safety Techniques</h3>
-              <ul>
-                <li>Static analysis integration during generation</li>
-                <li>Sandboxed execution environments</li>
-                <li>Formal verification of generated code</li>
-                <li>Security pattern enforcement</li>
-              </ul>
-              
-              <h3>Control Mechanisms</h3>
-              <ul>
-                <li>Intent verification before generation</li>
-                <li>Output filtering and validation</li>
-                <li>Human-in-the-loop review systems</li>
-                <li>Capability restrictions by context</li>
-              </ul>
-              
-              <h3>Research Directions</h3>
-              <ul>
-                <li>Understanding code generation in LLMs</li>
-                <li>Adversarial code generation attacks</li>
-                <li>Safe exploration in programming environments</li>
-                <li>Automated testing of generated code</li>
-              </ul>
-            
+Developing techniques to ensure AI systems generate safe, secure, and reliable code.
+
+### Safety Challenges
+
+-   **Security Vulnerabilities:** Preventing generation of exploitable code
+-   **Logic Errors:** Ensuring correctness and avoiding subtle bugs
+-   **Malicious Code:** Detecting and preventing harmful code generation
+-   **Dependency Risks:** Managing external library and API usage
+
+### Safety Techniques
+
+-   Static analysis integration during generation
+-   Sandboxed execution environments
+-   Formal verification of generated code
+-   Security pattern enforcement
+
+### Control Mechanisms
+
+-   Intent verification before generation
+-   Output filtering and validation
+-   Human-in-the-loop review systems
+-   Capability restrictions by context
+
+### Research Directions
+
+-   Understanding code generation in LLMs
+-   Adversarial code generation attacks
+-   Safe exploration in programming environments
+-   Automated testing of generated code
