@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useViewMode } from '@/contexts/ViewModeContext'
 import ReactMarkdown from 'react-markdown'
+import { useViewMode } from '@/contexts/ViewModeContext'
 import type { Components } from 'react-markdown'
 import { JourneyIntroductionExtras } from '@/components/JourneyContent'
 import Assessment from '@/components/Assessment'
@@ -56,91 +55,22 @@ const markdownComponents: Partial<Components> = {
 
 export default function JourneyTopicContent({ topic, tierId, moduleId }: JourneyTopicContentProps) {
   const { viewMode } = useViewMode()
-  const [primaryContent, setPrimaryContent] = useState<string>('')
-  const [additionalContent, setAdditionalContent] = useState<{ [key: string]: string }>({})
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const loadContent = async () => {
-      setLoading(true)
-      
-      // Load primary content
-      if (topic.roadmapContentId) {
-        try {
-          const response = await fetch(`/api/topic-content?roadmap=ai-safety-researcher&topic=${topic.roadmapContentId}&viewMode=${viewMode}`)
-          if (response.ok) {
-            const data = await response.json()
-            setPrimaryContent(data.content)
-          }
-        } catch (error) {
-          console.error(`Failed to load primary content:`, error)
-        }
-      }
-      
-      // Load additional content
-      if (topic.additionalContentIds && topic.additionalContentIds.length > 0) {
-        const contentMap: { [key: string]: string } = {}
-        
-        for (const contentId of topic.additionalContentIds) {
-          try {
-            const response = await fetch(`/api/topic-content?roadmap=ai-safety-researcher&topic=${contentId}&viewMode=${viewMode}`)
-            if (response.ok) {
-              const data = await response.json()
-              contentMap[contentId] = data.content
-            }
-          } catch (error) {
-            console.error(`Failed to load content for ${contentId}:`, error)
-          }
-        }
-        
-        setAdditionalContent(contentMap)
-      }
-      
-      setLoading(false)
-    }
-    
-    loadContent()
-  }, [topic, viewMode])
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-gray-400">Loading content...</div>
-      </div>
-    )
-  }
+  
+  // Select content based on view mode
+  const displayContent = viewMode === 'personal' && topic.contentPersonal 
+    ? topic.contentPersonal 
+    : topic.content
 
   return (
     <div className="space-y-8">
-      {/* Primary Content */}
-      {primaryContent && (
+      {/* Database content is the primary source */}
+      {displayContent ? (
         <div className="bg-gray-900 rounded-lg p-8">
           <ReactMarkdown components={markdownComponents}>
-            {primaryContent.replace(/<!--[\s\S]*?-->/g, '')}
+            {displayContent}
           </ReactMarkdown>
         </div>
-      )}
-      
-      {/* Additional Content */}
-      {Object.entries(additionalContent).map(([contentId, content]) => (
-        <div key={contentId} className="bg-gray-900 rounded-lg p-8">
-          <ReactMarkdown components={markdownComponents}>
-            {content.replace(/<!--[\s\S]*?-->/g, '')}
-          </ReactMarkdown>
-        </div>
-      ))}
-      
-      {/* Direct content if no roadmap content */}
-      {!primaryContent && !Object.keys(additionalContent).length && topic.content && (
-        <div className="bg-gray-900 rounded-lg p-8">
-          <div className="prose prose-invert max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: topic.content }} />
-          </div>
-        </div>
-      )}
-      
-      {/* No content fallback */}
-      {!primaryContent && !Object.keys(additionalContent).length && !topic.content && (
+      ) : (
         <div className="bg-gray-900 rounded-lg p-8 text-center">
           <p className="text-gray-400">Content coming soon...</p>
         </div>

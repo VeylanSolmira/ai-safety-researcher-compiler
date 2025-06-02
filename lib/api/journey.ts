@@ -208,7 +208,8 @@ export async function getTopicById(topicId: string) {
     tags: tags.map(t => t.tag),
     module: result.module,
     tier: result.tier,
-    content: result.topic.contentMarkdown || undefined
+    content: result.topic.contentMarkdown || undefined,
+    contentPersonal: result.topic.contentPersonal || undefined
   }
 }
 

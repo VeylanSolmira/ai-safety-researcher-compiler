@@ -135,7 +135,8 @@ export default function TopicPage() {
         {/* Topic Content */}
         <JourneyTopicContent 
           topic={topic}
-          roadmapContentId={topic.roadmapContentId}
+          tierId={tierId}
+          moduleId={moduleId}
         />
         
         {/* Related Resources */}

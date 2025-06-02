@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const roadmapSlug = searchParams.get('roadmap')
   const topicId = searchParams.get('topic')
-  const viewMode = searchParams.get('viewMode') || 'neutral'
+  const viewMode = searchParams.get('viewMode') || 'academic'
 
   if (!roadmapSlug || !topicId) {
     return NextResponse.json(
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       }
     }
     
-    // If no personal version found, or in neutral mode, use the regular file
+    // If no personal version found, or in academic mode, use the regular file
     if (!topicFile) {
       // Check if topicId already includes the @ pattern
       if (topicId.includes('@')) {

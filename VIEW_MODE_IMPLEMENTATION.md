@@ -39,7 +39,7 @@ Successfully implemented a dual-view mode system for the AI Safety Research Comp
 ```json
 {
   "data": {
-    "viewMode": "both" | "neutral" | "personal",
+    "viewMode": "both" | "academic" | "personal",
     "isOpinionated": true | false
   }
 }

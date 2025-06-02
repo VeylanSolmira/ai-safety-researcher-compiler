@@ -32,7 +32,7 @@ for node in roadmap['nodes']:
         node['data']['isOpinionated'] = opinionated_nodes[node_id]['isOpinionated']
         print(f"Updated {node_id}: mode={node['data']['viewMode']}, isOpinionated={node['data']['isOpinionated']}")
     else:
-        # Default: neutral content shown in both modes
+        # Default: academic content shown in both modes
         if 'viewMode' not in node['data']:
             node['data']['viewMode'] = 'both'
             node['data']['isOpinionated'] = False

@@ -11,7 +11,8 @@ export interface Topic {
   // Content sources
   roadmapContentId?: string // Link to roadmap content
   additionalContentIds?: string[] // Additional roadmap content to load
-  content?: string // Direct markdown content
+  content?: string // Direct markdown content (academic)
+  contentPersonal?: string // Personal version of content
   hasJourneyExtras?: boolean // Include JourneyIntroductionExtras component
   
   // Deep dive connections
