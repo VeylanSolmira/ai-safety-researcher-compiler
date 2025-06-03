@@ -1,0 +1,110 @@
+[
+  {
+    "id": "prerequisites-foundations",
+    "title": "Prerequisites & Foundations",
+    "moduleId": "intro-module",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": true,
+    "academicHtmlCount": 1,
+    "personalHtmlCount": 1
+  },
+  {
+    "id": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "moduleId": "intro-module",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 6,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "risk-landscape",
+    "title": "The AI Risk Landscape",
+    "moduleId": "intro-module",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 1,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "intro-red-teaming",
+    "title": "Red Teaming Fundamentals",
+    "moduleId": "practical-safety-basics",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 3,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "prompt-injection-attacks",
+    "title": "Prompt Injection Attacks",
+    "moduleId": "practical-safety-basics",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 3,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "jailbreak-techniques",
+    "title": "Jailbreak Techniques",
+    "moduleId": "practical-safety-basics",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 5,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "safety-evaluation-101",
+    "title": "Safety Evaluation Methods",
+    "moduleId": "practical-safety-basics",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 2,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "how-llms-work",
+    "title": "How LLMs Actually Work",
+    "moduleId": "ml-fundamentals-safety",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 1,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "safety-monitoring",
+    "title": "Real-time Safety Monitoring",
+    "moduleId": "safety-engineering",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 3,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "problem-decomposition",
+    "title": "Problem Decomposition & Scoping",
+    "moduleId": "research-methods",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 1,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "containerization-research",
+    "title": "Containerization for Research",
+    "moduleId": "safety-engineering",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 1,
+    "personalHtmlCount": 0
+  },
+  {
+    "id": "paradigm-driven-research",
+    "title": "Paradigm-Driven Research",
+    "moduleId": "paradigms-mental-models",
+    "hasHtmlInAcademic": true,
+    "hasHtmlInPersonal": false,
+    "academicHtmlCount": 1,
+    "personalHtmlCount": 0
+  }
+]

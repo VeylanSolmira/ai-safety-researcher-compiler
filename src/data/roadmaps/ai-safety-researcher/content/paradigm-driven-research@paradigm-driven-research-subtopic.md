@@ -348,7 +348,7 @@ The future needs:
 ## Next Steps
 
 - Audit your research paradigms
-- Read research from different paradigm communities
+- Read **⚠️ UNVERIFIED CITATION** "different" [work-reference] _Could not find a reliable source for this citation_ paradigm communities
 - Practice paradigm switching
 - Design multi-paradigm studies
 - Prepare for: Paradigms in Practice

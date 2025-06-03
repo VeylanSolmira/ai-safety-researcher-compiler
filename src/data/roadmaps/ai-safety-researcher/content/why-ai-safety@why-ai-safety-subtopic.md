@@ -58,13 +58,13 @@ As AI systems become more integrated into critical infrastructure and decision-m
 ### The 2010 Flash Crash
 On May 6, 2010, algorithmic trading systems caused a "flash crash" that temporarily wiped out nearly $1 trillion in market value. This incident demonstrated how AI systems operating at superhuman speeds can create systemic risks in financial markets.
 
-### Microsoft's Tay Chatbot (2016)
+### Microsoft's Tay **⚠️ UNVERIFIED CITATION** "Chatbot" (2016) [author-year] _Could not find a reliable source for this citation_
 Microsoft's AI chatbot Tay was taken offline after less than 24 hours when it began posting inflammatory and offensive tweets. This highlighted the vulnerability of AI systems to adversarial inputs and the importance of robust safety measures.
 
-### Uber's Fatal Self-Driving Car Accident (2018)
+### Uber's Fatal Self-Driving Car **⚠️ UNVERIFIED CITATION** "Accident" (2018) [author-year] _Could not find a reliable source for this citation_
 The first pedestrian fatality involving an autonomous vehicle occurred when Uber's self-driving car struck and killed a pedestrian in Arizona. Investigation revealed multiple safety system failures, demonstrating the life-or-death importance of AI safety in autonomous systems.
 
-### GPT-based Misinformation Campaigns (2023-2024)
+### [GPT-based Misinformation Campaigns (2023-2024)](/resources/gpt-misinformation-campaigns)
 Recent elections have seen sophisticated AI-generated misinformation campaigns using large language models to create convincing fake news articles and social media posts at scale, undermining democratic processes.
 
 ## Common Misconceptions
@@ -90,11 +90,11 @@ Document your analysis and compare it with published incidents involving similar
 
 ## Further Reading
 
-- **"Concrete Problems in AI Safety"** by Amodei et al. (2016) - Foundational paper outlining key technical AI safety challenges
-- **"The Alignment Problem"** by Brian Christian (2020) - Accessible book covering the history and future of AI safety
-- **"Superintelligence: Paths, Dangers, Strategies"** by Nick Bostrom (2014) - Influential work on long-term AI safety concerns
+- **"Concrete Problems in AI Safety"** by **⚠️ UNVERIFIED CITATION** "Amodei et al." (2016) [author-year] _Could not find a reliable source for this citation_ - Foundational paper outlining key technical AI safety challenges
+- **"The Alignment Problem"** by Brian **⚠️ UNVERIFIED CITATION** "Christian" (2020) [author-year] _Could not find a reliable source for this citation_ - Accessible book covering the history and future of AI safety
+- **"Superintelligence: Paths, Dangers, Strategies"** by Nick **⚠️ UNVERIFIED CITATION** "Bostrom" (2014) [author-year] _Could not find a reliable source for this citation_ - Influential work on long-term AI safety concerns
 - **AI Incident Database** (incidentdatabase.ai) - Comprehensive collection of AI-related accidents and failures
-- **"Racing Toward AI: The Imperative for Safety Standards"** by Stuart Russell (2019) - Call for proactive AI safety measures
+- **"Racing Toward AI: The Imperative for Safety Standards"** by Stuart **⚠️ UNVERIFIED CITATION** "Russell" (2019) [author-year] _Could not find a reliable source for this citation_ - Call for proactive AI safety measures
 
 ## Connections
 

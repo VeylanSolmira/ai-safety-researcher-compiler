@@ -2,6 +2,32 @@
 
 A comprehensive, interactive curriculum for systematically developing AI safety research capabilities - from foundations to advanced technical contributions.
 
+## 🚨 Important Disclaimers
+
+### Alpha Development Stage
+
+**This project is currently in ALPHA stage**. In software development, alpha stage indicates:
+- Core functionality is implemented but not feature-complete
+- Active development with frequent breaking changes
+- Limited testing and potential instability
+- Not recommended for production use
+- User feedback is crucial for shaping development
+
+We believe this accurately describes our current state. The curriculum structure is established, core features work, but content is incomplete and the platform requires extensive testing and refinement.
+
+### AI-Generated Content Notice
+
+**This curriculum contains substantial AI-generated content**, primarily created using Claude Opus 4. While this enables rapid content creation and diverse perspectives, users should be aware of important considerations:
+
+- **Critical evaluation required**: AI-generated content may contain inaccuracies, biases, or oversimplifications
+- **Adversarial meta-learning risks**: See our [analysis of AI tutor risks](src/data/roadmaps/ai-safety-researcher/content/adversarial-meta-learning@adversarial-meta-learning-subtopic.md)
+- **Unverified citations**: Some references may be flagged as unverified (marked with ⚠️)
+- **Epistemological concerns**: Using AI to teach AI safety presents unique philosophical challenges
+
+For more on the risks of AI-generated educational content:
+- [Adversarial Meta-Learning in AI Safety](src/data/roadmaps/ai-safety-researcher/content/adversarial-meta-learning@adversarial-meta-learning-subtopic.md)
+- [AI Assistant Implementation Notes](docs/unified-ai-assistant-usage.md)
+
 ## Overview
 
 This project provides a structured learning pathway for becoming an AI Safety Researcher, featuring:

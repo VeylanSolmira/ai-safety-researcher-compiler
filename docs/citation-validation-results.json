@@ -1,0 +1,388 @@
+[
+  {
+    "citation": {
+      "text": "Superintelligence",
+      "year": "2014",
+      "fullMatch": "\"Superintelligence\" (2014)",
+      "topicId": "prerequisites-foundations",
+      "topicTitle": "Prerequisites & Foundations",
+      "contentType": "academic",
+      "lineNumber": 154,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Superintelligence",
+      "year": "2014",
+      "fullMatch": "\"Superintelligence\" (2014)",
+      "topicId": "prerequisites-foundations",
+      "topicTitle": "Prerequisites & Foundations",
+      "contentType": "personal",
+      "lineNumber": 164,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Attention is All You Need",
+      "year": "2017",
+      "fullMatch": "\"Attention is All You Need\" (2017)",
+      "topicId": "how-llms-work",
+      "topicTitle": "How LLMs Actually Work",
+      "contentType": "academic",
+      "lineNumber": 22,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Attention is All You Need",
+      "fullMatch": "introduced in \"Attention is All You Need\"",
+      "topicId": "how-llms-work",
+      "topicTitle": "How LLMs Actually Work",
+      "contentType": "academic",
+      "lineNumber": 22,
+      "type": "paper-mention"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Google",
+      "year": "2021",
+      "fullMatch": "Google (2021)",
+      "topicId": "safety-monitoring",
+      "topicTitle": "Real-time Safety Monitoring",
+      "contentType": "academic",
+      "lineNumber": 445,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Meta",
+      "year": "2023",
+      "fullMatch": "Meta (2023)",
+      "topicId": "safety-monitoring",
+      "topicTitle": "Real-time Safety Monitoring",
+      "contentType": "academic",
+      "lineNumber": 446,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Anthropic",
+      "year": "2024",
+      "fullMatch": "Anthropic (2024)",
+      "topicId": "safety-monitoring",
+      "topicTitle": "Real-time Safety Monitoring",
+      "contentType": "academic",
+      "lineNumber": 448,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "idea",
+      "fullMatch": "study from idea",
+      "topicId": "problem-decomposition",
+      "topicTitle": "Problem Decomposition & Scoping",
+      "contentType": "academic",
+      "lineNumber": 121,
+      "type": "work-reference"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Nature",
+      "year": "2023",
+      "fullMatch": "Nature (2023)",
+      "topicId": "containerization-research",
+      "topicTitle": "Containerization for Research",
+      "contentType": "academic",
+      "lineNumber": 478,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Chatbot",
+      "year": "2016",
+      "fullMatch": "Chatbot (2016)",
+      "topicId": "why-ai-safety",
+      "topicTitle": "Why AI Safety Matters",
+      "contentType": "academic",
+      "lineNumber": 61,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Accident",
+      "year": "2018",
+      "fullMatch": "Accident (2018)",
+      "topicId": "why-ai-safety",
+      "topicTitle": "Why AI Safety Matters",
+      "contentType": "academic",
+      "lineNumber": 64,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Amodei et al.",
+      "year": "2016",
+      "fullMatch": "Amodei et al. (2016)",
+      "topicId": "why-ai-safety",
+      "topicTitle": "Why AI Safety Matters",
+      "contentType": "academic",
+      "lineNumber": 93,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Christian",
+      "year": "2020",
+      "fullMatch": "Christian (2020)",
+      "topicId": "why-ai-safety",
+      "topicTitle": "Why AI Safety Matters",
+      "contentType": "academic",
+      "lineNumber": 94,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Bostrom",
+      "year": "2014",
+      "fullMatch": "Bostrom (2014)",
+      "topicId": "why-ai-safety",
+      "topicTitle": "Why AI Safety Matters",
+      "contentType": "academic",
+      "lineNumber": 95,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Russell",
+      "year": "2019",
+      "fullMatch": "Russell (2019)",
+      "topicId": "why-ai-safety",
+      "topicTitle": "Why AI Safety Matters",
+      "contentType": "academic",
+      "lineNumber": 97,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "major",
+      "fullMatch": "research from major",
+      "topicId": "intro-red-teaming",
+      "topicTitle": "Red Teaming Fundamentals",
+      "contentType": "academic",
+      "lineNumber": 194,
+      "type": "work-reference"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Anthropic",
+      "year": "2024",
+      "fullMatch": "Anthropic (2024)",
+      "topicId": "intro-red-teaming",
+      "topicTitle": "Red Teaming Fundamentals",
+      "contentType": "academic",
+      "lineNumber": 223,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "OpenAI's Approach to External Red Teaming",
+      "year": "2024",
+      "fullMatch": "\"OpenAI's Approach to External Red Teaming\" (2024)",
+      "topicId": "intro-red-teaming",
+      "topicTitle": "Red Teaming Fundamentals",
+      "contentType": "academic",
+      "lineNumber": 224,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Brundage et al.",
+      "year": "2018",
+      "fullMatch": "Brundage et al. (2018)",
+      "topicId": "risk-landscape",
+      "topicTitle": "The AI Risk Landscape",
+      "contentType": "academic",
+      "lineNumber": 205,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications",
+      "year": "2023",
+      "fullMatch": "\"Not what you've signed up for: Compromising Real-World LLM-Integrated Applications\" (2023)",
+      "topicId": "prompt-injection-attacks",
+      "topicTitle": "Prompt Injection Attacks",
+      "contentType": "academic",
+      "lineNumber": 255,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+      "year": "2023",
+      "fullMatch": "\"Universal and Transferable Adversarial Attacks on Aligned Language Models\" (2023)",
+      "topicId": "prompt-injection-attacks",
+      "topicTitle": "Prompt Injection Attacks",
+      "contentType": "academic",
+      "lineNumber": 256,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Prompt Injection Attacks and Defenses in LLM-Integrated Applications",
+      "year": "2024",
+      "fullMatch": "\"Prompt Injection Attacks and Defenses in LLM-Integrated Applications\" (2024)",
+      "topicId": "prompt-injection-attacks",
+      "topicTitle": "Prompt Injection Attacks",
+      "contentType": "academic",
+      "lineNumber": 257,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "different",
+      "fullMatch": "research from different",
+      "topicId": "paradigm-driven-research",
+      "topicTitle": "Paradigm-Driven Research",
+      "contentType": "academic",
+      "lineNumber": 351,
+      "type": "work-reference"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Techniques",
+      "year": "2024",
+      "fullMatch": "Techniques (2024)",
+      "topicId": "jailbreak-techniques",
+      "topicTitle": "Jailbreak Techniques",
+      "contentType": "academic",
+      "lineNumber": 107,
+      "type": "author-year"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+      "year": "2024",
+      "fullMatch": "\"Jailbreaking Black Box Large Language Models in Twenty Queries\" (2024)",
+      "topicId": "jailbreak-techniques",
+      "topicTitle": "Jailbreak Techniques",
+      "contentType": "academic",
+      "lineNumber": 328,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+      "year": "2023",
+      "fullMatch": "\"Universal and Transferable Adversarial Attacks on Aligned Language Models\" (2023)",
+      "topicId": "jailbreak-techniques",
+      "topicTitle": "Jailbreak Techniques",
+      "contentType": "academic",
+      "lineNumber": 329,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Multi-Turn Jailbreak Attacks: Strategies and Defenses",
+      "year": "2024",
+      "fullMatch": "\"Multi-Turn Jailbreak Attacks: Strategies and Defenses\" (2024)",
+      "topicId": "jailbreak-techniques",
+      "topicTitle": "Jailbreak Techniques",
+      "contentType": "academic",
+      "lineNumber": 331,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "LLM Jailbreaking: A Comprehensive Survey",
+      "year": "2024",
+      "fullMatch": "\"LLM Jailbreaking: A Comprehensive Survey\" (2024)",
+      "topicId": "jailbreak-techniques",
+      "topicTitle": "Jailbreak Techniques",
+      "contentType": "academic",
+      "lineNumber": 332,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Evaluating Large Language Models: A Comprehensive Survey",
+      "year": "2024",
+      "fullMatch": "\"Evaluating Large Language Models: A Comprehensive Survey\" (2024)",
+      "topicId": "safety-evaluation-101",
+      "topicTitle": "Safety Evaluation Methods",
+      "contentType": "academic",
+      "lineNumber": 401,
+      "type": "standard"
+    },
+    "verified": false
+  },
+  {
+    "citation": {
+      "text": "Statistical Methods for AI Safety Evaluation",
+      "year": "2024",
+      "fullMatch": "\"Statistical Methods for AI Safety Evaluation\" (2024)",
+      "topicId": "safety-evaluation-101",
+      "topicTitle": "Safety Evaluation Methods",
+      "contentType": "academic",
+      "lineNumber": 405,
+      "type": "standard"
+    },
+    "verified": false
+  }
+]

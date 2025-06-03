@@ -6,7 +6,8 @@ import {
   BeakerIcon,
   NewspaperIcon,
   GlobeAltIcon,
-  LightBulbIcon
+  LightBulbIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
 
 export const metadata = {
@@ -60,6 +61,14 @@ const resources: ResourceCard[] = [
     description: 'Latest developments in AI safety research, policy, and governance.',
     icon: NewspaperIcon,
     href: '/resources/news',
+    available: true,
+    badge: 'New'
+  },
+  {
+    title: 'Case Studies & Incidents',
+    description: 'Learn from documented AI safety incidents and near-misses. Understanding past failures prevents future ones.',
+    icon: ExclamationTriangleIcon,
+    href: '/resources/case-studies',
     available: true,
     badge: 'New'
   },

@@ -118,7 +118,7 @@ Create a one-page overview:
 
 1. **This Week**: Take one of your "big ideas" and decompose it into 5-10 specific research questions
 2. **This Month**: Choose one question and design a minimum viable experiment
-3. **This Quarter**: Complete one small-scale study from idea to written results
+3. **This Quarter**: Complete one small-scale **⚠️ UNVERIFIED CITATION** "idea" [work-reference] _Could not find a reliable source for this citation_ to written results
 
 Remember: The goal isn't to solve everything at once. It's to make consistent, measurable progress on hard problems.
 

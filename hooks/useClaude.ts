@@ -22,6 +22,14 @@ interface UseClaudeReturn {
   
   // Generate quiz
   generateQuiz: (content: string, count?: number) => Promise<string | null>
+  
+  // Analyze with paradigm
+  analyzeWithParadigm: (
+    content: string,
+    paradigm: string,
+    mode?: 'teacher' | 'adversary',
+    style?: 'academic' | 'personal'
+  ) => Promise<string | null>
 }
 
 export function useClaude(): UseClaudeReturn {
@@ -70,11 +78,21 @@ export function useClaude(): UseClaudeReturn {
     return makeRequest({ action: 'quiz', content, count })
   }, [makeRequest])
 
+  const analyzeWithParadigm = useCallback(async (
+    content: string,
+    paradigm: string,
+    mode: 'teacher' | 'adversary' = 'teacher',
+    style: 'academic' | 'personal' = 'academic'
+  ) => {
+    return makeRequest({ action: 'paradigm', content, paradigm, mode, style })
+  }, [makeRequest])
+
   return {
     loading,
     error,
     chat,
     analyzeContent,
-    generateQuiz
+    generateQuiz,
+    analyzeWithParadigm
   }
 }

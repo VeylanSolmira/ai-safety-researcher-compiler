@@ -1,0 +1,234 @@
+[
+  {
+    "topicId": "containerization-research",
+    "title": "Containerization for Research",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "actices for Scientific Computing in Containers\" - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Nature\" (2023) [author-year] <span style=\"color:"
+  },
+  {
+    "topicId": "how-llms-work",
+    "title": "How LLMs Actually Work",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "## The Transformer Architecture  The transformer, <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Attention is All You Need\" [paper-mention] <span"
+  },
+  {
+    "topicId": "intro-red-teaming",
+    "title": "Red Teaming Fundamentals",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ughly  ## Common Red Team Findings  Based on 2024 <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"major\" [work-reference] <span style=\"color: #ff0"
+  },
+  {
+    "topicId": "intro-red-teaming",
+    "title": "Red Teaming Fundamentals",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ropic - \"Challenges in Red Teaming AI Systems\" by <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Anthropic\" (2024) [author-year] <span style=\"col"
+  },
+  {
+    "topicId": "intro-red-teaming",
+    "title": "Red Teaming Fundamentals",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ind a reliable source for this citation*</span> - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"OpenAI's Approach to External Red Teaming\" (2024"
+  },
+  {
+    "topicId": "jailbreak-techniques",
+    "title": "Jailbreak Techniques",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "tution': \"h@rmfu| r€qu€st\" } \\`\\`\\`  ### Advanced <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Techniques\" (2024) [author-year] <span style=\"co"
+  },
+  {
+    "topicId": "jailbreak-techniques",
+    "title": "Jailbreak Techniques",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "arency with responsibility  ## Further Reading  - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Jailbreaking Black Box Large Language Models in "
+  },
+  {
+    "topicId": "jailbreak-techniques",
+    "title": "Jailbreak Techniques",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ind a reliable source for this citation*</span> - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Universal and Transferable Adversarial Attacks o"
+  },
+  {
+    "topicId": "jailbreak-techniques",
+    "title": "Jailbreak Techniques",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "lution of DAN: A Chronicle of AI Jailbreaking\"  - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Multi-Turn Jailbreak Attacks: Strategies and Def"
+  },
+  {
+    "topicId": "jailbreak-techniques",
+    "title": "Jailbreak Techniques",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ind a reliable source for this citation*</span> - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"LLM Jailbreaking: A Comprehensive Survey\" (2024)"
+  },
+  {
+    "topicId": "paradigm-driven-research",
+    "title": "Paradigm-Driven Research",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ext Steps  - Audit your research paradigms - Read <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"different\" [work-reference] <span style=\"color: "
+  },
+  {
+    "topicId": "prerequisites-foundations",
+    "title": "Prerequisites & Foundations",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "dkowsky's early writings (2000s) - Nick Bostrom's <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Superintelligence\" (2014) [standard] <span style"
+  },
+  {
+    "topicId": "prerequisites-foundations",
+    "title": "Prerequisites & Foundations",
+    "contentType": "personal",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "dkowsky's early writings (2000s) - Nick Bostrom's <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Superintelligence\" (2014) [standard] <span style"
+  },
+  {
+    "topicId": "problem-decomposition",
+    "title": "Problem Decomposition & Scoping",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ent 3. **This Quarter**: Complete one small-scale <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"idea\" [work-reference] <span style=\"color: #ff00"
+  },
+  {
+    "topicId": "prompt-injection-attacks",
+    "title": "Prompt Injection Attacks",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "s the worst that can happen?\" by Simon Willison - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Not what you've signed up for: Compromising Real"
+  },
+  {
+    "topicId": "prompt-injection-attacks",
+    "title": "Prompt Injection Attacks",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ind a reliable source for this citation*</span> - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Universal and Transferable Adversarial Attacks o"
+  },
+  {
+    "topicId": "prompt-injection-attacks",
+    "title": "Prompt Injection Attacks",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "ind a reliable source for this citation*</span> - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Prompt Injection Attacks and Defenses in LLM-Int"
+  },
+  {
+    "topicId": "risk-landscape",
+    "title": "The AI Risk Landscape",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "he Malicious Use of Artificial Intelligence\"** by <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Brundage et al.\" (2018) [author-year] <span styl"
+  },
+  {
+    "topicId": "safety-evaluation-101",
+    "title": "Safety Evaluation Methods",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "Actionable recommendations  ## Further Reading  - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Evaluating Large Language Models: A Comprehensiv"
+  },
+  {
+    "topicId": "safety-evaluation-101",
+    "title": "Safety Evaluation Methods",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "Teaming Language Models for Safety\" by DeepMind - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Statistical Methods for AI Safety Evaluation\" (2"
+  },
+  {
+    "topicId": "safety-monitoring",
+    "title": "Real-time Safety Monitoring",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "nitoring Machine Learning Models in Production\" - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Google\" (2021) [author-year] <span style=\"color:"
+  },
+  {
+    "topicId": "safety-monitoring",
+    "title": "Real-time Safety Monitoring",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "time Anomaly Detection for Deployed ML Systems\" - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Meta\" (2023) [author-year] <span style=\"color: #"
+  },
+  {
+    "topicId": "safety-monitoring",
+    "title": "Real-time Safety Monitoring",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "Uber Engineering - \"Safety Monitoring at Scale\" - <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Anthropic\" (2024) [author-year] <span style=\"col"
+  },
+  {
+    "topicId": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": " risks in financial markets.  ### Microsoft's Tay <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Chatbot\" (2016) [author-year] <span style=\"color"
+  },
+  {
+    "topicId": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "fety measures.  ### Uber's Fatal Self-Driving Car <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Accident\" (2018) [author-year] <span style=\"colo"
+  },
+  {
+    "topicId": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "eading  - **\"Concrete Problems in AI Safety\"** by <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Amodei et al.\" (2016) [author-year] <span style="
+  },
+  {
+    "topicId": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "challenges - **\"The Alignment Problem\"** by Brian <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Christian\" (2020) [author-year] <span style=\"col"
+  },
+  {
+    "topicId": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": "telligence: Paths, Dangers, Strategies\"** by Nick <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Bostrom\" (2014) [author-year] <span style=\"color"
+  },
+  {
+    "topicId": "why-ai-safety",
+    "title": "Why AI Safety Matters",
+    "contentType": "academic",
+    "htmlSnippet": "<span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span>",
+    "suggestedMarkdown": "**[⚠️ UNVERIFIED CITATION]**",
+    "context": " The Imperative for Safety Standards\"** by Stuart <span style=\"background-color: #ff0000; color: #ffffff; padding: 4px 8px; font-weight: bold;\">⚠️ UNVERIFIED CITATION</span> \"Russell\" (2019) [author-year] <span style=\"color"
+  }
+]

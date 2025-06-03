@@ -1,16 +1,14 @@
-# Core Prerequisites (Personal View)
-
-<!-- This is the personal/informal version of prerequisites@prerequisites -->
+# Core Prerequisites
 
 ## Quick Overview
 
 🎯 **What is this about?**
 
-I'm attempting a radically different paradigm for aspiring AI Safety Researchers: **leading with an ethical and ecological orientation** rather than traditional STEM-centrism. 
+I'm attempting a radically different paradigm for aspiring AI Safety Researchers: **leading with an philosophical, ethical and ecological orientation** rather than traditional STEM-centrism. 
 
-While STEM knowledge is necessary for AI development, it's also ironically a primary source of AI risk. STEM's tendency toward hyperfocus, optimization of narrow metrics, and institutional capture by market forces creates dangerous blind spots. Market dynamics — with their coordination failures, externalities, and wealth concentration — become exponentially more dangerous when amplified by AI systems. We'll explore all technical aspects *to the deepest level that's necessary and safe to publicly explore* — but anchored in this broader systemic understanding.
+While STEM knowledge is necessary for AI development, it's also ironically a primary source of AI risk. STEM's tendency towards hyperfocus, optimization of narrow metrics, and its current institutional capture by market forces and human power centers creates dangerous blind spots among those developing AI and those managing the firms in which it's being generated. Market dynamics — with their known coordination failures, tendency to generate externalities, and wealth and power concentration — become exponentially more dangerous when amplified by AI systems. We'll explore all technical aspects *to the deepest level, i.e. building a transformer from scratch, that's necessary and safe to publicly explore* — but anchored in this broader systemic understanding.
 
-This project helps motivated individuals develop ethical and effective safety impact on AI's generation, deployment, and integration into Earth's biosphere.
+[topic title](/journey/intermediate/paradigms-mental-models/ai-development-factions)
 
 The project is designed to take motivated human beings and help them have ethical and useful safety impact on the generation, deployment, and integration of AI into Earth's biosphere.
 
@@ -163,7 +161,7 @@ Understanding why aligning AI systems with human values is challenging:
 
 ### Modern AI Safety Movement
 - Eliezer Yudkowsky's early writings (2000s)
-- Nick Bostrom's "Superintelligence" (2014)
+- Nick Bostrom's **⚠️ UNVERIFIED CITATION** "Superintelligence" (2014) [standard] _Could not find a reliable source for this citation_
 - OpenAI, Anthropic, and DeepMind safety teams
 - Growing academic and industry recognition
 

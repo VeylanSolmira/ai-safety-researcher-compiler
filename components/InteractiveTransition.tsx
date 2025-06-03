@@ -1,10 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useViewMode } from '@/contexts/ViewModeContext'
-import { externalResources } from '@/lib/external-resources'
-import { useClaude } from '@/hooks/useClaude'
-import { getSectionPrompt, getParadigmPrompt } from '@/lib/prompts'
+import { useState } from 'react'
+import UnifiedAIAssistant from '@/components/UnifiedAIAssistant'
 
 interface InteractiveTransitionProps {
   fromSection: string
@@ -13,10 +10,8 @@ interface InteractiveTransitionProps {
   paradigmId?: string // Specific paradigm for focused discussion
 }
 
-export default function InteractiveTransition({ fromSection, toSection, sectionId = 'default', paradigmId }: InteractiveTransitionProps) {
+export default function InteractiveTransition({ sectionId = 'default', paradigmId }: InteractiveTransitionProps) {
   const [activeTab, setActiveTab] = useState<'ai-teacher' | 'quiz'>('ai-teacher')
-  const [tutorMode, setTutorMode] = useState<'teacher' | 'adversary'>('teacher')
-  const { viewMode } = useViewMode()
 
   return (
     <div className="my-12 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
@@ -51,194 +46,18 @@ export default function InteractiveTransition({ fromSection, toSection, sectionI
       </div>
 
       {/* Content Areas */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 min-h-[400px]">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         {activeTab === 'ai-teacher' && (
-          <AITeacher 
-            viewMode={viewMode} 
+          <UnifiedAIAssistant
+            mode="chat"
             sectionId={sectionId}
             paradigmId={paradigmId}
-            tutorMode={tutorMode} 
-            setTutorMode={setTutorMode} 
+            showWarning={true}
+            className=""
           />
         )}
         {activeTab === 'quiz' && <ReadinessQuiz />}
       </div>
-    </div>
-  )
-}
-
-
-// AI Teacher Component with Claude integration
-function AITeacher({ 
-  viewMode, 
-  sectionId,
-  paradigmId,
-  tutorMode,
-  setTutorMode 
-}: { 
-  viewMode: 'academic' | 'personal'
-  sectionId: string
-  paradigmId?: string
-  tutorMode: 'teacher' | 'adversary'
-  setTutorMode: (mode: 'teacher' | 'adversary') => void
-}) {
-  const [question, setQuestion] = useState('')
-  const { chat, loading, error } = useClaude()
-  
-  // Get appropriate system prompt based on section and mode
-  const getSystemPrompt = () => {
-    // Use paradigm prompt if paradigmId is provided, otherwise use section prompt
-    if (paradigmId) {
-      return getParadigmPrompt(paradigmId, tutorMode, viewMode)
-    }
-    return getSectionPrompt(sectionId, tutorMode, viewMode)
-  }
-  
-  const getInitialMessage = () => {
-    if (tutorMode === 'adversary') {
-      return viewMode === 'academic'
-        ? "I'm here to challenge your assumptions about AI safety. Why do you think AI poses existential risks? Let's examine your reasoning critically."
-        : "So you're worried about AI taking over? Let's talk about why that might be overblown..."
-    }
-    
-    return viewMode === 'academic' 
-      ? "I'm your AI Safety tutor. I can help you understand alignment theory, interpretability research, or any concepts you're studying. What would you like to explore?"
-      : "Hey! I'm here to help you learn about AI safety. What's on your mind? Any concepts confusing you?"
-  }
-  
-  const [conversation, setConversation] = useState<Array<{role: 'user' | 'ai', content: string}>>([
-    {
-      role: 'ai',
-      content: getInitialMessage()
-    }
-  ])
-  
-  // Update conversation when mode or view changes
-  useEffect(() => {
-    setConversation([{
-      role: 'ai',
-      content: getInitialMessage()
-    }])
-  }, [tutorMode, viewMode])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!question.trim() || loading) return
-
-    // Add user question
-    const newConversation = [...conversation, { role: 'user', content: question }]
-    setConversation(newConversation)
-    setQuestion('')
-    
-    // Prepare messages for Claude
-    const claudeMessages = newConversation.slice(1).map(msg => ({
-      role: msg.role === 'user' ? 'user' as const : 'assistant' as const,
-      content: msg.content
-    }))
-    
-    // Get Claude's response
-    const response = await chat(claudeMessages, {
-      systemPrompt: getSystemPrompt(),
-      maxTokens: 500,
-      temperature: tutorMode === 'adversary' ? 0.8 : 0.7
-    })
-    
-    if (response) {
-      setConversation(prev => [...prev, {
-        role: 'ai',
-        content: response
-      }])
-    }
-  }
-
-  return (
-    <div className="flex flex-col h-full">
-      {/* Warning about AI teacher risks */}
-      <div className="mb-3 text-center">
-        <p className="text-sm">
-          <span className="text-amber-600 dark:text-amber-400">⚠️ Warning:</span>{' '}
-          <a 
-            href={externalResources.aiTutor.warningLink}
-            className="text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            There may be risks in using AI as a teacher
-          </a>
-        </p>
-      </div>
-
-      {/* Mode Toggle */}
-      <div className="flex justify-center mb-4">
-        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-1 flex gap-1">
-          <button
-            onClick={() => {
-              setTutorMode('teacher')
-            }}
-            className={`px-3 py-1 rounded-md text-sm transition-all ${
-              tutorMode === 'teacher' 
-                ? 'bg-green-600 text-white' 
-                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-            }`}
-          >
-            👩‍🏫 Teacher Mode
-          </button>
-          <button
-            onClick={() => {
-              setTutorMode('adversary')
-            }}
-            className={`px-3 py-1 rounded-md text-sm transition-all ${
-              tutorMode === 'adversary' 
-                ? 'bg-red-600 text-white' 
-                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-            }`}
-          >
-            😈 Adversary Mode
-          </button>
-        </div>
-      </div>
-      
-      <div className="flex-1 overflow-y-auto space-y-4 mb-4 max-h-[250px]">
-        {conversation.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] p-3 rounded-lg ${
-              msg.role === 'user' 
-                ? 'bg-indigo-600 text-white' 
-                : tutorMode === 'adversary'
-                ? 'bg-red-100 dark:bg-red-900/20 text-gray-800 dark:text-gray-200 border border-red-300 dark:border-red-700'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-            }`}>
-              {msg.content}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="text"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder={tutorMode === 'adversary' ? "Defend your position..." : "Ask about prerequisites, foundations, or your learning path..."}
-          className="flex-1 px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-          disabled={loading}
-        />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
-          disabled={loading}
-        >
-          {loading ? '...' : 'Send'}
-        </button>
-      </form>
-
-      {error && (
-        <p className="text-xs text-red-500 mt-2 text-center">
-          Error: {error}
-        </p>
-      )}
-      
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-        🤖 Powered by Claude AI • {tutorMode === 'adversary' ? 'Adversarial' : 'Supportive'} mode
-      </p>
     </div>
   )
 }

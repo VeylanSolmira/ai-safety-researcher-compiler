@@ -2,7 +2,7 @@
 // This keeps the API key on the server side
 
 import { NextRequest, NextResponse } from 'next/server'
-import { askClaude, analyzeContent, generateQuizQuestions } from '@/lib/claude-api'
+import { askClaude, analyzeContent, generateQuizQuestions, analyzeWithParadigm } from '@/lib/claude-api'
 
 // Rate limiting (simple in-memory store - use Redis in production)
 const requestCounts = new Map<string, { 
@@ -115,9 +115,24 @@ export async function POST(request: NextRequest) {
         result = await generateQuizQuestions(params.content, params.count)
         break
 
+      case 'paradigm':
+        if (!params.content || !params.paradigm) {
+          return NextResponse.json(
+            { error: 'Content and paradigm required for paradigm analysis' },
+            { status: 400 }
+          )
+        }
+        result = await analyzeWithParadigm(
+          params.content, 
+          params.paradigm, 
+          params.mode, 
+          params.style
+        )
+        break
+
       default:
         return NextResponse.json(
-          { error: 'Invalid action. Use: chat, analyze, or quiz' },
+          { error: 'Invalid action. Use: chat, analyze, quiz, or paradigm' },
           { status: 400 }
         )
     }

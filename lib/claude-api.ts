@@ -138,3 +138,39 @@ export async function generateQuizQuestions(
     temperature: 0.8
   })
 }
+
+/**
+ * Analyze content with a specific paradigm perspective
+ * @param content - The content to analyze
+ * @param paradigm - The paradigm to use (e.g., 'the-race', 'birth-parenthood')
+ * @param mode - Teacher or adversary mode
+ * @param style - Academic or personal style
+ * @returns Analysis from the paradigm perspective
+ */
+export async function analyzeWithParadigm(
+  content: string,
+  paradigm: string,
+  mode: 'teacher' | 'adversary' = 'teacher',
+  style: 'academic' | 'personal' = 'academic'
+): Promise<string> {
+  // Import prompts dynamically to avoid circular dependencies
+  const { paradigmPrompts } = await import('./prompts')
+  
+  const paradigmPrompt = paradigmPrompts[paradigm]
+  if (!paradigmPrompt) {
+    throw new Error(`Unknown paradigm: ${paradigm}`)
+  }
+  
+  const systemPrompt = paradigmPrompt[mode][style]
+  
+  return askClaude([
+    {
+      role: 'user',
+      content: `Please analyze and discuss the following AI safety content from your unique perspective:\n\n${content}`
+    }
+  ], {
+    systemPrompt,
+    maxTokens: 2000,
+    temperature: 0.7
+  })
+}

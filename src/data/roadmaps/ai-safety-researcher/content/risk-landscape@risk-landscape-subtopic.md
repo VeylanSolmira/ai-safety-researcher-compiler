@@ -202,7 +202,7 @@ Present your analysis as a visual risk map with accompanying documentation.
 
 ## Further Reading
 
-- **"The Malicious Use of Artificial Intelligence"** by Brundage et al. (2018) - Comprehensive analysis of AI misuse risks
+- **"The Malicious Use of Artificial Intelligence"** by **⚠️ UNVERIFIED CITATION** "Brundage et al." (2018) [author-year] _Could not find a reliable source for this citation_ - Comprehensive analysis of AI misuse risks
 - **"Artificial Intelligence Risk & Governance"** by NIST (2023) - Framework for AI risk management
 - **"Existential Risk from Artificial General Intelligence"** by Future of Humanity Institute - Long-term risk analysis
 - **"The State of AI Ethics Report"** by Montreal AI Ethics Institute - Annual survey of AI risks and incidents
