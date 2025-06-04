@@ -1,13 +1,7 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { 
-  getAllCaseStudies, 
-  getCategoriesWithCounts,
-  formatCaseStudyDate,
-  type CaseStudy 
-} from '@/lib/case-studies'
 import { 
   ExclamationTriangleIcon,
   CalendarIcon,
@@ -15,12 +9,48 @@ import {
   FunnelIcon
 } from '@heroicons/react/24/outline'
 
+// Import the type from the query file instead
+import type { CaseStudy } from '@/lib/db/case-studies-queries'
+
+// Helper function for date formatting
+function formatCaseStudyDate(dateString: string): string {
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  } catch {
+    return dateString
+  }
+}
+
 export default function CaseStudiesPage() {
   const [selectedCategory, setSelectedCategory] = useState<CaseStudy['category'] | 'all'>('all')
   const [selectedSeverity, setSelectedSeverity] = useState<CaseStudy['severity'] | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [allCaseStudies, setAllCaseStudies] = useState<CaseStudy[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   
-  const allCaseStudies = getAllCaseStudies()
+  // Fetch case studies from API
+  useEffect(() => {
+    async function fetchCaseStudies() {
+      try {
+        const response = await fetch('/api/case-studies')
+        if (!response.ok) throw new Error('Failed to fetch case studies')
+        const data = await response.json()
+        setAllCaseStudies(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load case studies')
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchCaseStudies()
+  }, [])
   
   // Get unique categories and severities
   const categories = useMemo(() => {
@@ -196,7 +226,23 @@ export default function CaseStudiesPage() {
 
         {/* Case Studies List */}
         <div className="space-y-6">
-          {filteredStudies.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-400">Loading case studies...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <ExclamationTriangleIcon className="h-12 w-12 text-red-500 mx-auto mb-4" />
+              <p className="text-red-600 dark:text-red-400">{error}</p>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                Try Again
+              </button>
+            </div>
+          ) : filteredStudies.length === 0 ? (
             <div className="text-center py-12">
               <ExclamationTriangleIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 dark:text-gray-400">

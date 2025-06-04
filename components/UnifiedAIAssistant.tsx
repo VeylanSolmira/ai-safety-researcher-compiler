@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useClaude } from '@/hooks/useClaude'
 import { useViewMode } from '@/contexts/ViewModeContext'
-import { paradigmPrompts, newParadigmCategories, getSectionPrompt } from '@/lib/prompts'
-import { externalResources } from '@/lib/external-resources'
 
 interface UnifiedAIAssistantProps {
   // Content to analyze (for non-chat modes)
@@ -35,6 +33,20 @@ const formatCategoryName = (category: string): string => {
   return category.charAt(0).toUpperCase() + category.slice(1)
 }
 
+interface AIPrompt {
+  id: string
+  mode: string
+  prompt: string
+}
+
+interface ExternalResource {
+  id: string
+  category: string
+  title: string
+  url: string
+  description?: string
+}
+
 export default function UnifiedAIAssistant({
   content,
   sectionId = 'default',
@@ -48,6 +60,11 @@ export default function UnifiedAIAssistant({
   const { viewMode } = useViewMode()
   const [isExpanded, setIsExpanded] = useState(true)
   const [activeTab, setActiveTab] = useState<'chat' | 'analysis'>(mode === 'chat' ? 'chat' : 'analysis')
+  
+  // Data state
+  const [prompts, setPrompts] = useState<AIPrompt[]>([])
+  const [resources, setResources] = useState<ExternalResource[]>([])
+  const [dataLoading, setDataLoading] = useState(true)
   
   // Analysis state
   const [analysisResult, setAnalysisResult] = useState<string>('')
@@ -63,18 +80,79 @@ export default function UnifiedAIAssistant({
   const [showParadigmSelector, setShowParadigmSelector] = useState(false)
   const [tutorMode, setTutorMode] = useState<'teacher' | 'adversary'>('teacher')
   
-  // Get all paradigm keys
-  const allParadigms = Object.keys(paradigmPrompts)
+  // Fetch data on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [promptsRes, resourcesRes] = await Promise.all([
+          fetch('/api/prompts'),
+          fetch('/api/external-resources')
+        ])
+        
+        if (promptsRes.ok) {
+          const promptsData = await promptsRes.json()
+          setPrompts(promptsData)
+        }
+        
+        if (resourcesRes.ok) {
+          const resourcesData = await resourcesRes.json()
+          setResources(resourcesData)
+        }
+      } catch (err) {
+        console.error('Failed to load assistant data:', err)
+      } finally {
+        setDataLoading(false)
+      }
+    }
+    
+    fetchData()
+  }, [])
+  
+  // Get unique paradigm modes from prompts
+  const allParadigms = [...new Set(prompts.map(p => p.mode))].filter(mode => 
+    mode !== 'default' && mode !== 'teacher' && mode !== 'adversary'
+  )
+  
+  // Build paradigm categories from the prompts
+  const paradigmCategories = allParadigms.reduce((acc, paradigm) => {
+    // Simple categorization based on paradigm name patterns
+    let category = 'general'
+    if (paradigm.includes('security') || paradigm.includes('safety')) {
+      category = 'security'
+    } else if (paradigm.includes('research') || paradigm.includes('science')) {
+      category = 'research'
+    } else if (paradigm.includes('business') || paradigm.includes('corporate')) {
+      category = 'business'
+    } else if (paradigm.includes('academic') || paradigm.includes('education')) {
+      category = 'academic'
+    }
+    
+    if (!acc[category]) acc[category] = []
+    acc[category].push(paradigm)
+    return acc
+  }, {} as Record<string, string[]>)
   
   // Get appropriate system prompt based on paradigm and mode
   const getSystemPrompt = () => {
     if (selectedParadigm) {
-      const paradigmPrompt = paradigmPrompts[selectedParadigm]
-      if (paradigmPrompt) {
-        return paradigmPrompt[tutorMode][viewMode]
+      // Find prompt matching the paradigm and tutor mode
+      const promptKey = `${selectedParadigm}-${tutorMode}-${viewMode}`
+      const prompt = prompts.find(p => 
+        p.mode === promptKey || 
+        (p.mode === selectedParadigm && p.prompt.includes(tutorMode) && p.prompt.includes(viewMode))
+      )
+      if (prompt) {
+        return prompt.prompt
       }
     }
-    return getSectionPrompt(sectionId, tutorMode, viewMode)
+    
+    // Find default prompt for section
+    const defaultKey = `${sectionId}-${tutorMode}-${viewMode}`
+    const defaultPrompt = prompts.find(p => 
+      p.mode === defaultKey ||
+      (p.mode === 'default' && p.prompt.includes(tutorMode) && p.prompt.includes(viewMode))
+    )
+    return defaultPrompt?.prompt || 'I am an AI assistant here to help you learn about AI safety.'
   }
   
   // Generate initial message for chat
@@ -336,7 +414,7 @@ export default function UnifiedAIAssistant({
                     className="flex-1 text-xs px-2 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded"
                   >
                     <option value="">Select Category...</option>
-                    {Object.keys(newParadigmCategories).map(category => (
+                    {Object.keys(paradigmCategories).map(category => (
                       <option key={category} value={category}>
                         {formatCategoryName(category)}
                       </option>
@@ -350,7 +428,7 @@ export default function UnifiedAIAssistant({
                       className="flex-1 text-xs px-2 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded"
                     >
                       <option value="">Select Paradigm...</option>
-                      {newParadigmCategories[selectedCategory as keyof typeof newParadigmCategories].map(paradigm => (
+                      {(paradigmCategories[selectedCategory] || []).map(paradigm => (
                         <option key={paradigm} value={paradigm}>
                           {formatParadigmName(paradigm)}
                         </option>

@@ -1,0 +1,1176 @@
+{
+  "totalTopicsInTS": 76,
+  "totalTopicsInDB": 121,
+  "matchingTopics": [
+    {
+      "id": "prerequisites-foundations",
+      "title": "Prerequisites & Foundations",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "why-ai-safety",
+      "title": "Why AI Safety Matters",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "risk-landscape",
+      "title": "The AI Risk Landscape",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "choose-your-path",
+      "title": "Your AI Safety Journey",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "build-first-safety-tool",
+      "title": "Build Your First Safety Tool",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "intro-red-teaming",
+      "title": "Red Teaming Fundamentals",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "basic-interpretability",
+      "title": "Basic Interpretability",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "prompt-injection-attacks",
+      "title": "Prompt Injection Attacks",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "jailbreak-techniques",
+      "title": "Jailbreak Techniques",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "safety-evaluation-101",
+      "title": "Safety Evaluation Methods",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "how-llms-work",
+      "title": "How LLMs Actually Work",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "training-failure-modes",
+      "title": "When Training Goes Wrong",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "safety-capability-balance",
+      "title": "The Safety-Capability Balance",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "ethics-fundamentals",
+      "title": "Ethics in AI Development",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "policy-landscape",
+      "title": "Global AI Policy Landscape",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "governance-basics",
+      "title": "AI Governance Fundamentals",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "ai-welfare-patienthood",
+      "title": "AI Welfare & Patienthood",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "data-poisoning",
+      "title": "Data Poisoning",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "ai-computer-security",
+      "title": "AI & Computer Security",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "risk-assessment-intro",
+      "title": "AI Risk Assessment",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "control-problem",
+      "title": "The Control Problem",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "agency-in-ai",
+      "title": "Agency in AI Systems",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "situational-awareness",
+      "title": "AI Situational Awareness",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "impenetrability",
+      "title": "Impenetrability of Advanced AI",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "linear-algebra-ml",
+      "title": "Linear Algebra for Machine Learning",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "calculus-optimization",
+      "title": "Calculus & Optimization Theory",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "probability-statistics",
+      "title": "Probability Theory & Statistics",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "python-ml-libraries",
+      "title": "Python & ML Libraries for Safety Research",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "ml-paradigms",
+      "title": "ML Learning Paradigms",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "classic-ml-algorithms",
+      "title": "Classical ML Algorithms",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "neural-networks-intro",
+      "title": "Introduction to Neural Networks",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "ml-failure-modes",
+      "title": "Common ML Failure Modes",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "automated-red-teaming",
+      "title": "Automated Red Teaming Systems",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "adversarial-robustness",
+      "title": "Adversarial Robustness Techniques",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "multimodal-attacks",
+      "title": "Multimodal Attack Vectors",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "model-organisms",
+      "title": "Model Organisms of Misalignment",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "safety-monitoring",
+      "title": "Real-time Safety Monitoring",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "content-filtering",
+      "title": "Advanced Content Filtering",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "safety-apis",
+      "title": "Safety API Design",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "incident-response",
+      "title": "AI Incident Response",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "mechanistic-interp",
+      "title": "Mechanistic Interpretability Practice",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "explainable-ai",
+      "title": "Building Explainable AI Systems",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "debugging-tools",
+      "title": "AI Debugging Frameworks",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "llm-psychology",
+      "title": "LLM Psychology and Behavior Analysis",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "chain-of-thought-analysis",
+      "title": "Chain of Thought Analysis and Faithfulness",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "policy-analysis",
+      "title": "AI Policy Analysis",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "institutional-design",
+      "title": "Safety Institutions Design",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "international-coordination",
+      "title": "International AI Coordination",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "mesa-optimization",
+      "title": "Mesa-Optimization & Inner Alignment",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "deceptive-alignment",
+      "title": "Deceptive Alignment & Treacherous Turns",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "amplification-debate",
+      "title": "Iterated Amplification & AI Safety via Debate",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "embedded-agency",
+      "title": "Embedded Agency & Decision Theory",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "goal-misgeneralization",
+      "title": "Goal Misgeneralization & Capability Generalization",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "alignment-principles-deep",
+      "title": "Deep Dive: Alignment Principles",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "research-methodology",
+      "title": "AI Safety Research Methodology",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "alignment-theory",
+      "title": "Advanced Alignment Theory",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "empirical-alignment",
+      "title": "Empirical Alignment Research",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "cognitive-oversight",
+      "title": "Cognitive Process Oversight",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "circuit-discovery",
+      "title": "Novel Circuit Discovery",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "scalable-interpretability",
+      "title": "Scalable Interpretability Methods",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "distributed-safety",
+      "title": "Distributed Safety Systems",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "safety-infrastructure",
+      "title": "Safety Infrastructure Design",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "hardware-safety",
+      "title": "Hardware-Level Safety Controls",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "code-generation-safety",
+      "title": "Safe AI Code Generation",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "policy-design",
+      "title": "AI Policy Design & Analysis",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "global-coordination",
+      "title": "Global AI Governance",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "enforcement-design",
+      "title": "Enforcement & Compliance Systems",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "agenda-setting",
+      "title": "Setting Research Agendas",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "team-building",
+      "title": "Building Safety Teams",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "mentorship",
+      "title": "Mentoring Next Generation",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "institution-building",
+      "title": "Building Safety Institutions",
+      "contentMatch": true,
+      "personalMatch": true
+    },
+    {
+      "id": "formal-verification",
+      "title": "Formal Verification for Neural Networks",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "multi-agent-safety",
+      "title": "Multi-Agent AI Safety",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "automated-ai-safety",
+      "title": "Automated AI Safety Research",
+      "contentMatch": false,
+      "personalMatch": true
+    },
+    {
+      "id": "consciousness-moral-status",
+      "title": "AI Consciousness & Moral Status",
+      "contentMatch": false,
+      "personalMatch": true
+    }
+  ],
+  "tsOnlyTopics": [
+    {
+      "id": "value-learning-alignment",
+      "title": "Value Learning & Alignment Techniques",
+      "location": "intermediate > advanced-alignment-theory",
+      "hasContent": true
+    }
+  ],
+  "dbOnlyTopics": [
+    {
+      "id": "types-of-ai-systems",
+      "title": "Types of AI Systems Overview",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "understanding-llms",
+      "title": "Understanding Large Language Models",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "how-llms-trained",
+      "title": "How LLMs are Trained",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "problem-decomposition",
+      "title": "Problem Decomposition & Scoping",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "iterative-research",
+      "title": "Iterative Research Design",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "research-project-mgmt",
+      "title": "Research Project Management",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "core-methodology",
+      "title": "Core Research Methodology",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "agent-architectures",
+      "title": "Agent Architectures & Design",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "agent-safety-fundamentals",
+      "title": "Agent Safety Fundamentals",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "agent-evaluation-testing",
+      "title": "Agent Evaluation & Testing",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "human-agent-interaction",
+      "title": "Human-Agent Interaction",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "white-box-testing",
+      "title": "White Box Testing Methods",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "black-box-testing",
+      "title": "Black Box Testing Methods",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "grey-box-testing",
+      "title": "Grey Box Testing Methods",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "transparency-systems",
+      "title": "Transparency in AI Systems",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "pretraining-scale",
+      "title": "Pretraining at Scale",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "advanced-finetuning",
+      "title": "Advanced Fine-tuning Techniques",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "understanding-hallucinations",
+      "title": "Understanding Hallucinations",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "multi-agent-coordination",
+      "title": "Multi-Agent Coordination",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "emergent-behaviors",
+      "title": "Emergent Agent Behaviors",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "agent-ecosystems",
+      "title": "Agent Ecosystems & Economics",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "teacher-trainer-paradigms",
+      "title": "Teacher vs Trainer Paradigms",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "key-figures-safety",
+      "title": "Key Figures in AI Safety",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "neel-nanda-work",
+      "title": "Neel Nanda's Contributions",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "yoshua-bengio-work",
+      "title": "Yoshua Bengio's Work",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "constellation-org",
+      "title": "Constellation Organization",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "far-fund",
+      "title": "Fund for Alignment Research",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "containerization-research",
+      "title": "Containerization for Research",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "advanced-git-research",
+      "title": "Advanced Git for Research",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "distributed-training",
+      "title": "Distributed Training Systems",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "resource-allocation",
+      "title": "Resource Allocation in AI Safety",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "resource-tracking",
+      "title": "Resource Tracking & Management",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "deployment-gates",
+      "title": "Deployment Gates & Safety Checks",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "training-run-monitoring",
+      "title": "Training Run Monitoring",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "ai-systems-security",
+      "title": "AI Systems Security",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "disrupting-safety-research",
+      "title": "Disrupting AI Safety Research",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "prompt-injection-defense",
+      "title": "Prompt Injection & Defense",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "data-poisoning-defense",
+      "title": "Data Poisoning & Defense",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "introduction-ai-paradigms",
+      "title": "Introduction to AI Paradigms",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "cultural-paradigms-ai",
+      "title": "Cultural Paradigms in AI",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "paradigm-driven-research",
+      "title": "Paradigm-Driven Research",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "paradigms-in-practice",
+      "title": "Paradigms in Practice",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "creating-new-paradigms",
+      "title": "Creating New Paradigms",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "adversarial-meta-learning",
+      "title": "Adversarial Meta-Learning",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "foundational-papers",
+      "title": "Foundational AI Safety Papers",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    },
+    {
+      "id": "ai-development-factions",
+      "title": "AI Development Factions & Paradigm Analysis",
+      "hasAcademicContent": false,
+      "hasPersonalContent": false
+    }
+  ],
+  "contentDifferences": [
+    {
+      "id": "ai-welfare-patienthood",
+      "title": "AI Welfare & Patienthood",
+      "academicContent": {
+        "tsLength": 2018,
+        "dbLength": 0,
+        "difference": -2018,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "linear-algebra-ml",
+      "title": "Linear Algebra for Machine Learning",
+      "academicContent": {
+        "tsLength": 1562,
+        "dbLength": 0,
+        "difference": -1562,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "calculus-optimization",
+      "title": "Calculus & Optimization Theory",
+      "academicContent": {
+        "tsLength": 1381,
+        "dbLength": 0,
+        "difference": -1381,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "probability-statistics",
+      "title": "Probability Theory & Statistics",
+      "academicContent": {
+        "tsLength": 1388,
+        "dbLength": 0,
+        "difference": -1388,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "python-ml-libraries",
+      "title": "Python & ML Libraries for Safety Research",
+      "academicContent": {
+        "tsLength": 1287,
+        "dbLength": 0,
+        "difference": -1287,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "ml-paradigms",
+      "title": "ML Learning Paradigms",
+      "academicContent": {
+        "tsLength": 1213,
+        "dbLength": 0,
+        "difference": -1213,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "classic-ml-algorithms",
+      "title": "Classical ML Algorithms",
+      "academicContent": {
+        "tsLength": 1219,
+        "dbLength": 0,
+        "difference": -1219,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "neural-networks-intro",
+      "title": "Introduction to Neural Networks",
+      "academicContent": {
+        "tsLength": 1160,
+        "dbLength": 0,
+        "difference": -1160,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "ml-failure-modes",
+      "title": "Common ML Failure Modes",
+      "academicContent": {
+        "tsLength": 1451,
+        "dbLength": 0,
+        "difference": -1451,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "model-organisms",
+      "title": "Model Organisms of Misalignment",
+      "academicContent": {
+        "tsLength": 1802,
+        "dbLength": 0,
+        "difference": -1802,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "llm-psychology",
+      "title": "LLM Psychology and Behavior Analysis",
+      "academicContent": {
+        "tsLength": 1477,
+        "dbLength": 0,
+        "difference": -1477,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "chain-of-thought-analysis",
+      "title": "Chain of Thought Analysis and Faithfulness",
+      "academicContent": {
+        "tsLength": 1419,
+        "dbLength": 0,
+        "difference": -1419,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "mesa-optimization",
+      "title": "Mesa-Optimization & Inner Alignment",
+      "academicContent": {
+        "tsLength": 1845,
+        "dbLength": 0,
+        "difference": -1845,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "deceptive-alignment",
+      "title": "Deceptive Alignment & Treacherous Turns",
+      "academicContent": {
+        "tsLength": 1797,
+        "dbLength": 0,
+        "difference": -1797,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "amplification-debate",
+      "title": "Iterated Amplification & AI Safety via Debate",
+      "academicContent": {
+        "tsLength": 1885,
+        "dbLength": 0,
+        "difference": -1885,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "embedded-agency",
+      "title": "Embedded Agency & Decision Theory",
+      "academicContent": {
+        "tsLength": 1803,
+        "dbLength": 0,
+        "difference": -1803,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "goal-misgeneralization",
+      "title": "Goal Misgeneralization & Capability Generalization",
+      "academicContent": {
+        "tsLength": 1660,
+        "dbLength": 0,
+        "difference": -1660,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "empirical-alignment",
+      "title": "Empirical Alignment Research",
+      "academicContent": {
+        "tsLength": 1903,
+        "dbLength": 0,
+        "difference": -1903,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "cognitive-oversight",
+      "title": "Cognitive Process Oversight",
+      "academicContent": {
+        "tsLength": 1716,
+        "dbLength": 0,
+        "difference": -1716,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "code-generation-safety",
+      "title": "Safe AI Code Generation",
+      "academicContent": {
+        "tsLength": 1707,
+        "dbLength": 0,
+        "difference": -1707,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "formal-verification",
+      "title": "Formal Verification for Neural Networks",
+      "academicContent": {
+        "tsLength": 1641,
+        "dbLength": 0,
+        "difference": -1641,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "multi-agent-safety",
+      "title": "Multi-Agent AI Safety",
+      "academicContent": {
+        "tsLength": 1570,
+        "dbLength": 0,
+        "difference": -1570,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "automated-ai-safety",
+      "title": "Automated AI Safety Research",
+      "academicContent": {
+        "tsLength": 1552,
+        "dbLength": 0,
+        "difference": -1552,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    },
+    {
+      "id": "consciousness-moral-status",
+      "title": "AI Consciousness & Moral Status",
+      "academicContent": {
+        "tsLength": 1615,
+        "dbLength": 0,
+        "difference": -1615,
+        "tsHasContent": true,
+        "dbHasContent": false
+      },
+      "personalContent": {
+        "tsLength": 0,
+        "dbLength": 0,
+        "difference": 0,
+        "tsHasContent": false,
+        "dbHasContent": false
+      }
+    }
+  ]
+}

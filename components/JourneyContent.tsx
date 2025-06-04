@@ -4,10 +4,17 @@ import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import type { Components } from 'react-markdown'
 import { useViewMode } from '@/contexts/ViewModeContext'
-import { externalResources } from '@/lib/external-resources'
 import InteractiveTransition from './InteractiveTransition'
 import Assessment from './Assessment'
 import { sectionAssessments } from './JourneyAssessment'
+
+interface ExternalResource {
+  id: string
+  category: string
+  title: string
+  url: string
+  description?: string
+}
 
 interface JourneyContentProps {
   sectionId: string
@@ -198,7 +205,27 @@ export default function JourneyContent({
 
 // Journey-specific content components
 export function JourneyIntroductionExtras() {
-  const notebooks = externalResources.colabNotebooks
+  const [resources, setResources] = useState<ExternalResource[]>([])
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    fetch('/api/external-resources')
+      .then(res => res.json())
+      .then(data => {
+        setResources(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Failed to load resources:', err)
+        setLoading(false)
+      })
+  }, [])
+  
+  const notebooks = resources.filter(r => r.category === 'colabNotebooks')
+  
+  if (loading) {
+    return <div>Loading resources...</div>
+  }
   
   return (
     <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 space-y-4">
@@ -210,32 +237,23 @@ export function JourneyIntroductionExtras() {
         <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
           <h3 className="font-semibold text-lg mb-2">Hands-On Notebooks</h3>
           <ul className="space-y-2">
-            <li>
-              <a 
-                href={notebooks.interactivePrerequisitesChecker.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
-              >
-                {notebooks.interactivePrerequisitesChecker.title}
-              </a>
-              <p className="text-sm text-gray-600 dark:text-gray-400 ml-6">
-                {notebooks.interactivePrerequisitesChecker.description}
-              </p>
-            </li>
-            <li>
-              <a 
-                href={notebooks.firstSafetyExperiment.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
-              >
-                {notebooks.firstSafetyExperiment.title}
-              </a>
-              <p className="text-sm text-gray-600 dark:text-gray-400 ml-6">
-                {notebooks.firstSafetyExperiment.description}
-              </p>
-            </li>
+            {notebooks.map((notebook) => (
+              <li key={notebook.id}>
+                <a 
+                  href={notebook.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
+                >
+                  {notebook.title}
+                </a>
+                {notebook.description && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400 ml-6">
+                    {notebook.description}
+                  </p>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
 

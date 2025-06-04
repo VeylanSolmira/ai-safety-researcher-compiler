@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { 
   LightBulbIcon, 
@@ -10,11 +10,32 @@ import {
   SparklesIcon
 } from '@heroicons/react/24/outline'
 import ReactMarkdown from 'react-markdown'
-import { percolatingIdeas } from '@/lib/ideas-lab'
+import type { Idea } from '@/lib/db/ideas-queries'
 
 export default function IdeasLabPage() {
   const [selectedIdea, setSelectedIdea] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [percolatingIdeas, setPercolatingIdeas] = useState<Idea[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  
+  // Fetch ideas from API
+  useEffect(() => {
+    async function fetchIdeas() {
+      try {
+        const response = await fetch('/api/ideas')
+        if (!response.ok) throw new Error('Failed to fetch ideas')
+        const data = await response.json()
+        setPercolatingIdeas(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load ideas')
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchIdeas()
+  }, [])
 
   const filteredIdeas = percolatingIdeas.filter(idea =>
     idea.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -96,7 +117,23 @@ export default function IdeasLabPage() {
               Percolating Ideas ({filteredIdeas.length})
             </h3>
             <div className="space-y-3">
-              {filteredIdeas.map(idea => (
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-2"></div>
+                  <p className="text-gray-600 dark:text-gray-400">Loading ideas...</p>
+                </div>
+              ) : error ? (
+                <div className="text-center py-8">
+                  <ExclamationTriangleIcon className="h-8 w-8 text-red-500 mx-auto mb-2" />
+                  <p className="text-red-600 dark:text-red-400">{error}</p>
+                  <button 
+                    onClick={() => window.location.reload()} 
+                    className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              ) : filteredIdeas.map(idea => (
                 <button
                   key={idea.id}
                   onClick={() => setSelectedIdea(idea.id)}

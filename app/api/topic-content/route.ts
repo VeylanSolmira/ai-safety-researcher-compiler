@@ -1,68 +1,63 @@
 import { NextRequest, NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
+import { getDb } from '@/lib/db'
+import { topics } from '@/lib/db/schema'
+import { eq } from 'drizzle-orm'
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
-  const roadmapSlug = searchParams.get('roadmap')
+  const roadmapSlug = searchParams.get('roadmap') // Not used anymore, kept for backward compatibility
   const topicId = searchParams.get('topic')
   const viewMode = searchParams.get('viewMode') || 'academic'
 
-  if (!roadmapSlug || !topicId) {
+  if (!topicId) {
     return NextResponse.json(
-      { error: 'Missing roadmap or topic parameter' },
+      { error: 'Missing topic parameter' },
       { status: 400 }
     )
   }
 
   try {
-    // Path to content directory
-    const contentDir = path.join(
-      process.cwd(),
-      'src/data/roadmaps',
-      roadmapSlug,
-      'content'
-    )
-
-    // Find the file that matches the topic ID
-    const files = fs.readdirSync(contentDir)
+    const db = getDb()
     
-    // First, try to find a personal version if in personal mode
-    let topicFile = null
-    if (viewMode === 'personal') {
-      // Check if topicId already includes the @ pattern
-      if (topicId.includes('@')) {
-        topicFile = files.find(file => file === `${topicId}.personal.md`)
-      } else {
-        topicFile = files.find(file => file.endsWith(`@${topicId}.personal.md`))
-      }
+    // Clean up the topic ID if it has the @ pattern from legacy system
+    let cleanTopicId = topicId
+    if (topicId.includes('@')) {
+      // Extract just the topic ID part after @
+      cleanTopicId = topicId.split('@').pop() || topicId
+      // Remove .personal suffix if present
+      cleanTopicId = cleanTopicId.replace('.personal', '')
     }
     
-    // If no personal version found, or in academic mode, use the regular file
-    if (!topicFile) {
-      // Check if topicId already includes the @ pattern
-      if (topicId.includes('@')) {
-        topicFile = files.find(file => file === `${topicId}.md` && !file.includes('.personal.'))
-      } else {
-        topicFile = files.find(file => file.endsWith(`@${topicId}.md`) && !file.includes('.personal.'))
-      }
-    }
+    // Query the database for the topic
+    const result = await db
+      .select()
+      .from(topics)
+      .where(eq(topics.id, cleanTopicId))
+      .limit(1)
 
-    if (!topicFile) {
+    if (result.length === 0) {
       return NextResponse.json(
-        { error: 'Content not found' },
+        { error: 'Topic not found', topicId: cleanTopicId },
         { status: 404 }
       )
     }
 
-    // Read the content
-    const filePath = path.join(contentDir, topicFile)
-    const content = fs.readFileSync(filePath, 'utf8')
+    const topic = result[0]
     
-    // Add a marker if this is personal content
-    const isPersonalContent = topicFile.includes('.personal.')
+    // Select content based on view mode
+    const content = viewMode === 'personal' 
+      ? topic.contentPersonal 
+      : topic.contentAcademic
+    
+    const isPersonalContent = viewMode === 'personal' && topic.contentPersonal
 
-    return NextResponse.json({ content, isPersonalContent })
+    return NextResponse.json({ 
+      content: content || '',  // Return empty string if no content
+      isPersonalContent,
+      hasContent: !!(viewMode === 'personal' ? topic.contentPersonal : topic.contentAcademic),
+      topicTitle: topic.title,
+      topicDescription: topic.description
+    })
   } catch (error) {
     console.error('Error loading topic content:', error)
     return NextResponse.json(

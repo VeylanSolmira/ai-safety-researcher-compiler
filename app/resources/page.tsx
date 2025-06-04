@@ -26,14 +26,6 @@ interface ResourceCard {
 
 const resources: ResourceCard[] = [
   {
-    title: 'CBAI Fellowship 2025',
-    description: 'Connect with 19+ AI safety mentors from leading organizations. Find research topics and application guidance.',
-    icon: AcademicCapIcon,
-    href: '/resources/cbai-fellowship',
-    available: true,
-    badge: 'New'
-  },
-  {
     title: 'Research Papers Hub',
     description: 'Curated collection of essential AI safety papers organized by topic and difficulty level.',
     icon: BookOpenIcon,
@@ -54,7 +46,8 @@ const resources: ResourceCard[] = [
     description: 'Open-source tools for AI safety research, interpretability, and evaluation.',
     icon: BeakerIcon,
     href: '/resources/tools',
-    available: false
+    available: true,
+    badge: 'New'
   },
   {
     title: 'News & Updates',
@@ -77,7 +70,8 @@ const resources: ResourceCard[] = [
     description: 'Links to courses, blogs, podcasts, and other AI safety learning materials.',
     icon: GlobeAltIcon,
     href: '/resources/external',
-    available: false
+    available: true,
+    badge: 'Updated'
   }
 ]
 

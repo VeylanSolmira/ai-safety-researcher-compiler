@@ -18,8 +18,9 @@ export async function GET(
     return NextResponse.json(topic)
   } catch (error) {
     console.error('Error fetching topic:', error)
+    console.error('Stack trace:', error instanceof Error ? error.stack : 'No stack trace')
     return NextResponse.json(
-      { error: 'Failed to fetch topic' },
+      { error: 'Failed to fetch topic', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

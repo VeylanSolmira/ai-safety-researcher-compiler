@@ -50,7 +50,6 @@ export default function JourneyStructurePage() {
       topicTitle?: string
       topicOrder?: number
       isModuleRow?: boolean
-      roadmapContentId?: string
     }> = []
     
     journeyData.forEach((tier, tierIndex) => {
@@ -77,8 +76,7 @@ export default function JourneyStructurePage() {
             moduleIndex,
             topicId: topic.id,
             topicTitle: topic.title,
-            topicOrder: topicIndex,
-            roadmapContentId: topic.roadmapContentId
+            topicOrder: topicIndex
           })
         })
       })
@@ -98,52 +96,75 @@ export default function JourneyStructurePage() {
     const results: ContentSearchResult[] = []
     
     try {
-      // Search through all topics with content
-      for (const row of tableData) {
-        if (!row.topicId || !row.roadmapContentId) continue
+      // Collect all topic IDs
+      const topicIds = tableData
+        .filter(row => row.topicId)
+        .map(row => row.topicId!)
+      
+      // Batch fetch topic contents in chunks of 50
+      const chunkSize = 50
+      for (let i = 0; i < topicIds.length; i += chunkSize) {
+        const chunk = topicIds.slice(i, i + chunkSize)
         
         try {
-          // Fetch topic content
-          const response = await fetch(
-            `/api/topic-content?roadmap=ai-safety-researcher&topic=${row.roadmapContentId}&viewMode=${viewMode}`
-          )
+          const response = await fetch('/api/topics/batch-content', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              topicIds: chunk,
+              viewMode
+            })
+          })
           
           if (response.ok) {
             const data = await response.json()
-            const content = data.content || ''
             
-            // Search for matches (case-insensitive)
-            const searchRegex = new RegExp(searchText, 'gi')
-            const matches = [...content.matchAll(searchRegex)]
-            
-            if (matches.length > 0) {
-              // Extract context around matches
-              const contextMatches = matches.slice(0, 3).map(match => {
-                const start = Math.max(0, match.index! - 100)
-                const end = Math.min(content.length, match.index! + searchText.length + 100)
-                const context = content.slice(start, end)
-                  .replace(/\n+/g, ' ')
-                  .trim()
-                
-                return {
-                  text: match[0],
-                  context: start > 0 ? '...' + context : context
-                }
-              })
+            // Process each topic in the batch
+            data.topics.forEach((topicData: any) => {
+              const content = topicData.content || ''
               
-              results.push({
-                tierId: row.tierId,
-                tierTitle: row.tierTitle,
-                moduleId: row.moduleId,
-                moduleTitle: row.moduleTitle,
-                topicId: row.topicId,
-                topicTitle: row.topicTitle!,
-                matches: contextMatches
-              })
-            }
+              // Skip if no content or error
+              if (!content || content.trim() === '' || topicData.error) return
+              
+              // Find the corresponding row data
+              const row = tableData.find(r => r.topicId === topicData.id)
+              if (!row) return
+              
+              // Search for matches (case-insensitive)
+              const searchRegex = new RegExp(searchText, 'gi')
+              const matches = [...content.matchAll(searchRegex)]
+              
+              if (matches.length > 0) {
+                // Extract context around matches
+                const contextMatches = matches.slice(0, 3).map(match => {
+                  const start = Math.max(0, match.index! - 100)
+                  const end = Math.min(content.length, match.index! + searchText.length + 100)
+                  const context = content.slice(start, end)
+                    .replace(/\n+/g, ' ')
+                    .trim()
+                  
+                  return {
+                    text: match[0],
+                    context: start > 0 ? '...' + context : context
+                  }
+                })
+                
+                results.push({
+                  tierId: row.tierId,
+                  tierTitle: row.tierTitle,
+                  moduleId: row.moduleId,
+                  moduleTitle: row.moduleTitle,
+                  topicId: row.topicId!,
+                  topicTitle: row.topicTitle!,
+                  matches: contextMatches
+                })
+              }
+            })
           }
         } catch (error) {
-          console.error(`Error searching content for ${row.topicId}:`, error)
+          console.error(`Error searching content batch starting at index ${i}:`, error)
         }
       }
       

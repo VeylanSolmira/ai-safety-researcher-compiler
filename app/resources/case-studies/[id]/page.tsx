@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
-import { getCaseStudyById, formatCaseStudyDate } from '@/lib/case-studies'
+import { getCaseStudy } from '@/lib/db/case-studies-queries'
+import type { CaseStudy } from '@/lib/db/case-studies-queries'
 import { 
   ExclamationTriangleIcon,
   CalendarIcon,
@@ -11,8 +12,22 @@ import {
   ArrowTopRightOnSquareIcon
 } from '@heroicons/react/24/outline'
 
+// Helper function for date formatting
+function formatCaseStudyDate(dateString: string): string {
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  } catch {
+    return dateString
+  }
+}
+
 export const generateMetadata = ({ params }: { params: { id: string } }) => {
-  const caseStudy = getCaseStudyById(params.id)
+  const caseStudy = getCaseStudy(params.id)
   if (!caseStudy) return { title: 'Case Study Not Found' }
   
   return {
@@ -22,13 +37,13 @@ export const generateMetadata = ({ params }: { params: { id: string } }) => {
 }
 
 export default function CaseStudyPage({ params }: { params: { id: string } }) {
-  const caseStudy = getCaseStudyById(params.id)
+  const caseStudy = getCaseStudy(params.id)
   
   if (!caseStudy) {
     notFound()
   }
   
-  const categoryLabels: Record<typeof caseStudy.category, string> = {
+  const categoryLabels: Record<CaseStudy['category'], string> = {
     misinformation: 'Misinformation',
     security: 'Security',
     alignment: 'Alignment',
@@ -37,7 +52,7 @@ export default function CaseStudyPage({ params }: { params: { id: string } }) {
     adversarial: 'Adversarial'
   }
   
-  const categoryColors: Record<typeof caseStudy.category, string> = {
+  const categoryColors: Record<CaseStudy['category'], string> = {
     misinformation: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
     security: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
     alignment: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
@@ -46,7 +61,7 @@ export default function CaseStudyPage({ params }: { params: { id: string } }) {
     adversarial: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
   }
   
-  const severityColors: Record<typeof caseStudy.severity, string> = {
+  const severityColors: Record<CaseStudy['severity'], string> = {
     critical: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 border-red-300 dark:border-red-700',
     high: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 border-orange-300 dark:border-orange-700',
     medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 border-yellow-300 dark:border-yellow-700',

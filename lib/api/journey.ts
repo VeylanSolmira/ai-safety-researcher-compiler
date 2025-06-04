@@ -4,6 +4,7 @@
 import { getDb, eq, and, asc, desc, sql } from '../db'
 import * as schema from '../db/schema'
 import type { Topic } from '../journey'
+import { getMentorsForTopic, getMentorDisplayName, getMentorOrganization } from '../db/mentor-queries'
 
 const db = getDb()
 
@@ -28,12 +29,22 @@ export async function getAllTiers() {
       // For each module, get topics
       const modulesWithTopics = await Promise.all(
         modules.map(async (module) => {
-          const topics = await db
+          const rawTopics = await db
             .select()
             .from(schema.topics)
             .where(eq(schema.topics.moduleId, module.id))
             .orderBy(asc(schema.topics.position))
             .all()
+          
+          // Map database fields to Topic interface
+          const topics = rawTopics.map(topic => {
+            const { contentAcademic, ...topicWithoutContentAcademic } = topic
+            return {
+              ...topicWithoutContentAcademic,
+              content: contentAcademic || undefined,
+              contentPersonal: topic.contentPersonal || undefined,
+            }
+          })
           
           // Get objectives and practicals
           const objectives = await db
@@ -184,10 +195,19 @@ export async function getTopicsByModuleId(moduleId: string) {
         .where(eq(schema.topicTags.topicId, topic.id))
         .all()
       
+      const { contentAcademic, ...topicWithoutContentAcademic } = topic
+      
       return {
-        ...topic,
+        ...topicWithoutContentAcademic,
         tags: tags.map(t => t.tag),
-        content: topic.contentAcademic || undefined,
+        // Map contentAcademic to content (as expected by Topic interface)
+        // Handle Buffer conversion if content was stored as BLOB
+        content: contentAcademic ? 
+          (Buffer.isBuffer(contentAcademic) ? contentAcademic.toString('utf-8') : contentAcademic) : 
+          undefined,
+        contentPersonal: topic.contentPersonal ? 
+          (Buffer.isBuffer(topic.contentPersonal) ? topic.contentPersonal.toString('utf-8') : topic.contentPersonal) : 
+          undefined,
         relatedCaseStudies: [], // Would need to query these
         relatedExperiments: [],
         relatedExplorations: []
@@ -198,34 +218,81 @@ export async function getTopicsByModuleId(moduleId: string) {
 
 // Get a single topic with all details
 export async function getTopicById(topicId: string) {
-  const result = await db
-    .select({
-      topic: schema.topics,
-      module: schema.modules,
-      tier: schema.tiers
-    })
-    .from(schema.topics)
-    .leftJoin(schema.modules, eq(schema.topics.moduleId, schema.modules.id))
-    .leftJoin(schema.tiers, eq(schema.modules.tierId, schema.tiers.id))
-    .where(eq(schema.topics.id, topicId))
-    .get()
+  // Use raw SQLite for now due to Drizzle issues
+  const Database = require('better-sqlite3')
+  const dbPath = require('path').join(process.cwd(), 'journey.db')
+  const sqlite = new Database(dbPath)
+  sqlite.pragma('foreign_keys = ON')
   
-  if (!result || !result.topic) return null
+  try {
+    const topic = sqlite.prepare(`
+      SELECT 
+        t.*,
+        m.id as module_id,
+        m.title as module_title,
+        tier.id as tier_id,
+        tier.title as tier_title
+      FROM topics t
+      LEFT JOIN modules m ON t.module_id = m.id
+      LEFT JOIN tiers tier ON m.tier_id = tier.id
+      WHERE t.id = ?
+    `).get(topicId)
+    
+    if (!topic) return null
   
-  // Get tags
-  const tags = await db
-    .select({ tag: schema.topicTags.tag })
-    .from(schema.topicTags)
-    .where(eq(schema.topicTags.topicId, topicId))
-    .all()
-  
-  return {
-    ...result.topic,
-    tags: tags.map(t => t.tag),
-    module: result.module,
-    tier: result.tier,
-    content: result.topic.contentAcademic || undefined,
-    contentPersonal: result.topic.contentPersonal || undefined
+    // Get tags
+    const tags = sqlite.prepare(`
+      SELECT tag FROM topic_tags WHERE topic_id = ?
+    `).all(topicId)
+    
+    // Get mentor data for this topic using the same connection
+    let mentors = []
+    try {
+      const mentorMappings = sqlite.prepare(`
+        SELECT 
+          et.entity_id as mentorId,
+          et.description as mentorTopicDescription,
+          et.context
+        FROM entity_topics et
+        JOIN entities e ON et.entity_id = e.id
+        WHERE et.topic_id = ? AND e.type = 'researcher'
+        ORDER BY et.entity_id
+      `).all(topicId)
+      
+      mentors = mentorMappings.map(mapping => ({
+        id: mapping.mentorId,
+        name: getMentorDisplayName(mapping.mentorId),
+        organization: getMentorOrganization(mapping.mentorId),
+        researchDescription: mapping.mentorTopicDescription,
+        context: mapping.context
+      }))
+    } catch (mentorError) {
+      console.error('Error getting mentors for topic:', mentorError)
+      // Continue without mentors
+    }
+    
+    // Map database fields
+    const { content_academic, content_personal, module_id, ...topicData } = topic
+    
+    return {
+      ...topicData,
+      moduleId: module_id,
+      tags: tags.map(t => t.tag),
+      module: topic.module_id ? {
+        id: topic.module_id,
+        title: topic.module_title
+      } : undefined,
+      tier: topic.tier_id ? {
+        id: topic.tier_id,
+        title: topic.tier_title  
+      } : undefined,
+      mentors: mentors.length > 0 ? mentors : undefined,
+      content: content_academic || undefined,
+      contentAcademic: content_academic || undefined,
+      contentPersonal: content_personal || undefined,
+    }
+  } finally {
+    sqlite.close()
   }
 }
 

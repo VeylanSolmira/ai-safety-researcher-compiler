@@ -12,6 +12,33 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for fixed headers when jumping to anchors */
+:target::before {
+  content: "";
+  display: block;
+  height: 80px; /* Adjust based on your header height */
+  margin-top: -80px;
+}
+
+/* Style for heading anchor links */
+.anchor-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.anchor-link:hover::before {
+  content: "#";
+  position: absolute;
+  left: -1.5rem;
+  color: #9ca3af;
+  font-weight: normal;
+}
+
 @media (prefers-color-scheme: dark) {
   /* Dark mode colors */
   :root {

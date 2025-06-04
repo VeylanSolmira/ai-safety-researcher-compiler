@@ -41,3 +41,32 @@ Files like `adversarial-meta-learning@adversarial-meta-learning-subtopic.md` tha
 - Both content types are stored as markdown in the database
 
 Remember: When in doubt, the database is the authority!
+
+## Database Interaction Patterns
+
+When writing scripts or API routes that interact with the database, follow the patterns in [`docs/DATABASE_PATTERNS.md`](docs/DATABASE_PATTERNS.md). This guide includes:
+- Correct import patterns for better-sqlite3
+- Common query examples
+- Solutions for foreign key constraints
+- Proper column naming (use underscores, not camelCase)
+- Tier ID values (strings like 'intermediate', not numbers)
+
+## Proposal Documentation Pattern
+
+When providing architectural proposals, migration plans, or design decisions:
+1. **Always create a markdown file** in the `docs/proposals/` directory with a descriptive name (e.g., `entity-topics-migration-proposal.md`)
+2. **Update the file as work proceeds** - add status updates, decisions made, and implementation progress
+3. **Include in the file**:
+   - Current state analysis
+   - Proposed design/architecture
+   - Implementation steps
+   - Status tracking (what's done, what's pending)
+   - Any blockers or decisions needed
+4. **This applies to any significant proposal** that would normally be explained in chat - document it in a file instead
+
+## Development Server Management
+Before running `npm run dev`, ALWAYS check if the server is already running:
+```bash
+lsof -i :3000
+```
+If a process is already listening on port 3000, the server is running. Don't start a new one.

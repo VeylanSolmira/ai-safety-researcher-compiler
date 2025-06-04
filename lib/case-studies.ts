@@ -208,6 +208,11 @@ export function getCaseStudyById(id: string): CaseStudy | undefined {
   return caseStudies.find(study => study.id === id)
 }
 
+// Async version for compatibility with components expecting promises
+export async function getCaseStudy(id: string): Promise<CaseStudy | undefined> {
+  return getCaseStudyById(id)
+}
+
 export function getCaseStudiesByTag(tag: string): CaseStudy[] {
   return getAllCaseStudies().filter(study => 
     study.tags.includes(tag.toLowerCase())

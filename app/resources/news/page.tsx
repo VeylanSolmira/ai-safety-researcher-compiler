@@ -1,13 +1,8 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { 
-  getAllNewsStories, 
-  getCategoriesWithCounts, 
-  formatNewsDate,
-  type NewsStory 
-} from '@/lib/news'
+import type { NewsStory } from '@/lib/db/news-queries'
 import { 
   NewspaperIcon,
   CalendarIcon,
@@ -15,12 +10,54 @@ import {
   FunnelIcon
 } from '@heroicons/react/24/outline'
 
+// Helper function for date formatting
+function formatNewsDate(dateString: string): string {
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  } catch {
+    return dateString
+  }
+}
+
 export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState<NewsStory['category'] | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [allStories, setAllStories] = useState<NewsStory[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   
-  const allStories = getAllNewsStories()
-  const categories = getCategoriesWithCounts()
+  // Fetch news stories from API
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const response = await fetch('/api/news')
+        if (!response.ok) throw new Error('Failed to fetch news')
+        const data = await response.json()
+        setAllStories(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load news')
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchNews()
+  }, [])
+  
+  // Get categories with counts
+  const categories = useMemo(() => {
+    const categoryCounts = new Map<NewsStory['category'], number>()
+    allStories.forEach(story => {
+      const count = categoryCounts.get(story.category) || 0
+      categoryCounts.set(story.category, count + 1)
+    })
+    return Array.from(categoryCounts.entries()).map(([category, count]) => ({ category, count }))
+  }, [allStories])
   
   // Filter stories based on category and search
   const filteredStories = useMemo(() => {
@@ -144,7 +181,23 @@ export default function NewsPage() {
 
         {/* News List */}
         <div className="space-y-6">
-          {filteredStories.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-400">Loading news...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <NewspaperIcon className="h-12 w-12 text-red-500 mx-auto mb-4" />
+              <p className="text-red-600 dark:text-red-400">{error}</p>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                Try Again
+              </button>
+            </div>
+          ) : filteredStories.length === 0 ? (
             <div className="text-center py-12">
               <NewspaperIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 dark:text-gray-400">

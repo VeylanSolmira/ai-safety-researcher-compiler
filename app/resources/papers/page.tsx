@@ -13,168 +13,10 @@ interface Paper {
   abstract: string
   link: string
   importance: 'essential' | 'important' | 'useful'
-  readingTime?: string
+  reading_time?: string | null
+  created_at?: string
+  updated_at?: string
 }
-
-// Sample data - in production this would come from a database or API
-const papers: Paper[] = [
-  {
-    id: 'superintelligence-2014',
-    title: 'Superintelligence: Paths, Dangers, Strategies',
-    authors: ['Nick Bostrom'],
-    year: 2014,
-    category: 'foundational',
-    tags: ['existential risk', 'AI safety', 'superintelligence'],
-    abstract: 'The foundational book examining paths to superintelligence and associated risks...',
-    link: 'https://www.amazon.com/Superintelligence-Dangers-Strategies-Nick-Bostrom/dp/0198739834',
-    importance: 'essential',
-    readingTime: '12-15 hours'
-  },
-  {
-    id: 'concrete-problems-2016',
-    title: 'Concrete Problems in AI Safety',
-    authors: ['Dario Amodei', 'Chris Olah', 'Jacob Steinhardt', 'Paul Christiano', 'John Schulman', 'Dan Mané'],
-    year: 2016,
-    category: 'foundational',
-    tags: ['AI safety', 'machine learning', 'technical'],
-    abstract: 'An accessible introduction to AI safety for ML researchers, outlining five practical research problems...',
-    link: 'https://arxiv.org/abs/1606.06565',
-    importance: 'essential',
-    readingTime: '45 min'
-  },
-  {
-    id: 'ai-alignment-problem-2021',
-    title: 'The Alignment Problem',
-    authors: ['Brian Christian'],
-    year: 2021,
-    category: 'foundational',
-    tags: ['alignment', 'AI safety', 'popular science'],
-    abstract: 'A comprehensive overview of the AI alignment problem for general audiences...',
-    link: 'https://brianchristian.org/the-alignment-problem/',
-    importance: 'important',
-    readingTime: '8-10 hours'
-  },
-  {
-    id: 'agi-ruin-2022',
-    title: 'AGI Ruin: A List of Lethalities',
-    authors: ['Eliezer Yudkowsky'],
-    year: 2022,
-    category: 'foundational',
-    tags: ['existential risk', 'AGI', 'alignment difficulty'],
-    abstract: 'A comprehensive list of reasons why AGI poses an existential risk, outlining core difficulties in alignment...',
-    link: 'https://www.lesswrong.com/posts/uMQ3cqWDPHhjtiesc/agi-ruin-a-list-of-lethalities',
-    importance: 'essential',
-    readingTime: '2 hours'
-  },
-  {
-    id: 'reward-is-enough-2021',
-    title: 'Reward is Enough',
-    authors: ['David Silver', 'Satinder Singh', 'Doina Precup', 'Richard S. Sutton'],
-    year: 2021,
-    category: 'technical',
-    tags: ['reinforcement learning', 'AGI', 'capabilities'],
-    abstract: 'Argues that reward maximization is sufficient for developing artificial general intelligence...',
-    link: 'https://www.sciencedirect.com/science/article/pii/S0004370221000862',
-    importance: 'important',
-    readingTime: '1 hour'
-  },
-  {
-    id: 'constitutional-ai-2022',
-    title: 'Constitutional AI: Harmlessness from AI Feedback',
-    authors: ['Yuntao Bai', 'Saurav Kadavath', 'Sandipan Kundu', 'et al.'],
-    year: 2022,
-    category: 'alignment',
-    tags: ['RLHF', 'Constitutional AI', 'alignment techniques'],
-    abstract: 'Introduces Constitutional AI, a method for training harmless AI systems using AI feedback...',
-    link: 'https://arxiv.org/abs/2212.08073',
-    importance: 'important',
-    readingTime: '90 min'
-  },
-  {
-    id: 'mechanistic-interpretability-2023',
-    title: 'Towards Monosemanticity: Decomposing Language Models With Dictionary Learning',
-    authors: ['Trenton Bricken', 'Adly Templeton', 'Joshua Batson', 'et al.'],
-    year: 2023,
-    category: 'interpretability',
-    tags: ['mechanistic interpretability', 'sparse autoencoders', 'features'],
-    abstract: 'Uses sparse autoencoders to extract interpretable features from language models...',
-    link: 'https://transformer-circuits.pub/2023/monosemantic-features/index.html',
-    importance: 'important',
-    readingTime: '2 hours'
-  },
-  {
-    id: 'ai-safety-governance-2023',
-    title: 'Computing Power and the Governance of Artificial Intelligence',
-    authors: ['Girish Sastry', 'Lennart Heim', 'Haydn Belfield', 'et al.'],
-    year: 2024,
-    category: 'governance',
-    tags: ['compute governance', 'policy', 'regulation'],
-    abstract: 'Analyzes how computing power can be leveraged for AI governance and safety measures...',
-    link: 'https://arxiv.org/abs/2402.08797',
-    importance: 'important',
-    readingTime: '1.5 hours'
-  },
-  {
-    id: 'mesa-optimization-2019',
-    title: 'Risks from Learned Optimization in Advanced Machine Learning Systems',
-    authors: ['Evan Hubinger', 'Chris van Merwijk', 'Vladimir Mikulik', 'Joar Skalse', 'Scott Garrabrant'],
-    year: 2019,
-    category: 'foundational',
-    tags: ['mesa-optimization', 'inner alignment', 'deceptive alignment'],
-    abstract: 'Introduces the concept of mesa-optimizers and the inner alignment problem...',
-    link: 'https://arxiv.org/abs/1906.01820',
-    importance: 'essential',
-    readingTime: '3 hours'
-  },
-  {
-    id: 'power-seeking-2021',
-    title: 'Optimal Policies Tend to Seek Power',
-    authors: ['Alexander Matt Turner', 'Logan Smith', 'Rohin Shah', 'Andrew Critch', 'Prasad Tadepalli'],
-    year: 2021,
-    category: 'technical',
-    tags: ['instrumental goals', 'power-seeking', 'formal theory'],
-    abstract: 'Formally proves that optimal reinforcement learning agents tend to seek power over their environment...',
-    link: 'https://arxiv.org/abs/1912.01683',
-    importance: 'important',
-    readingTime: '2 hours'
-  },
-  {
-    id: 'debate-2018',
-    title: 'AI Safety via Debate',
-    authors: ['Geoffrey Irving', 'Paul Christiano', 'Dario Amodei'],
-    year: 2018,
-    category: 'alignment',
-    tags: ['debate', 'alignment techniques', 'amplification'],
-    abstract: 'Proposes training AI systems through debate as a method for aligning superhuman AI...',
-    link: 'https://arxiv.org/abs/1805.00899',
-    importance: 'important',
-    readingTime: '1 hour'
-  },
-  {
-    id: 'scalable-oversight-2022',
-    title: 'Measuring Progress on Scalable Oversight for Large Language Models',
-    authors: ['Samuel R. Bowman', 'Jeeyoon Hyun', 'Ethan Perez', 'et al.'],
-    year: 2022,
-    category: 'alignment',
-    tags: ['scalable oversight', 'evaluation', 'benchmarks'],
-    abstract: 'Introduces benchmarks for measuring progress on scalable oversight of language models...',
-    link: 'https://arxiv.org/abs/2211.03540',
-    importance: 'useful',
-    readingTime: '1.5 hours'
-  },
-  {
-    id: 'existential-risk-survey-2020',
-    title: 'Existential Risk from Artificial Intelligence: A Survey',
-    authors: ['Vince Conitzer', 'Walter Sinnott-Armstrong', 'Jana Schaich Borg', 'Yuan Deng', 'Max Kramer'],
-    year: 2020,
-    category: 'philosophy',
-    tags: ['existential risk', 'survey', 'philosophy'],
-    abstract: 'A comprehensive survey of arguments for and against AI existential risk...',
-    link: 'https://arxiv.org/abs/2001.09768',
-    importance: 'useful',
-    readingTime: '2 hours'
-  }
-]
 
 const categories = [
   { id: 'all', label: 'All Papers', color: 'bg-gray-500' },
@@ -189,7 +31,31 @@ const categories = [
 export default function ResearchPapersHub() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [filteredPapers, setFilteredPapers] = useState(papers)
+  const [papers, setPapers] = useState<Paper[]>([])
+  const [filteredPapers, setFilteredPapers] = useState<Paper[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // Fetch papers from API
+  useEffect(() => {
+    async function fetchPapers() {
+      try {
+        setLoading(true)
+        const response = await fetch('/api/papers')
+        if (!response.ok) {
+          throw new Error('Failed to fetch papers')
+        }
+        const data = await response.json()
+        setPapers(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred')
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchPapers()
+  }, [])
 
   useEffect(() => {
     let filtered = papers
@@ -283,7 +149,7 @@ export default function ResearchPapersHub() {
                   {category.label}
                   {category.id !== 'all' && (
                     <span className="ml-2 text-sm opacity-75">
-                      ({papers.filter(p => p.category === category.id).length})
+                      ({papers?.filter(p => p.category === category.id).length || 0})
                     </span>
                   )}
                 </button>
@@ -313,8 +179,15 @@ export default function ResearchPapersHub() {
 
           {/* Results count */}
           <div className="mb-4 text-gray-400">
-            Showing {filteredPapers.length} of {papers.length} papers
+            {loading ? 'Loading...' : `Showing ${filteredPapers.length} of ${papers.length} papers`}
           </div>
+
+          {/* Error state */}
+          {error && (
+            <div className="mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400">
+              Error loading papers: {error}
+            </div>
+          )}
 
           {/* Papers list */}
           <div className="space-y-4">
@@ -363,9 +236,9 @@ export default function ResearchPapersHub() {
                       </span>
                     ))}
                   </div>
-                  {paper.readingTime && (
+                  {paper.reading_time && (
                     <span className="text-sm text-gray-500">
-                      📖 {paper.readingTime}
+                      📖 {paper.reading_time}
                     </span>
                   )}
                 </div>

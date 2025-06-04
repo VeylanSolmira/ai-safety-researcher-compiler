@@ -1,6 +1,9 @@
 'use client'
 
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { useViewMode } from '@/contexts/ViewModeContext'
 import type { Components } from 'react-markdown'
 import { JourneyIntroductionExtras } from '@/components/JourneyContent'
@@ -9,7 +12,8 @@ import InteractiveTransition from '@/components/InteractiveTransition'
 import AISafetyCompass from '@/components/AISafetyCompass'
 import { sectionAssessments } from '@/components/JourneyAssessment'
 import { Topic } from '@/lib/journey'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import { insertTocIntoMarkdown, shouldAddToc } from '@/lib/utils/generate-toc'
 
 interface JourneyTopicContentProps {
   topic: Topic
@@ -19,9 +23,9 @@ interface JourneyTopicContentProps {
 
 // Markdown components configuration
 const markdownComponents: Partial<Components> = {
-  h1: ({children}) => <h1 className="text-3xl font-bold mt-8 mb-4 text-white">{children}</h1>,
-  h2: ({children}) => <h2 className="text-2xl font-semibold mt-6 mb-3 text-white">{children}</h2>,
-  h3: ({children}) => <h3 className="text-xl font-semibold mt-4 mb-2 text-white">{children}</h3>,
+  h1: ({children, ...props}) => <h1 className="text-3xl font-bold mt-8 mb-4 text-white" {...props}>{children}</h1>,
+  h2: ({children, ...props}) => <h2 className="text-2xl font-semibold mt-6 mb-3 text-white" {...props}>{children}</h2>,
+  h3: ({children, ...props}) => <h3 className="text-xl font-semibold mt-4 mb-2 text-white" {...props}>{children}</h3>,
   ul: ({children}) => <ul className="list-disc pl-6 space-y-2 my-4">{children}</ul>,
   ol: ({children}) => <ol className="list-decimal pl-6 space-y-2 my-4">{children}</ol>,
   li: ({children}) => <li className="text-gray-300">{children}</li>,
@@ -62,25 +66,60 @@ export default function JourneyTopicContent({ topic, tierId, moduleId }: Journey
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   
   // Select content based on view mode
-  const displayContent = viewMode === 'personal' && topic.contentPersonal 
+  const rawContent = viewMode === 'personal' && topic.contentPersonal 
     ? topic.contentPersonal 
     : topic.content
+  
+  // Ensure content is a string (defensive programming)
+  const baseContent = typeof rawContent === 'string' 
+    ? rawContent 
+    : rawContent 
+    ? JSON.stringify(rawContent) 
+    : ''
+  
+  // Add TOC if content is long enough
+  const displayContent = useMemo(() => {
+    if (!baseContent) return baseContent;
+    
+    // Check if content needs a TOC and doesn't already have one
+    if (shouldAddToc(baseContent)) {
+      return insertTocIntoMarkdown(baseContent, {
+        title: '## Table of Contents',
+        minLevel: 2,
+        maxLevel: 3,
+        ordered: false
+      });
+    }
+    
+    return baseContent;
+  }, [baseContent])
+  
+  // Debug logging in development
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost' && typeof rawContent !== 'string' && rawContent) {
+    console.error('Topic content is not a string:', {
+      topicId: topic.id,
+      viewMode,
+      rawContentType: typeof rawContent,
+      rawContent,
+      topic
+    })
+  }
 
   // Initialize edit content when entering edit mode
   useEffect(() => {
     if (isEditing) {
-      setEditContent(displayContent || '')
+      setEditContent(baseContent || '')
     }
-  }, [isEditing, displayContent])
+  }, [isEditing, baseContent])
 
   // Track unsaved changes
   useEffect(() => {
-    if (isEditing && editContent !== displayContent) {
+    if (isEditing && editContent !== baseContent) {
       setHasUnsavedChanges(true)
     } else {
       setHasUnsavedChanges(false)
     }
-  }, [editContent, displayContent, isEditing])
+  }, [editContent, baseContent, isEditing])
 
   // Add keyboard shortcuts
   useEffect(() => {
@@ -101,7 +140,7 @@ export default function JourneyTopicContent({ topic, tierId, moduleId }: Journey
 
   const handleSave = async () => {
     // Warn if content is being significantly reduced
-    const originalLength = displayContent?.length || 0
+    const originalLength = baseContent?.length || 0
     const newLength = editContent.length
     const reductionPercent = originalLength > 0 ? ((originalLength - newLength) / originalLength) * 100 : 0
     
@@ -213,7 +252,20 @@ export default function JourneyTopicContent({ topic, tierId, moduleId }: Journey
             </p>
           </div>
         ) : displayContent ? (
-          <ReactMarkdown components={markdownComponents}>
+          <ReactMarkdown 
+            components={markdownComponents}
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[
+              rehypeSlug,
+              [rehypeAutolinkHeadings, { 
+                behavior: 'wrap',
+                properties: {
+                  className: ['anchor-link'],
+                  ariaLabel: 'Link to section'
+                }
+              }]
+            ]}
+          >
             {displayContent}
           </ReactMarkdown>
         ) : (
@@ -239,6 +291,31 @@ export default function JourneyTopicContent({ topic, tierId, moduleId }: Journey
       {/* Journey Extras (for introduction content) */}
       {topic.hasJourneyExtras && (
         <JourneyIntroductionExtras />
+      )}
+      
+      {/* Mentor Information */}
+      {topic.mentors && topic.mentors.length > 0 && (
+        <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 rounded-lg p-6 border border-purple-500/20">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <span className="text-2xl">👥</span>
+            CBAI 2025 Fellowship Mentors
+          </h3>
+          <div className="space-y-3">
+            {topic.mentors.map((mentor) => (
+              <div key={`${mentor.id}-${mentor.researchDescription}`} className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-purple-300">{mentor.name}</span>
+                  <span className="text-gray-500">•</span>
+                  <span className="text-sm text-gray-400">{mentor.organization}</span>
+                </div>
+                <p className="text-sm text-gray-300 pl-4 italic">&ldquo;{mentor.researchDescription}&rdquo;</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-gray-500">
+            These researchers are working on related topics and may be available as mentors through the {topic.mentors[0].context}.
+          </p>
+        </div>
       )}
       
       {/* Assessment */}

@@ -47,6 +47,33 @@ export const journeyQueries = {
   }
 }
 
+// Entity queries for unified entities system
+export const entityQueries = {
+  // Get all entities
+  async getAllEntities() {
+    // SQL: SELECT * FROM entities WHERE active = 1
+    return []
+  },
+
+  // Get entities by type
+  async getEntitiesByType(type: 'researcher' | 'organization' | 'platform') {
+    // SQL: SELECT * FROM entities WHERE type = ? AND active = 1
+    return []
+  },
+
+  // Get single entity
+  async getEntityById(id: string) {
+    // SQL: SELECT * FROM entities WHERE id = ? AND active = 1
+    return null
+  },
+
+  // Get entity with topics
+  async getEntityWithTopics(id: string) {
+    // SQL: JOIN with entity_topics
+    return null
+  }
+}
+
 export const mentorQueries = {
   // Get all mentors with details
   async getAllMentors(): Promise<Mentor[]> {

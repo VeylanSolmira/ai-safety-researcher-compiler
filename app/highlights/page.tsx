@@ -1,15 +1,33 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import PageHeader from '@/components/PageHeader'
-import { courseHighlights } from '@/lib/course-highlights'
-
-// For now, we'll use the static data until all content is created
-const highlights = courseHighlights.map(h => ({
-  ...h,
-  category: h.type,
-  link: h.path
-}))
+import type { CourseHighlight } from '@/lib/db/course-highlights-queries'
 
 export default function HighlightsPage() {
+  const [highlights, setHighlights] = useState<CourseHighlight[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  
+  // Fetch highlights from API
+  useEffect(() => {
+    async function fetchHighlights() {
+      try {
+        const response = await fetch('/api/course-highlights')
+        if (!response.ok) throw new Error('Failed to fetch highlights')
+        const data = await response.json()
+        setHighlights(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load highlights')
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchHighlights()
+  }, [])
+  
   const featuredHighlights = highlights.filter(h => h.featured)
   const otherHighlights = highlights.filter(h => !h.featured)
 
@@ -31,6 +49,24 @@ export default function HighlightsPage() {
           </p>
         </div>
 
+        {/* Loading State */}
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400">Loading highlights...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : (
+          <>
         {/* Featured Highlights */}
         {featuredHighlights.length > 0 && (
           <div className="mb-12">
@@ -39,7 +75,7 @@ export default function HighlightsPage() {
               {featuredHighlights.map(highlight => (
                 <Link
                   key={highlight.id}
-                  href={highlight.link}
+                  href={highlight.path}
                   className="block group"
                 >
                   <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-1 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
@@ -50,7 +86,7 @@ export default function HighlightsPage() {
                             {highlight.title}
                           </h3>
                           <span className="inline-block mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {highlight.category.replace('-', ' ').toUpperCase()}
+                            {highlight.type.replace('-', ' ').toUpperCase()}
                           </span>
                         </div>
                         <svg className="w-6 h-6 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +119,7 @@ export default function HighlightsPage() {
               {otherHighlights.map(highlight => (
                 <Link
                   key={highlight.id}
-                  href={highlight.link}
+                  href={highlight.path}
                   className="block group bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6"
                 >
                   <div className="flex items-start justify-between mb-3">
@@ -92,7 +128,7 @@ export default function HighlightsPage() {
                         {highlight.title}
                       </h3>
                       <span className="inline-block mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        {highlight.category.replace('-', ' ').toUpperCase()}
+                        {highlight.type.replace('-', ' ').toUpperCase()}
                       </span>
                     </div>
                     <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,6 +149,9 @@ export default function HighlightsPage() {
               ))}
             </div>
           </div>
+        )}
+
+          </>
         )}
 
         {/* Call to Action */}

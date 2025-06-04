@@ -6,7 +6,6 @@ import Link from 'next/link'
 import PageHeader from '@/components/PageHeader'
 import ReactMarkdown from 'react-markdown'
 import type { Components } from 'react-markdown'
-import { getExploration } from '@/lib/explorations'
 
 interface ExplorationPageProps {
   params: {
@@ -14,21 +13,53 @@ interface ExplorationPageProps {
   }
 }
 
+interface Exploration {
+  id: string
+  metadata: {
+    title: string
+    description: string
+    readingTime: string
+    lastUpdated?: string
+    relatedTopic?: string
+    tags?: string[]
+    keyQuestions?: string[]
+    discussionPrompts?: string[]
+    relatedResources?: Array<{
+      title: string
+      url: string
+      external?: boolean
+      description?: string
+    }>
+    nextExploration?: string
+  }
+  content: string
+}
+
 export default function ExplorationPage({ params }: ExplorationPageProps) {
   const router = useRouter()
-  const [exploration, setExploration] = useState<any>(null)
+  const [exploration, setExploration] = useState<Exploration | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const loadExploration = async () => {
-      const exp = await getExploration(params.explorationId)
-      if (!exp) {
-        router.push('/highlights')
-        return
+      try {
+        const response = await fetch(`/api/explorations/${params.explorationId}`)
+        if (!response.ok) {
+          if (response.status === 404) {
+            router.push('/highlights')
+            return
+          }
+          throw new Error('Failed to fetch exploration')
+        }
+        
+        const data = await response.json()
+        setExploration(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load exploration')
+      } finally {
+        setLoading(false)
       }
-      
-      setExploration(exp)
-      setLoading(false)
     }
 
     loadExploration()
@@ -38,6 +69,24 @@ export default function ExplorationPage({ params }: ExplorationPageProps) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg">Loading exploration...</div>
+      </div>
+    )
+  }
+
+  if (error || !exploration) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">
+            {error || 'Exploration not found'}
+          </h1>
+          <Link 
+            href="/highlights" 
+            className="text-blue-600 hover:underline"
+          >
+            ← Back to Highlights
+          </Link>
+        </div>
       </div>
     )
   }

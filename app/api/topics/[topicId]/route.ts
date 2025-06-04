@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, eq } from '@/lib/db';
 import { topics } from '@/lib/db/schema';
+import { getMentorsForTopic, getMentorDisplayName, getMentorOrganization } from '@/lib/db/mentor-queries';
 
 export async function PUT(
   request: NextRequest,
@@ -106,7 +107,20 @@ export async function GET(
       );
     }
     
-    return NextResponse.json(topic[0]);
+    // Get mentor data for this topic
+    const mentorMappings = getMentorsForTopic(params.topicId);
+    const mentors = mentorMappings.map(mapping => ({
+      id: mapping.mentorId,
+      name: getMentorDisplayName(mapping.mentorId),
+      organization: getMentorOrganization(mapping.mentorId),
+      researchDescription: mapping.mentorTopicDescription,
+      context: mapping.context
+    }));
+    
+    return NextResponse.json({
+      ...topic[0],
+      mentors: mentors.length > 0 ? mentors : undefined
+    });
   } catch (error) {
     console.error('Error fetching topic:', error);
     return NextResponse.json(

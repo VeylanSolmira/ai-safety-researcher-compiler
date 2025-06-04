@@ -1,12 +1,8 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
-import { 
-  getNewsStoryById, 
-  formatNewsDate,
-  getAllNewsStories,
-  getNewsByCategory
-} from '@/lib/news'
+import { getNewsStory, getNewsByCategory } from '@/lib/db/news-queries'
+import type { NewsStory } from '@/lib/db/news-queries'
 import { 
   NewspaperIcon,
   CalendarIcon,
@@ -15,15 +11,22 @@ import {
   ArrowLeftIcon
 } from '@heroicons/react/24/outline'
 
-export function generateStaticParams() {
-  const stories = getAllNewsStories()
-  return stories.map((story) => ({
-    id: story.id,
-  }))
+// Helper function for date formatting
+function formatNewsDate(dateString: string): string {
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  } catch {
+    return dateString
+  }
 }
 
 export default function NewsStoryPage({ params }: { params: { id: string } }) {
-  const story = getNewsStoryById(params.id)
+  const story = getNewsStory(params.id)
   
   if (!story) {
     notFound()
@@ -34,23 +37,23 @@ export default function NewsStoryPage({ params }: { params: { id: string } }) {
     .filter(s => s.id !== story.id)
     .slice(0, 3)
   
-  const categoryLabels = {
+  const categoryLabels: Record<NewsStory['category'], string> = {
     research: 'Research',
     policy: 'Policy',
     community: 'Community',
     technical: 'Technical',
     opportunity: 'Opportunity',
     general: 'General'
-  } as const
+  }
   
-  const categoryColors = {
+  const categoryColors: Record<NewsStory['category'], string> = {
     research: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
     policy: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
     community: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
     technical: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
     opportunity: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
     general: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-  } as const
+  }
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

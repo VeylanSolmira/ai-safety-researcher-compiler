@@ -173,10 +173,20 @@ const experiments: Record<string, Experiment> = {
   }
 }
 
+// DEPRECATED: This file is being migrated to the database
+// For client-side code, use the API endpoints:
+// - GET /api/experiments
+// - GET /api/experiments/[experimentId]
+// For server-side code, use lib/db/experiments-queries.ts directly
+
 export async function getExperiment(id: string): Promise<Experiment | null> {
+  // Temporary fallback for client-side code
+  // TODO: Update all callers to use API or server-side queries
   return experiments[id] || null
 }
 
 export async function getAllExperiments(): Promise<ExperimentMetadata[]> {
+  // Temporary fallback for client-side code
+  // TODO: Update all callers to use API or server-side queries
   return Object.values(experiments).map(exp => exp.metadata)
 }

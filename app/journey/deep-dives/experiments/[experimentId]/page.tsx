@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import PageHeader from '@/components/PageHeader'
-import { getExperiment } from '@/lib/experiments'
 
 interface ExperimentPageProps {
   params: {
@@ -12,21 +11,59 @@ interface ExperimentPageProps {
   }
 }
 
+interface Experiment {
+  id: string
+  metadata: {
+    title: string
+    description: string
+    estimatedTime: string
+    prerequisites?: string[]
+    relatedTopic?: string
+    tags?: string[]
+    notebookUrl?: string
+    githubUrl?: string
+    nextExperiment?: string
+  }
+  content: {
+    introduction: string
+    keyConcepts?: Array<{
+      title: string
+      description: string
+    }>
+    exercises?: Array<{
+      title: string
+      description: string
+      hint?: string
+    }>
+    reflectionQuestions?: string[]
+  }
+}
+
 export default function ExperimentPage({ params }: ExperimentPageProps) {
   const router = useRouter()
-  const [experiment, setExperiment] = useState<any>(null)
+  const [experiment, setExperiment] = useState<Experiment | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const loadExperiment = async () => {
-      const exp = await getExperiment(params.experimentId)
-      if (!exp) {
-        router.push('/highlights')
-        return
+      try {
+        const response = await fetch(`/api/experiments/${params.experimentId}`)
+        if (!response.ok) {
+          if (response.status === 404) {
+            router.push('/highlights')
+            return
+          }
+          throw new Error('Failed to fetch experiment')
+        }
+        
+        const data = await response.json()
+        setExperiment(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load experiment')
+      } finally {
+        setLoading(false)
       }
-      
-      setExperiment(exp)
-      setLoading(false)
     }
 
     loadExperiment()
@@ -36,6 +73,24 @@ export default function ExperimentPage({ params }: ExperimentPageProps) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg">Loading experiment...</div>
+      </div>
+    )
+  }
+
+  if (error || !experiment) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">
+            {error || 'Experiment not found'}
+          </h1>
+          <Link 
+            href="/highlights" 
+            className="text-blue-600 hover:underline"
+          >
+            ← Back to Highlights
+          </Link>
+        </div>
       </div>
     )
   }
