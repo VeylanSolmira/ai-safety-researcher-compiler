@@ -220,7 +220,11 @@ export async function getTopicsByModuleId(moduleId: string) {
 export async function getTopicById(topicId: string) {
   // Use raw SQLite for now due to Drizzle issues
   const Database = require('better-sqlite3')
-  const dbPath = require('path').join(process.cwd(), 'journey.db')
+  const path = require('path')
+  // Use the same database selection logic as the main db module
+  const dbPath = process.env.NODE_ENV === 'production' 
+    ? path.join(process.cwd(), 'journey-public.db')
+    : path.join(process.cwd(), 'journey-dev.db')
   const sqlite = new Database(dbPath)
   sqlite.pragma('foreign_keys = ON')
   

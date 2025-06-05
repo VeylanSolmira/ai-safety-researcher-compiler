@@ -47,10 +47,19 @@ jobs:
         env:
           NODE_ENV: production
           
-      # Vercel deployment is handled automatically via GitHub integration
-      # The following manual deployment is commented out to avoid conflicts
-      # - name: Deploy to Vercel
+      # Deployment Strategy:
+      # Currently using Vercel's automatic GitHub integration
+      # For production environments, consider using GitHub Actions controlled deployment
+      # See docs/proposals/deployment-strategy-comparison.md for details
+      
+      # To enable GitHub Actions deployment:
+      # 1. Disable Vercel GitHub integration in Vercel dashboard
+      # 2. Add secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+      # 3. Uncomment the deployment step below
+      
+      # - name: Deploy to Vercel Production
       #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   environment: production  # Optional: adds approval requirements
       #   run: |
       #     npm install -g vercel
       #     vercel --prod --token ${{ secrets.VERCEL_TOKEN }}

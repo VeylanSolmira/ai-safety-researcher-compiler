@@ -1,7 +1,8 @@
 import Database from 'better-sqlite3'
+import { getDatabasePath } from '@/lib/db'
 import path from 'path'
 
-const DB_PATH = path.join(process.cwd(), 'journey.db')
+const DB_PATH = getDatabasePath()
 
 export interface CourseHighlight {
   id: string

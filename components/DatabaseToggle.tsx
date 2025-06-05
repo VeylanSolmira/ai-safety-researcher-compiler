@@ -25,8 +25,9 @@ export default function DatabaseToggle() {
     setFlags(getAllFlags())
   }, [])
 
-  // Only show in development
-  if (process.env.NODE_ENV !== 'development') {
+  // Only show if explicitly enabled via environment variable
+  // This allows us to hide it in production while keeping it in dev/preview
+  if (process.env.NEXT_PUBLIC_SHOW_DEV_TOOLS !== 'true') {
     return null
   }
 

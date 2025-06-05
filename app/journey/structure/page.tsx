@@ -636,7 +636,7 @@ export default function JourneyStructurePage() {
               ? 'Content search looks through all topic markdown files' 
               : 'Name search filters the table by tier, module, and topic names'}
           </p>
-          {process.env.NODE_ENV === 'development' && ' (Development mode)'}
+          {process.env.NEXT_PUBLIC_SHOW_DEV_TOOLS === 'true' && ' (Development mode)'}
         </div>
       </div>
     </div>

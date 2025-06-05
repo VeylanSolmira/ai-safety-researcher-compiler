@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
+import { getDatabasePath } from '@/lib/db'
 import Database from 'better-sqlite3'
 import path from 'path'
 
-const DB_PATH = path.join(process.cwd(), 'journey.db')
+const DB_PATH = getDatabasePath()
 
 interface EntityRow {
   id: string

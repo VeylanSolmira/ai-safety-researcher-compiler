@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server'
+import { getDatabasePath } from '@/lib/db'
 import { getAllTools } from '@/lib/db/resource-queries'
 import Database from 'better-sqlite3'
-import { join } from 'path'
-
-const dbPath = join(process.cwd(), 'journey.db')
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -29,7 +27,7 @@ export async function GET(request: Request) {
     }
 
     // Get all unique categories and tags
-    const db = new Database(dbPath, { readonly: true })
+    const db = new Database(getDatabasePath(), { readonly: true })
     try {
       const categoriesStmt = db.prepare('SELECT DISTINCT category FROM tools ORDER BY category')
       const categories = (categoriesStmt.all() as any[]).map((row: any) => row.category)

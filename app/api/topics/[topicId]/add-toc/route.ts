@@ -1,3 +1,5 @@
+import { getDatabasePath } from '@/lib/db'
+
 import { NextRequest, NextResponse } from 'next/server';
 import Database from 'better-sqlite3';
 import path from 'path';

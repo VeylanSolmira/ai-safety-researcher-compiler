@@ -1,9 +1,10 @@
 import Database from 'better-sqlite3'
+import { getDatabasePath } from '@/lib/db'
 import fs from 'fs'
 import path from 'path'
 
 // Create database instance
-const DB_PATH = path.join(process.cwd(), 'journey.db')
+const DB_PATH = getDatabasePath()
 
 // Initialize database with schema
 export function initializeDatabase(force = false) {

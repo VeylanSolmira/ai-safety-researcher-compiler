@@ -137,8 +137,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Dev Tools - only show in development */}
-      {process.env.NODE_ENV === 'development' && (
+      {/* Dev Tools - only show if explicitly enabled */}
+      {process.env.NEXT_PUBLIC_SHOW_DEV_TOOLS === 'true' && (
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-2">Development Tools</p>
           <div className="flex gap-4 justify-center">

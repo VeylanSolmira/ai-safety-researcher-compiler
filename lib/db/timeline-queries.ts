@@ -1,8 +1,10 @@
+import { getDatabasePath } from '@/lib/db'
+
 import Database from 'better-sqlite3';
 import path from 'path';
 import crypto from 'crypto';
 
-const DB_PATH = path.join(process.cwd(), 'journey.db');
+const DB_PATH = getDatabasePath();
 const db = new Database(DB_PATH);
 db.pragma('foreign_keys = ON');
 

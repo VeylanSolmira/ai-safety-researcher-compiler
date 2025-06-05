@@ -4,9 +4,13 @@ import * as schema from './schema'
 import path from 'path'
 
 // Database path - use production database in production environment
-const DB_PATH = process.env.NODE_ENV === 'production' 
-  ? path.join(process.cwd(), 'journey-public.db')
-  : path.join(process.cwd(), 'journey-dev.db')
+export function getDatabasePath() {
+  return process.env.NODE_ENV === 'production' 
+    ? path.join(process.cwd(), 'journey-public.db')
+    : path.join(process.cwd(), 'journey-dev.db')
+}
+
+const DB_PATH = getDatabasePath()
 
 // Create database instance
 let db: ReturnType<typeof drizzle> | null = null
