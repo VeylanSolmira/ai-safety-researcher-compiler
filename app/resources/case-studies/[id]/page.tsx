@@ -26,8 +26,8 @@ function formatCaseStudyDate(dateString: string): string {
   }
 }
 
-export const generateMetadata = ({ params }: { params: { id: string } }) => {
-  const caseStudy = getCaseStudy(params.id)
+export const generateMetadata = async ({ params }: { params: { id: string } }) => {
+  const caseStudy = await getCaseStudy(params.id)
   if (!caseStudy) return { title: 'Case Study Not Found' }
   
   return {
@@ -36,8 +36,8 @@ export const generateMetadata = ({ params }: { params: { id: string } }) => {
   }
 }
 
-export default function CaseStudyPage({ params }: { params: { id: string } }) {
-  const caseStudy = getCaseStudy(params.id)
+export default async function CaseStudyPage({ params }: { params: { id: string } }) {
+  const caseStudy = await getCaseStudy(params.id)
   
   if (!caseStudy) {
     notFound()

@@ -30,7 +30,14 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
       }
       
       setContent(caseStudy.content)
-      setMetadata(caseStudy.metadata)
+      setMetadata({
+        title: caseStudy.title,
+        summary: caseStudy.summary,
+        severity: caseStudy.severity,
+        category: caseStudy.category,
+        date: caseStudy.date,
+        tags: caseStudy.tags
+      })
       setLoading(false)
     }
 

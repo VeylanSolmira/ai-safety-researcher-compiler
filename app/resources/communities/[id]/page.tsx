@@ -25,7 +25,7 @@ interface Entity {
   }>
 }
 
-export default function CommunityProfilePage() {
+export default function Page() {
   const params = useParams()
   const profileId = params.id as string
   const [entity, setEntity] = useState<Entity | null>(null)
@@ -44,7 +44,7 @@ export default function CommunityProfilePage() {
           throw new Error('Failed to fetch entity')
         }
         
-        const data = await response.json()
+        const data = await response.json() as any
         setEntity(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load profile')

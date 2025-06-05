@@ -249,8 +249,8 @@ export default function JourneyPage() {
               <div className="space-y-4">
                 {tiers.map((tier) => {
                   const tierProgress = progress ? getTierProgress(tier.id, progress) : null
-                  const isUnlocked = devMode || tier.prerequisites.length === 0 || 
-                    (progress && tier.prerequisites.every(prereq => progress.tiersCompleted?.includes(prereq)))
+                  const isUnlocked = devMode || !tier.prerequisites || tier.prerequisites.length === 0 || 
+                    (progress && tier.prerequisites && tier.prerequisites.every(prereq => progress.tiersCompleted?.includes(prereq)))
                   
                   // Filter modules based on selected path
                   const visibleModules = selectedPath === 'all' 
@@ -350,7 +350,7 @@ export default function JourneyPage() {
                           )}
                         </div>
                         
-                        {!isUnlocked && tier.prerequisites.length > 0 && (
+                        {!isUnlocked && tier.prerequisites && tier.prerequisites.length > 0 && (
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
                             Complete prerequisites: {tier.prerequisites.map(p => {
                               const prereqTier = tiers.find(t => t.id === p)
@@ -358,7 +358,7 @@ export default function JourneyPage() {
                             }).join(', ')}
                           </p>
                         )}
-                        {devMode && tier.prerequisites.length > 0 && 
+                        {devMode && tier.prerequisites && tier.prerequisites.length > 0 && 
                          !(progress && tier.prerequisites.every(prereq => progress.tiersCompleted?.includes(prereq))) && (
                           <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-3">
                             [Dev Mode] Prerequisites bypassed

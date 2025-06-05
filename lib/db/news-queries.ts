@@ -40,7 +40,7 @@ export function getAllNews(): NewsStory[] {
     
     const rows = db.prepare(query).all() as NewsRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -96,7 +96,7 @@ export function getNewsByCategory(category: string): NewsStory[] {
     
     const rows = db.prepare(query).all(category) as NewsRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -128,7 +128,7 @@ export function getRecentNews(days: number = 30): NewsStory[] {
     
     const rows = db.prepare(query).all(cutoffDateStr) as NewsRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -156,7 +156,7 @@ export function getNewsByTag(tag: string): NewsStory[] {
     
     const rows = db.prepare(query).all(`%"${tag}"%`) as NewsRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -186,7 +186,7 @@ export function getNewsStory(id: string) {
       GROUP BY n.id
     `
     
-    const news = db.prepare(query).get(id)
+    const news = db.prepare(query).get(id) as any
     
     if (!news) return null
     

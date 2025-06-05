@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { isFeatureEnabled } from '@/lib/feature-flags'
-import { journeyTiers } from '@/lib/journey' // File-based data
-import { JourneyTier } from '@/lib/journey'
+import { journeyTiers, Tier } from '@/lib/journey' // File-based data
 
 export function useJourneyData() {
   const [data, setData] = useState<{
-    tiers: JourneyTier[]
+    tiers: Tier[]
     loading: boolean
     error: Error | null
   }>({

@@ -9,9 +9,9 @@ import {
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const status = searchParams.get('status');
-    const minQuality = searchParams.get('minQuality');
-    const tag = searchParams.get('tag');
+    const status = searchParams.get('status') as any;
+    const minQuality = searchParams.get('minQuality') as any;
+    const tag = searchParams.get('tag') as any;
     
     let ideas;
     

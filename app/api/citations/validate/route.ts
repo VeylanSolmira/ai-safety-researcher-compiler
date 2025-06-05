@@ -79,7 +79,7 @@ function calculateSimilarity(str1: string, str2: string): number {
   const tokens2 = new Set(s2.split(/\s+/));
   
   const intersection = new Set([...tokens1].filter(x => tokens2.has(x)));
-  const union = new Set([...tokens1, ...tokens2]);
+  const union = new Set([...(tokens1 as any), ...tokens2]);
   
   return union.size === 0 ? 0 : intersection.size / union.size;
 }
@@ -113,8 +113,8 @@ export async function POST(request: NextRequest) {
     }
     
     // Load known papers and hallucination patterns
-    const knownPapers = db.prepare('SELECT * FROM known_papers').all()
-    const hallucPatterns = db.prepare('SELECT * FROM hallucination_patterns').all()
+    const knownPapers = db.prepare('SELECT * FROM known_papers').all() as any[]
+    const hallucPatterns = db.prepare('SELECT * FROM hallucination_patterns').all() as any[]
     
     // Validate each citation
     const results: CitationResult[] = []
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       }
       
       // Check against hallucination patterns
-      for (const pattern of hallucPatterns) {
+      for (const pattern of hallucPatterns as any[]) {
         const regex = new RegExp(pattern.pattern, 'i')
         if (regex.test(citation.text)) {
           status = 'hallucinated'
@@ -233,7 +233,7 @@ export async function POST(request: NextRequest) {
       summary,
       suggestions: results
         .filter(r => r.suggestion)
-        .map(r => ({
+        .map((r: any) => ({
           original: r.text,
           suggestion: r.suggestion
         }))

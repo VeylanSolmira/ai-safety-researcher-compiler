@@ -170,8 +170,6 @@ export function getPaperStats() {
     `).all() as { year: number; count: number }[]
     
     return {
-      ...paper,
-      category: paper.category as Paper['category'],
       total: totalCount.count,
       byCategory,
       byImportance,
@@ -186,8 +184,10 @@ export function getPaperStats() {
 function parsePaperRow(row: PaperRow): Paper {
   return {
     ...row,
-    authors: JSON.parse(row.authors),
-    tags: JSON.parse(row.tags),
+    category: row.category as Paper['category'],
+    importance: row.importance as Paper['importance'],
+    authors: JSON.parse((row as any).authors || "[]"),
+    tags: JSON.parse((row as any).tags || "[]"),
     reading_time: row.reading_time
   }
 }

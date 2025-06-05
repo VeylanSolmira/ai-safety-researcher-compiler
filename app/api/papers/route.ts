@@ -25,9 +25,9 @@ export async function GET(request: NextRequest) {
   
   try {
     const searchParams = request.nextUrl.searchParams
-    const category = searchParams.get('category')
-    const importance = searchParams.get('importance')
-    const search = searchParams.get('search')
+    const category = searchParams.get('category') as any
+    const importance = searchParams.get('importance') as any
+    const search = searchParams.get('search') as any
     
     let query = 'SELECT * FROM papers WHERE 1=1'
     const params: any[] = []
@@ -61,8 +61,8 @@ export async function GET(request: NextRequest) {
     const papers = db.prepare(query).all(...params) as PaperRow[]
     
     // Parse JSON fields
-    const parsedPapers = papers.map(paper => ({
-      ...paper,
+    const parsedPapers = papers.map((paper: any) => ({
+      ...(paper as any),
       authors: JSON.parse(paper.authors),
       tags: JSON.parse(paper.tags)
     }))

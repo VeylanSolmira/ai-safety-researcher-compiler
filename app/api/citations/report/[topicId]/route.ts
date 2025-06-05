@@ -85,7 +85,7 @@ export async function GET(
         academic: citations.filter(c => c.content_type === 'academic').length,
         personal: citations.filter(c => c.content_type === 'personal').length
       },
-      byStatus: citations.reduce((acc, c) => {
+      byStatus: citations.reduce((acc: any, c: any) => {
         acc[c.validation_status] = (acc[c.validation_status] || 0) + 1
         return acc
       }, {} as Record<string, number>),
@@ -105,7 +105,7 @@ export async function GET(
     // Improvement opportunities
     const improvements = citations
       .filter(c => c.suggested_fix && c.validation_status !== 'verified')
-      .map(c => ({
+      .map((c: any) => ({
         id: c.id,
         current: c.citation_text,
         suggestion: c.suggested_fix,
@@ -121,13 +121,13 @@ export async function GET(
       stats,
       issues,
       improvements,
-      history: history.map(h => ({
+      history: history.map((h: any) => ({
         date: h.run_date,
         total: h.total_citations,
         verified: h.verified_count,
         problematic: h.suspicious_count + h.broken_count + h.hallucinated_count
       })),
-      citations: citations.map(c => ({
+      citations: citations.map((c: any) => ({
         id: c.id,
         text: c.citation_text,
         contentType: c.content_type,

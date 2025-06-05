@@ -6,7 +6,7 @@ export interface Topic {
   id: string
   title: string
   description: string
-  estimatedTime: string
+  estimatedTime?: string | number
   
   // Content sources
   content?: string // Direct markdown content (academic)
@@ -43,11 +43,11 @@ export interface Module {
   id: string
   title: string
   description: string
-  estimatedTime: string
+  estimatedTime?: string
   topics: Topic[]
   
   // Module metadata
-  learningObjectives: string[]
+  learningObjectives?: string[]
   practicalComponents?: string[] // Description of hands-on elements
   assessmentType?: 'quiz' | 'project' | 'peer-review' | 'self-assessment'
   
@@ -67,13 +67,13 @@ export interface Tier {
   modules: Module[]
   
   // Navigation
-  type: 'linear' | 'open-world' // Linear = mandatory path, Open-world = choice-based
-  prerequisites: string[] // Tier IDs that must be completed first
-  unlocks: string[] // Tier IDs that this unlocks
+  type?: 'linear' | 'open-world' // Linear = mandatory path, Open-world = choice-based
+  prerequisites?: string[] // Tier IDs that must be completed first
+  unlocks?: string[] // Tier IDs that this unlocks
   
   // Tier metadata
-  skillsGained: string[]
-  careerRelevance: string[]
+  skillsGained?: string[]
+  careerRelevance?: string[]
   requiredBackground?: string[]
 }
 

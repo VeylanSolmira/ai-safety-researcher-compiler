@@ -25,23 +25,23 @@ export default function ModulePage() {
       const p = await getJourneyProgress()
       setProgress(p)
       
-      if (p && module) {
+      if (p && courseModule) {
         const mp = getModuleProgress(tierId, moduleId, p)
         setModuleProgress(mp)
       }
     }
     loadProgress()
-  }, [tierId, moduleId, module])
+  }, [tierId, moduleId, courseModule])
   
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
-        <div className="text-lg text-white">Loading courseModule...</div>
+        <div className="text-lg text-white">Loading module...</div>
       </div>
     )
   }
   
-  if (error || !tier || !module) {
+  if (error || !tier || !courseModule) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
         <div className="text-center">
@@ -107,7 +107,7 @@ export default function ModulePage() {
           </div>
           
           {/* Learning Objectives */}
-          {courseModule.learningObjectives.length > 0 && (
+          {courseModule.learningObjectives && courseModule.learningObjectives.length > 0 && (
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-white mb-3">Learning Objectives</h3>
               <ul className="space-y-2">

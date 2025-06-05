@@ -39,7 +39,7 @@ interface Tool {
   examples?: ToolExample[]
 }
 
-export default function ToolDetailPage() {
+export default function Page() {
   const params = useParams()
   const router = useRouter()
   const [tool, setTool] = useState<Tool | null>(null)
@@ -56,7 +56,7 @@ export default function ToolDetailPage() {
       if (!response.ok) {
         throw new Error('Failed to fetch tool')
       }
-      const data = await response.json()
+      const data = await response.json() as any
       setTool(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')

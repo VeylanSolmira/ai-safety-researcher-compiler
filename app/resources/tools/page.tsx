@@ -303,7 +303,7 @@ function ToolCard({ tool }: { tool: Tool }) {
       </p>
 
       {tool.difficulty_level && (
-        <span className={`inline-block text-xs px-2 py-1 rounded-full ${difficultyColors[tool.difficulty_level]} mb-3`}>
+        <span className={`inline-block text-xs px-2 py-1 rounded-full ${difficultyColors[tool.difficulty_level as keyof typeof difficultyColors]} mb-3`}>
           {tool.difficulty_level}
         </span>
       )}
@@ -391,7 +391,7 @@ function ToolListItem({ tool }: { tool: Tool }) {
               Category: {tool.category}
             </span>
             {tool.difficulty_level && (
-              <span className={`px-2 py-1 rounded-full ${difficultyColors[tool.difficulty_level]}`}>
+              <span className={`px-2 py-1 rounded-full ${difficultyColors[tool.difficulty_level as keyof typeof difficultyColors]}`}>
                 {tool.difficulty_level}
               </span>
             )}

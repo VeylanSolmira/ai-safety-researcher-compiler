@@ -7,9 +7,9 @@ const dbPath = join(process.cwd(), 'journey.db')
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const category = searchParams.get('category')
-  const type = searchParams.get('type')
-  const tag = searchParams.get('tag')
+  const category = searchParams.get('category') as any
+  const type = searchParams.get('type') as any
+  const tag = searchParams.get('tag') as any
 
   try {
     // Get all tools using the query function
@@ -32,14 +32,14 @@ export async function GET(request: Request) {
     const db = new Database(dbPath, { readonly: true })
     try {
       const categoriesStmt = db.prepare('SELECT DISTINCT category FROM tools ORDER BY category')
-      const categories = categoriesStmt.all().map((row: any) => row.category)
+      const categories = (categoriesStmt.all() as any[]).map((row: any) => row.category)
 
       const tagsStmt = db.prepare('SELECT DISTINCT tag FROM tool_tags ORDER BY tag')
-      const tags = tagsStmt.all().map((row: any) => row.tag)
+      const tags = (tagsStmt.all() as any[]).map((row: any) => row.tag)
 
       // Transform tools to match the expected format
-      const transformedTools = tools.map(tool => ({
-        ...tool,
+      const transformedTools = tools.map((tool: any) => ({
+        ...(tool as any),
         research_areas: tool.research_areas ? JSON.parse(tool.research_areas as any) : [],
         use_cases: tool.use_cases ? JSON.parse(tool.use_cases as any) : [],
         programming_languages: tool.programming_languages ? JSON.parse(tool.programming_languages as any) : [],

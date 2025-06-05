@@ -1,68 +1,48 @@
-import { NextResponse } from 'next/server'
-import Database from 'better-sqlite3'
-import path from 'path'
+import { NextRequest, NextResponse } from 'next/server'
+import { getEntityTopics } from '@/lib/db/entity-queries'
 
-const DB_PATH = path.join(process.cwd(), 'journey.db')
+interface Topic {
+  id: string
+  title: string
+  tier_id: string
+  module_id: string
+  position: number
+  tier_position?: number
+  module_position?: number
+  relationship_type: string
+}
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { entityId: string } }
 ) {
-  const db = new Database(DB_PATH)
-  db.pragma('foreign_keys = ON')
-  
   try {
-    // Get all topics associated with this entity
-    const topics = db.prepare(`
-      SELECT 
-        t.id,
-        t.title,
-        t.description,
-        t.module_id,
-        m.title as module_title,
-        m.tier_id,
-        ti.title as tier_title,
-        et.description as entity_description,
-        et.relationship_type,
-        et.context
-      FROM entity_topics et
-      JOIN topics t ON et.topic_id = t.id
-      JOIN modules m ON t.module_id = m.id
-      JOIN tiers ti ON m.tier_id = ti.id
-      WHERE et.entity_id = ?
-      ORDER BY ti.position, m.position, t.position
-    `).all(params.entityId)
+    const topics = (await getEntityTopics(params.entityId) as unknown) as Topic[]
     
     // Group by relationship type
-    const groupedTopics = topics.reduce((acc, topic) => {
+    const grouped = topics.reduce<Record<string, Topic[]>>((acc, topic) => {
       if (!acc[topic.relationship_type]) {
         acc[topic.relationship_type] = []
       }
       acc[topic.relationship_type].push({
         id: topic.id,
         title: topic.title,
-        description: topic.description,
-        entityDescription: topic.entity_description,
-        context: topic.context,
-        journey: {
-          tierId: topic.tier_id,
-          tierTitle: topic.tier_title,
-          moduleId: topic.module_id,
-          moduleTitle: topic.module_title,
-          path: `/journey/${topic.tier_id}/${topic.module_id}/${topic.id}`
-        }
+        tier_id: topic.tier_id,
+        module_id: topic.module_id,
+        position: topic.position,
+        tier_position: topic.tier_position,
+        module_position: topic.module_position,
+        relationship_type: topic.relationship_type
       })
       return acc
-    }, {} as Record<string, any[]>)
+    }, {})
     
-    return NextResponse.json(groupedTopics)
+    return NextResponse.json(grouped)
   } catch (error) {
     console.error('Error fetching entity topics:', error)
     return NextResponse.json(
       { error: 'Failed to fetch entity topics' },
       { status: 500 }
     )
-  } finally {
-    db.close()
   }
 }

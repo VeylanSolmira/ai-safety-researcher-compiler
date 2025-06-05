@@ -199,7 +199,7 @@ export async function getTopicsByModuleId(moduleId: string) {
       
       return {
         ...topicWithoutContentAcademic,
-        tags: tags.map(t => t.tag),
+        tags: tags.map((t: any) => t.tag),
         // Map contentAcademic to content (as expected by Topic interface)
         // Handle Buffer conversion if content was stored as BLOB
         content: contentAcademic ? 
@@ -259,7 +259,7 @@ export async function getTopicById(topicId: string) {
         ORDER BY et.entity_id
       `).all(topicId)
       
-      mentors = mentorMappings.map(mapping => ({
+      mentors = mentorMappings.map((mapping: any) => ({
         id: mapping.mentorId,
         name: getMentorDisplayName(mapping.mentorId),
         organization: getMentorOrganization(mapping.mentorId),
@@ -277,7 +277,7 @@ export async function getTopicById(topicId: string) {
     return {
       ...topicData,
       moduleId: module_id,
-      tags: tags.map(t => t.tag),
+      tags: tags.map((t: any) => t.tag),
       module: topic.module_id ? {
         id: topic.module_id,
         title: topic.module_title

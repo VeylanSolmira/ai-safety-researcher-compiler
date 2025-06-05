@@ -4,8 +4,8 @@ import { getAllExperiments, getExperimentsByDifficulty, getExperimentsByTag } fr
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const difficulty = searchParams.get('difficulty');
-    const tag = searchParams.get('tag');
+    const difficulty = searchParams.get('difficulty') as any;
+    const tag = searchParams.get('tag') as any;
     
     let experiments;
     

@@ -98,7 +98,7 @@ async function extractCitations(content: string, topicId: string, topicTitle: st
   return citations;
 }
 
-async function validateCitationsFast() {
+export async function validateCitationsFast() {
   console.log('Starting fast citation validation...\n');
   
   const db = getDb();

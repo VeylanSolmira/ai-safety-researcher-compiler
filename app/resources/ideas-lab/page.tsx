@@ -25,7 +25,7 @@ export default function IdeasLabPage() {
       try {
         const response = await fetch('/api/ideas')
         if (!response.ok) throw new Error('Failed to fetch ideas')
-        const data = await response.json()
+        const data = await response.json() as any as any
         setPercolatingIdeas(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load ideas')

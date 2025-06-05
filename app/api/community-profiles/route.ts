@@ -4,7 +4,7 @@ import { getAllEntities } from '@/lib/db/entity-queries'
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const type = searchParams.get('type')
+    const type = searchParams.get('type') as any
     
     const entities = getAllEntities()
     

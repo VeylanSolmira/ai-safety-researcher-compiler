@@ -64,7 +64,7 @@ function buildHierarchy(blocks: any[], items: any[]): TimeBlock[] {
   blocks.forEach(block => {
     blockMap.set(block.id, {
       ...block,
-      metadata: block.metadata ? JSON.parse(block.metadata) : {},
+      metadata: block.metadata ? JSON.parse((block as any).metadata || "[]") : {},
       collapsed: Boolean(block.collapsed),
       startDate: block.start_date,
       endDate: block.end_date,
@@ -75,9 +75,9 @@ function buildHierarchy(blocks: any[], items: any[]): TimeBlock[] {
 
   // Second pass: build hierarchy
   blocks.forEach(block => {
-    const currentBlock = blockMap.get(block.id)!;
+    const currentBlock = blockMap.get(block.id) as any;
     if (block.parent_id) {
-      const parent = blockMap.get(block.parent_id);
+      const parent = blockMap.get(block.parent_id) as any;
       if (parent) {
         parent.children!.push(currentBlock);
       }
@@ -88,12 +88,12 @@ function buildHierarchy(blocks: any[], items: any[]): TimeBlock[] {
 
   // Third pass: add items
   items.forEach(item => {
-    const block = blockMap.get(item.block_id);
+    const block = blockMap.get(item.block_id) as any;
     if (block) {
       block.items!.push({
         ...item,
-        relatedTopics: item.related_topics ? JSON.parse(item.related_topics) : [],
-        reminder: item.reminder ? JSON.parse(item.reminder) : null,
+        relatedTopics: item.related_topics ? JSON.parse((item as any).related_topics || "[]") : [],
+        reminder: item.reminder ? JSON.parse((item as any).reminder || "[]") : null,
         completed: Boolean(item.completed),
         date: item.date
       });
@@ -205,10 +205,10 @@ export function getTimelineItems(blockId: string): TimelineItem[] {
     ORDER BY position
   `).all(blockId) as Array<any>;
   
-  return items.map(item => ({
+  return items.map((item: any) => ({
     ...item,
-    relatedTopics: item.related_topics ? JSON.parse(item.related_topics) : [],
-    reminder: item.reminder ? JSON.parse(item.reminder) : null,
+    relatedTopics: item.related_topics ? JSON.parse((item as any).related_topics || "[]") : [],
+    reminder: item.reminder ? JSON.parse((item as any).reminder || "[]") : null,
     completed: Boolean(item.completed),
     date: item.date
   }));
@@ -295,9 +295,9 @@ export function getTimelineTemplates(isPublic: boolean, userId?: string): Timeli
 
   query += ' ORDER BY use_count DESC, created_at DESC';
 
-  return db.prepare(query).all(...params).map(template => ({
+  return db.prepare(query).all(...params).map((template: any) => ({
     ...template,
-    structure: JSON.parse(template.structure),
+    structure: JSON.parse((template as any).structure),
     isPublic: Boolean(template.is_public)
   }));
 }
@@ -351,11 +351,11 @@ export function wrapBlocks(data: {
   }
   
   // Find the minimum position and parent_id of blocks being wrapped
-  const minPosition = Math.min(...blocks.map(b => b.position));
-  const currentParentId = blocks[0].parent_id;
+  const minPosition = Math.min(...blocks.map((b: any) => b.position));
+  const currentParentId = (blocks[0] as any).parent_id;
   
   // Check all blocks have the same parent (siblings)
-  if (!blocks.every(b => b.parent_id === currentParentId)) {
+  if (!blocks.every((b: any) => b.parent_id === currentParentId)) {
     throw new Error('Can only wrap blocks that are siblings');
   }
   
@@ -401,13 +401,13 @@ export function wrapBlocks(data: {
 
 // Apply a template to create time blocks
 export function applyTemplate(templateId: string, userId: string, parentId: string | null = null): TimeBlock[] {
-  const template = db.prepare('SELECT * FROM timeline_templates WHERE id = ?').get(templateId);
+  const template = db.prepare('SELECT * FROM timeline_templates WHERE id = ?').get(templateId) as any;
   
   if (!template) {
     throw new Error('Template not found');
   }
 
-  const structure = JSON.parse(template.structure);
+  const structure = JSON.parse((template as any).structure || "[]");
   
   // Increment use count
   db.prepare('UPDATE timeline_templates SET use_count = use_count + 1 WHERE id = ?').run(templateId);
@@ -457,7 +457,9 @@ export function applyTemplate(templateId: string, userId: string, parentId: stri
       customType: templateBlock.customType || null,
       position,
       collapsed: false,
-      metadata: templateBlock.metadata || {},
+    startDate: null,
+    endDate: null,
+    metadata: templateBlock.metadata || {},
       createdAt: Date.now(),
       updatedAt: Date.now(),
       children,

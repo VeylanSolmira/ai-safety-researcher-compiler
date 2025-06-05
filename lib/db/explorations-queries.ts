@@ -58,7 +58,7 @@ export function getAllExplorations(): ExplorationMetadata[] {
     
     const rows = db.prepare(query).all() as ExplorationRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       description: row.description,
@@ -124,7 +124,7 @@ export function getExplorationsByTag(tag: string): ExplorationMetadata[] {
     
     const rows = db.prepare(query).all(`%"${tag}"%`) as ExplorationRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       description: row.description,
@@ -158,7 +158,7 @@ export function searchExplorations(searchTerm: string): ExplorationMetadata[] {
     const searchPattern = `%${searchTerm}%`;
     const rows = db.prepare(query).all(searchPattern, searchPattern, searchPattern) as ExplorationRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       description: row.description,

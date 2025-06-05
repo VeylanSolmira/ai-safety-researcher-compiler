@@ -70,9 +70,9 @@ export function getAllExternalResources(): ExternalResource[] {
     `)
     const results = stmt.all() as ExternalResource[]
     // Parse metadata JSON if present
-    return results.map(r => ({
+    return results.map((r: any) => ({
       ...r,
-      metadata: r.metadata ? JSON.parse(r.metadata) : undefined
+      metadata: r.metadata ? JSON.parse((r as any).metadata || "[]") : undefined
     }))
   } finally {
     db.close()
@@ -130,7 +130,7 @@ export function getAllTools(): Tool[] {
       }, {} as Record<string, string[]>)
       
       // Add tags to tools
-      return tools.map(tool => ({
+      return tools.map((tool: any) => ({
         ...tool,
         tags: tagsByTool[tool.id] || []
       }))

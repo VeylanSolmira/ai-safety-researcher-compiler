@@ -1,81 +1,81 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import Database from 'better-sqlite3'
 import path from 'path'
 
 const DB_PATH = path.join(process.cwd(), 'journey.db')
 
-export async function POST(request: Request) {
-  const db = new Database(DB_PATH)
-  db.pragma('foreign_keys = ON')
+interface Topic {
+  entity_id: string
+  id: string
+  title: string
+  tier_id: string
+  module_id: string
+  position: number
+  tier_position?: number
+  module_position?: number
+  relationship_type: string
+}
+
+export async function POST(request: NextRequest) {
+  const db = new Database(DB_PATH, { readonly: true })
   
   try {
     const { entityIds } = await request.json()
     
-    if (!Array.isArray(entityIds) || entityIds.length === 0) {
+    if (!entityIds || !Array.isArray(entityIds)) {
       return NextResponse.json(
-        { error: 'entityIds must be a non-empty array' },
+        { error: 'entityIds must be an array' },
         { status: 400 }
       )
     }
     
-    // Create placeholders for SQL IN clause
     const placeholders = entityIds.map(() => '?').join(',')
-    
-    // Get all topics for all specified entities in one query
     const topics = db.prepare(`
       SELECT 
         et.entity_id,
         t.id,
         t.title,
-        t.description,
+        t.tier_id,
         t.module_id,
-        m.title as module_title,
-        m.tier_id,
-        ti.title as tier_title,
-        et.description as entity_description,
-        et.relationship_type,
-        et.context
+        t.position,
+        ti.position as tier_position,
+        m.position as module_position,
+        et.relationship_type
       FROM entity_topics et
       JOIN topics t ON et.topic_id = t.id
-      JOIN modules m ON t.module_id = m.id
-      JOIN tiers ti ON m.tier_id = ti.id
+      LEFT JOIN modules m ON t.module_id = m.id
+      LEFT JOIN tiers ti ON t.tier_id = ti.id
       WHERE et.entity_id IN (${placeholders})
       ORDER BY et.entity_id, ti.position, m.position, t.position
-    `).all(...entityIds)
+    `).all(...entityIds) as Topic[]
     
-    // Group by entity_id first, then by relationship_type
-    const result = topics.reduce((acc, topic) => {
+    // Group by entity_id and then by relationship_type
+    const grouped = topics.reduce<Record<string, Record<string, Topic[]>>>((acc, topic) => {
       if (!acc[topic.entity_id]) {
         acc[topic.entity_id] = {}
       }
-      
       if (!acc[topic.entity_id][topic.relationship_type]) {
         acc[topic.entity_id][topic.relationship_type] = []
       }
-      
       acc[topic.entity_id][topic.relationship_type].push({
+        entity_id: topic.entity_id,
         id: topic.id,
         title: topic.title,
-        description: topic.description,
-        entityDescription: topic.entity_description,
-        context: topic.context,
-        journey: {
-          tierId: topic.tier_id,
-          tierTitle: topic.tier_title,
-          moduleId: topic.module_id,
-          moduleTitle: topic.module_title,
-          path: `/journey/${topic.tier_id}/${topic.module_id}/${topic.id}`
-        }
+        tier_id: topic.tier_id,
+        module_id: topic.module_id,
+        position: topic.position,
+        tier_position: topic.tier_position,
+        module_position: topic.module_position,
+        relationship_type: topic.relationship_type
       })
-      
       return acc
-    }, {} as Record<string, Record<string, any[]>>)
+    }, {})
     
-    return NextResponse.json(result)
+    return NextResponse.json(grouped)
   } catch (error) {
-    console.error('Error fetching batch entity topics:', error)
+    console.error('Error fetching batch topics:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch entity topics' },
+      { error: 'Failed to fetch batch topics' },
       { status: 500 }
     )
   } finally {

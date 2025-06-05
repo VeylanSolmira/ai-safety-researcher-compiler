@@ -48,7 +48,7 @@ export default function CommunitiesPage() {
       try {
         const response = await fetch('/api/entities')
         if (!response.ok) throw new Error('Failed to fetch communities')
-        const data = await response.json()
+        const data = await response.json() as any as any
         setEntities(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load communities')

@@ -11,6 +11,90 @@ import { getExperiment } from '@/lib/experiments'
 import { getExploration } from '@/lib/explorations'
 import ViewModeToggle from '@/components/ViewModeToggle'
 
+
+// Related resource components
+function RelatedCaseStudies({ caseStudyIds }: { caseStudyIds: string[] }) {
+  const [caseStudies, setCaseStudies] = useState<any[]>([])
+  
+  useEffect(() => {
+    Promise.all(caseStudyIds.map(id => getCaseStudy(id)))
+      .then(results => setCaseStudies(results.filter(Boolean)))
+  }, [caseStudyIds])
+  
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-white mb-4">Related Case Studies</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {caseStudies.map(caseStudy => (
+          <Link 
+            key={caseStudy.id} 
+            href={`/journey/deep-dives/case-studies/${caseStudy.id}`}
+            className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
+          >
+            <h4 className="font-medium text-white mb-1">{caseStudy.title}</h4>
+            <p className="text-sm text-gray-400">{caseStudy.description}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function RelatedExperiments({ experimentIds }: { experimentIds: string[] }) {
+  const [experiments, setExperiments] = useState<any[]>([])
+  
+  useEffect(() => {
+    Promise.all(experimentIds.map(id => getExperiment(id)))
+      .then(results => setExperiments(results.filter(Boolean)))
+  }, [experimentIds])
+  
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-white mb-4">Related Experiments</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {experiments.map(experiment => (
+          <Link 
+            key={experiment.id} 
+            href={`/journey/deep-dives/experiments/${experiment.id}`}
+            className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
+          >
+            <h4 className="font-medium text-white mb-1">{experiment.title}</h4>
+            <p className="text-sm text-gray-400">{experiment.description}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function RelatedExplorations({ explorationIds }: { explorationIds: string[] }) {
+  const [explorations, setExplorations] = useState<any[]>([])
+  
+  useEffect(() => {
+    Promise.all(explorationIds.map(id => getExploration(id)))
+      .then(results => setExplorations(results.filter(Boolean)))
+  }, [explorationIds])
+  
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-white mb-4">Related Explorations</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {explorations.map(exploration => (
+          <Link 
+            key={exploration.id} 
+            href={`/journey/deep-dives/explorations/${exploration.id}`}
+            className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
+          >
+            <h4 className="font-medium text-white mb-1">{exploration.title}</h4>
+            <p className="text-sm text-gray-400">{exploration.description}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+
 export default function TopicPage() {
   const params = useParams()
   const router = useRouter()
@@ -143,71 +227,17 @@ export default function TopicPage() {
         <div className="mt-12 space-y-6">
           {/* Case Studies */}
           {topic.relatedCaseStudies && topic.relatedCaseStudies.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Related Case Studies</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {topic.relatedCaseStudies.map(caseStudyId => {
-                  const caseStudy = getCaseStudy(caseStudyId)
-                  if (!caseStudy) return null
-                  return (
-                    <Link 
-                      key={caseStudyId} 
-                      href={`/journey/deep-dives/case-studies/${caseStudyId}`}
-                      className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
-                    >
-                      <h4 className="font-medium text-white mb-1">{caseStudy.title}</h4>
-                      <p className="text-sm text-gray-400">{caseStudy.description}</p>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
+            <RelatedCaseStudies caseStudyIds={topic.relatedCaseStudies} />
           )}
           
           {/* Experiments */}
           {topic.relatedExperiments && topic.relatedExperiments.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Related Experiments</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {topic.relatedExperiments.map(experimentId => {
-                  const experiment = getExperiment(experimentId)
-                  if (!experiment) return null
-                  return (
-                    <Link 
-                      key={experimentId} 
-                      href={`/journey/deep-dives/experiments/${experimentId}`}
-                      className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
-                    >
-                      <h4 className="font-medium text-white mb-1">{experiment.title}</h4>
-                      <p className="text-sm text-gray-400">{experiment.description}</p>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
+            <RelatedExperiments experimentIds={topic.relatedExperiments} />
           )}
           
           {/* Explorations */}
           {topic.relatedExplorations && topic.relatedExplorations.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Related Explorations</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {topic.relatedExplorations.map(explorationId => {
-                  const exploration = getExploration(explorationId)
-                  if (!exploration) return null
-                  return (
-                    <Link 
-                      key={explorationId} 
-                      href={`/journey/deep-dives/explorations/${explorationId}`}
-                      className="block bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition"
-                    >
-                      <h4 className="font-medium text-white mb-1">{exploration.title}</h4>
-                      <p className="text-sm text-gray-400">{exploration.description}</p>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
+            <RelatedExplorations explorationIds={topic.relatedExplorations} />
           )}
         </div>
         

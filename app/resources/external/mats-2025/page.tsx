@@ -74,7 +74,7 @@ export default function MATS2025Page() {
 
         // Fetch topics for all mentors in a single batch request
         if (matsMentors.length > 0) {
-          const mentorIds = matsMentors.map(m => m.id)
+          const mentorIds = matsMentors.map((m: any) => m.id)
           const batchRes = await fetch('/api/entities/batch-topics', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

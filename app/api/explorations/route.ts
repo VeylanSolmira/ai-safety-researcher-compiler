@@ -4,8 +4,8 @@ import { getAllExplorations, getExplorationsByTag, searchExplorations } from '@/
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const tag = searchParams.get('tag');
-    const search = searchParams.get('search');
+    const tag = searchParams.get('tag') as any;
+    const search = searchParams.get('search') as any;
     
     let explorations;
     

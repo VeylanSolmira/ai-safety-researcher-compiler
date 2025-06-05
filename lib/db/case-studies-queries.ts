@@ -50,7 +50,7 @@ export function getAllCaseStudies(): CaseStudy[] {
     
     const rows = db.prepare(query).all() as CaseStudyRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -108,7 +108,7 @@ export function getCaseStudiesByCategory(category: string): CaseStudy[] {
     
     const rows = db.prepare(query).all(category) as CaseStudyRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -137,7 +137,7 @@ export function getCaseStudiesBySeverity(severity: string): CaseStudy[] {
     
     const rows = db.prepare(query).all(severity) as CaseStudyRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,
@@ -166,7 +166,7 @@ export function getCaseStudiesByTag(tag: string): CaseStudy[] {
     
     const rows = db.prepare(query).all(`%"${tag}"%`) as CaseStudyRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       summary: row.summary,

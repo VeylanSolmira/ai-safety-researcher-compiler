@@ -6,7 +6,7 @@ import PageHeader from '@/components/PageHeader'
 import type { CourseHighlight } from '@/lib/db/course-highlights-queries'
 
 export default function HighlightsPage() {
-  const [highlights, setHighlights] = useState<CourseHighlight[]>([])
+  const [highlights, setHighlights] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
@@ -16,7 +16,7 @@ export default function HighlightsPage() {
       try {
         const response = await fetch('/api/course-highlights')
         if (!response.ok) throw new Error('Failed to fetch highlights')
-        const data = await response.json()
+        const data = await response.json() as any
         setHighlights(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load highlights')
@@ -97,7 +97,7 @@ export default function HighlightsPage() {
                         {highlight.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        {highlight.tags.map(tag => (
+                        {highlight.tags.map((tag: string) => (
                           <span key={tag} className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">
                             {tag}
                           </span>
@@ -139,7 +139,7 @@ export default function HighlightsPage() {
                     {highlight.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {highlight.tags.map(tag => (
+                    {highlight.tags.map((tag: string) => (
                       <span key={tag} className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">
                         {tag}
                       </span>

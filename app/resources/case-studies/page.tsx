@@ -40,7 +40,7 @@ export default function CaseStudiesPage() {
       try {
         const response = await fetch('/api/case-studies')
         if (!response.ok) throw new Error('Failed to fetch case studies')
-        const data = await response.json()
+        const data = await response.json() as any as any
         setAllCaseStudies(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load case studies')

@@ -24,7 +24,7 @@ export async function getTopicWithDetails(topicId: string) {
     .select({ tag: schema.topicTags.tag })
     .from(schema.topicTags)
     .where(eq(schema.topicTags.topicId, topicId))
-    .all()
+    .all() as any[]
   
   return {
     topic: result.topics,
@@ -41,9 +41,9 @@ export async function getModuleTopicsWithProgress(moduleId: string, userId?: str
     .from(schema.topics)
     .where(eq(schema.topics.moduleId, moduleId))
     .orderBy(asc(schema.topics.position))
-    .all()
+    .all() as any[]
   
-  if (!userId) return topics.map(t => ({ ...t, completed: false }))
+  if (!userId) return topics.map((t: any) => ({ ...t, completed: false }))
   
   // Get completion status efficiently
   const completions = await db
@@ -55,11 +55,11 @@ export async function getModuleTopicsWithProgress(moduleId: string, userId?: str
         eq(schema.userCompletions.itemType, 'topic')
       )
     )
-    .all()
+    .all() as any[]
   
   const completedIds = new Set(completions.map(c => c.itemId))
   
-  return topics.map(topic => ({
+  return topics.map((topic: any) => ({
     ...topic,
     completed: completedIds.has(topic.id)
   }))
@@ -81,7 +81,7 @@ export async function searchTopics(query: string) {
       like(schema.topics.title, `%${query}%`)
     )
     .groupBy(schema.topics.id)
-    .all()
+    .all() as any[]
 }
 
 // Get tier progress efficiently
@@ -92,7 +92,7 @@ export async function getTierProgress(tierId: string, userId: string) {
     .from(schema.topics)
     .innerJoin(schema.modules, eq(schema.topics.moduleId, schema.modules.id))
     .where(eq(schema.modules.tierId, tierId))
-    .all()
+    .all() as any[]
   
   const totalTopics = topicsResult.length
   
@@ -107,7 +107,7 @@ export async function getTierProgress(tierId: string, userId: string) {
         // This would need a subquery or join in real implementation
       )
     )
-    .all()
+    .all() as any[]
   
   return {
     totalTopics,
@@ -117,7 +117,7 @@ export async function getTierProgress(tierId: string, userId: string) {
 }
 
 // Add new topic efficiently
-export async function addTopic(moduleId: string, topic: Partial<schema.Topic>) {
+export async function addTopic(moduleId: string, topic: Partial<typeof schema.topics.$inferInsert>) {
   // Get the highest position in the module
   const maxPositionResult = await db
     .select({ maxPos: schema.topics.position })

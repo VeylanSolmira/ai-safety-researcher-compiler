@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
-import { getAllCourseHighlights } from '@/lib/db/course-highlights-queries'
+import { getCourseHighlights } from '@/lib/db/course-highlights-queries'
 
 export async function GET() {
   try {
-    const highlights = getAllCourseHighlights()
+    const highlights = getCourseHighlights()
     return NextResponse.json(highlights)
   } catch (error) {
     console.error('Error fetching course highlights:', error)

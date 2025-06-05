@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const isPublic = searchParams.get('public') === 'true';
     const userId = searchParams.get('userId');
 
-    const templates = getTimelineTemplates(isPublic, userId);
+    const templates = getTimelineTemplates(isPublic, userId || undefined);
     return NextResponse.json(templates);
   } catch (error) {
     console.error('Error fetching timeline templates:', error);

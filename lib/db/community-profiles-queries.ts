@@ -35,10 +35,10 @@ export function getAllCommunityProfiles(): CommunityProfile[] {
     `).all() as Array<any>;
     
     // Parse JSON fields
-    return profiles.map(profile => ({
+    return profiles.map((profile: any) => ({
       ...profile,
-      tags: profile.tags ? JSON.parse(profile.tags) : [],
-      properties: profile.properties ? JSON.parse(profile.properties) : {},
+      tags: profile.tags ? JSON.parse((profile as any).tags || "[]") : [],
+      properties: profile.properties ? JSON.parse((profile as any).properties || "[]") : {},
       active: Boolean(profile.active)
     }));
   } finally {
@@ -70,8 +70,8 @@ export function getCommunityProfile(id: string): CommunityProfile | null {
     // Parse JSON fields
     return {
       ...profile,
-      tags: profile.tags ? JSON.parse(profile.tags) : [],
-      properties: profile.properties ? JSON.parse(profile.properties) : {},
+      tags: profile.tags ? JSON.parse((profile as any).tags || "[]") : [],
+      properties: profile.properties ? JSON.parse((profile as any).properties || "[]") : {},
       active: Boolean(profile.active)
     };
   } finally {
@@ -100,10 +100,10 @@ export function getCommunityProfilesByTag(tag: string): CommunityProfile[] {
     `).all(`%"${tag}"%`);
     
     // Parse JSON fields
-    return profiles.map(profile => ({
+    return profiles.map((profile: any) => ({
       ...profile,
-      tags: profile.tags ? JSON.parse(profile.tags) : [],
-      properties: profile.properties ? JSON.parse(profile.properties) : {},
+      tags: profile.tags ? JSON.parse((profile as any).tags || "[]") : [],
+      properties: profile.properties ? JSON.parse((profile as any).properties || "[]") : {},
       active: Boolean(profile.active)
     }));
   } finally {

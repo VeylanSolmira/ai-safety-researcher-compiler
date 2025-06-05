@@ -37,7 +37,7 @@ export default function NewsPage() {
       try {
         const response = await fetch('/api/news')
         if (!response.ok) throw new Error('Failed to fetch news')
-        const data = await response.json()
+        const data = await response.json() as any as any
         setAllStories(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load news')
@@ -216,11 +216,6 @@ export default function NewsPage() {
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {story.title}
                     </h3>
-                    {story.featured && (
-                      <span className="px-2 py-1 text-xs font-semibold bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full">
-                        Featured
-                      </span>
-                    )}
                   </div>
                   
                   <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -239,7 +234,7 @@ export default function NewsPage() {
                     
                     {story.source && (
                       <span className="text-gray-500 dark:text-gray-500">
-                        via {story.source.name}
+                        via {story.source}
                       </span>
                     )}
                   </div>

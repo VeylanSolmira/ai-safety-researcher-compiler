@@ -70,7 +70,7 @@ export function getAllExperiments(): ExperimentMetadata[] {
     
     const rows = db.prepare(query).all() as ExperimentRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       description: row.description,
@@ -141,7 +141,7 @@ export function getExperimentsByDifficulty(difficulty: string): ExperimentMetada
     
     const rows = db.prepare(query).all(difficulty) as ExperimentRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       description: row.description,
@@ -174,7 +174,7 @@ export function getExperimentsByTag(tag: string): ExperimentMetadata[] {
     
     const rows = db.prepare(query).all(`%"${tag}"%`) as ExperimentRow[];
     
-    return rows.map(row => ({
+    return rows.map((row: any) => ({
       id: row.id,
       title: row.title,
       description: row.description,

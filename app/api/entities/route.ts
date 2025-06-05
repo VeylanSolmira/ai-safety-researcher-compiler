@@ -10,8 +10,8 @@ export async function GET(request: Request) {
   
   try {
     const { searchParams } = new URL(request.url)
-    const type = searchParams.get('type') // Filter by type
-    const featured = searchParams.get('featured') // Show only featured
+    const type = searchParams.get('type') as any // Filter by type
+    const featured = searchParams.get('featured') as any // Show only featured
     
     let query = `
       SELECT 
@@ -43,8 +43,8 @@ export async function GET(request: Request) {
     const entities = stmt.all(...params)
     
     // Parse JSON fields
-    const parsedEntities = entities.map(entity => ({
-      ...entity,
+    const parsedEntities = entities.map((entity: any) => ({
+      ...(entity as any),
       tags: entity.tags ? JSON.parse(entity.tags) : [],
       properties: entity.properties ? JSON.parse(entity.properties) : {},
       active: Boolean(entity.active)

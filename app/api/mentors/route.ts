@@ -35,7 +35,7 @@ export async function GET() {
       ORDER BY e.name
     `
     
-    const entities = db.prepare(query).all() as EntityRow[]
+    const entities = db.prepare(query).all() as any[] as any[] as any[] as EntityRow[]
     
     // Transform entities to mentor format
     const enrichedMentors = entities.map((entity: EntityRow) => {

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
-import { getNewsStory, getNewsByCategory } from '@/lib/db/news-queries'
+import { getNewsStoryById as getNewsStory, getNewsByCategory } from '@/lib/news'
 import type { NewsStory } from '@/lib/db/news-queries'
 import { 
   NewspaperIcon,
@@ -25,15 +25,15 @@ function formatNewsDate(dateString: string): string {
   }
 }
 
-export default function NewsStoryPage({ params }: { params: { id: string } }) {
-  const story = getNewsStory(params.id)
+export default async function Page({ params }: { params: { id: string } }) {
+  const story = await getNewsStory(params.id)
   
   if (!story) {
     notFound()
   }
   
   // Get related stories from same category
-  const relatedStories = getNewsByCategory(story.category)
+  const relatedStories = await getNewsByCategory(story.category)
     .filter(s => s.id !== story.id)
     .slice(0, 3)
   

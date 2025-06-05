@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useClaude } from '@/hooks/useClaude'
 import { useViewMode } from '@/contexts/ViewModeContext'
+import { externalResources } from '@/lib/external-resources'
 
 interface UnifiedAIAssistantProps {
   // Content to analyze (for non-chat modes)

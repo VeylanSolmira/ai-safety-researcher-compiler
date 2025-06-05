@@ -31,8 +31,8 @@ const categories = [
 export default function ResearchPapersHub() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [papers, setPapers] = useState<Paper[]>([])
-  const [filteredPapers, setFilteredPapers] = useState<Paper[]>([])
+  const [papers, setPapers] = useState<any[]>([])
+  const [filteredPapers, setFilteredPapers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -45,7 +45,7 @@ export default function ResearchPapersHub() {
         if (!response.ok) {
           throw new Error('Failed to fetch papers')
         }
-        const data = await response.json()
+        const data = await response.json() as any as any as any
         setPapers(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -70,8 +70,8 @@ export default function ResearchPapersHub() {
       const query = searchQuery.toLowerCase()
       filtered = filtered.filter(paper => 
         paper.title.toLowerCase().includes(query) ||
-        paper.authors.some(author => author.toLowerCase().includes(query)) ||
-        paper.tags.some(tag => tag.toLowerCase().includes(query)) ||
+        paper.authors.some((author: string) => author.toLowerCase().includes(query)) ||
+        paper.tags.some((tag: string) => tag.toLowerCase().includes(query)) ||
         paper.abstract.toLowerCase().includes(query)
       )
     }
@@ -230,7 +230,7 @@ export default function ResearchPapersHub() {
                     >
                       {paper.category}
                     </span>
-                    {paper.tags.slice(0, 3).map(tag => (
+                    {paper.tags.slice(0, 3).map((tag: string) => (
                       <span key={tag} className="px-3 py-1 rounded-full text-xs font-medium text-gray-400 border border-gray-700">
                         {tag}
                       </span>

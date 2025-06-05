@@ -25,7 +25,7 @@ export async function GET(
         active
       FROM entities
       WHERE id = ? AND active = 1
-    `).get(params.entityId)
+    `).get(params.entityId) as any as any
     
     if (!entity) {
       return NextResponse.json(
@@ -36,7 +36,7 @@ export async function GET(
     
     // Parse JSON fields
     const parsedEntity = {
-      ...entity,
+      ...(entity as any),
       tags: entity.tags ? JSON.parse(entity.tags) : [],
       properties: entity.properties ? JSON.parse(entity.properties) : {},
       active: Boolean(entity.active)
@@ -63,7 +63,7 @@ export async function GET(
     `).all(params.entityId)
     
     return NextResponse.json({
-      ...parsedEntity,
+      ...(parsedEntity as any),
       relatedTopics,
       topicCounts: topicCount
     })
