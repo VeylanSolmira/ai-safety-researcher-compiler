@@ -47,15 +47,16 @@ jobs:
         env:
           NODE_ENV: production
           
-      # For Vercel deployment (if using Vercel)
-      - name: Deploy to Vercel
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          npm install -g vercel
-          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      # Vercel deployment is handled automatically via GitHub integration
+      # The following manual deployment is commented out to avoid conflicts
+      # - name: Deploy to Vercel
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   run: |
+      #     npm install -g vercel
+      #     vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+      #   env:
+      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           
       # Optional: Commit updated production database back to repo
       # Uncomment if you want CI to update the database automatically
