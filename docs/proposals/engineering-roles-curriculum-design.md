@@ -1,212 +1,156 @@
-# Engineering Roles in AI Safety - Curriculum Design Proposal
+# Engineering Track for AI Safety - Simplified Design
 
 ## Overview
 
-This proposal outlines how to add engineering-focused content to the AI Safety Research Compiler with role-based filtering, ensuring learners see content relevant to their career path.
+This proposal adds a single "AI Safety Engineer" track to the curriculum, covering the technical skills needed to build infrastructure and tools for AI safety work.
 
-## Proposed Engineering Roles
+## The AI Safety Engineer Role
 
-### 1. **AI Safety Platform Engineer**
-Focus: Building infrastructure for safe AI evaluation and deployment
-- Target employers: METR, Anthropic, OpenAI, DeepMind
-- Key skills: Cloud, Kubernetes, MLOps, Security
+**Definition**: Engineers who build the infrastructure, tools, and systems that enable safe AI development and evaluation.
 
-### 2. **Safety Tools Engineer**
-Focus: Building tools for AI safety research and evaluation
-- Target employers: Research labs, safety organizations
-- Key skills: Python, APIs, distributed systems, debugging tools
+**Target Employers**: METR, Anthropic, OpenAI, DeepMind, Redwood Research, ARC Evals, and other safety-focused organizations.
 
-### 3. **ML Safety Engineer**
-Focus: Implementing safety techniques in ML systems
-- Target employers: AI companies, research labs
-- Key skills: PyTorch/JAX, interpretability tools, monitoring
-
-### 4. **Security Engineer for AI**
-Focus: Securing AI systems against adversarial attacks
-- Target employers: Labs, government, security firms
-- Key skills: Red teaming, containerization, penetration testing
-
-### 5. **Governance Infrastructure Engineer**
-Focus: Building systems for AI governance and compliance
-- Target employers: Policy organizations, regulatory bodies
-- Key skills: Audit systems, monitoring, compliance tools
+**Core Philosophy**: One engineering track that covers the full stack needed for AI safety work, from infrastructure to tools to security
 
 ## Implementation Strategy
 
-### 1. Database Schema Updates
+### 1. Simple Track System
 
 ```sql
--- Add role tags to topics
-ALTER TABLE topics ADD COLUMN role_tags TEXT DEFAULT NULL;
+-- Add track field to topics (simpler than role tags)
+ALTER TABLE topics ADD COLUMN track TEXT DEFAULT 'general';
+-- Values: 'general', 'engineering', 'research', 'governance'
 
--- Example: 'platform_engineer,safety_tools_engineer'
-
--- Add user role preferences
-CREATE TABLE user_role_preferences (
-  user_id TEXT PRIMARY KEY,
-  selected_roles TEXT NOT NULL, -- JSON array of role IDs
-  created_at INTEGER DEFAULT (unixepoch()),
-  updated_at INTEGER DEFAULT (unixepoch())
-);
+-- Add user track preference
+ALTER TABLE user_progress ADD COLUMN selected_track TEXT DEFAULT 'general';
 ```
 
-### 2. New Engineering-Focused Modules
+### 2. Engineering Track Curriculum
 
-#### Module: Production Engineering for AI Safety (Tier: Intermediate)
-**Role tags**: platform_engineer, safety_tools_engineer
+#### Core Engineering Module (Added to Intermediate Tier)
 
-Topics:
-- **Cloud Infrastructure for AI Safety**
-  - AWS/GCP for ML workloads
-  - Cost optimization for large models
-  - Multi-region deployment strategies
-  - Infrastructure as Code (Terraform)
+**Production Infrastructure for AI Safety**
+- Cloud Platforms & ML Infrastructure
+- Containerization & Orchestration (Docker → Kubernetes)
+- CI/CD for Safety-Critical Systems
+- Monitoring & Observability
 
-- **Kubernetes for Model Evaluation**
-  - Container orchestration at scale
-  - GPU scheduling and resource management
-  - Sandboxing untrusted models
-  - Service mesh for model isolation
+**Data Engineering for Safety Evaluation**
+- Building Evaluation Pipelines
+- Experiment Tracking & Versioning
+- Data Storage & Processing at Scale
+- Real-time Safety Metrics
 
-- **MLOps & Evaluation Pipelines**
-  - Building evaluation data pipelines
-  - Model versioning and experiment tracking
-  - A/B testing for safety features
-  - Reproducible evaluation environments
+#### Advanced Engineering Module (Added to Advanced Tier)
 
-- **Monitoring & Observability**
-  - Prometheus/Grafana for AI systems
-  - Custom metrics for safety monitoring
-  - Alerting on anomalous model behavior
-  - Distributed tracing for model calls
+**Platform Engineering for AI Safety**
+- Advanced Kubernetes for Model Isolation
+- Multi-tenant Evaluation Platforms
+- Cost Optimization for GPU Workloads
+- Infrastructure as Code (Terraform/Pulumi)
 
-#### Module: Engineering Tools for Safety Research (Tier: Advanced)
-**Role tags**: safety_tools_engineer, ml_safety_engineer
+**Security & Reliability Engineering**
+- Sandboxing Untrusted Models
+- Zero-trust Architecture for AI Systems
+- Incident Response & Forensics
+- Chaos Engineering for AI Infrastructure
 
-Topics:
-- **Building Research Infrastructure**
-  - Experiment management systems
-  - Distributed compute coordination
-  - Research data warehouses
-  - Collaboration platforms
-
-- **Frontend Development for Safety Tools**
-  - TypeScript/React for research UIs
-  - Visualization of safety metrics
-  - Interactive model exploration tools
-  - Real-time monitoring dashboards
-
-- **API Design for Safety Systems**
-  - RESTful and GraphQL APIs
-  - Rate limiting and access control
-  - Webhook systems for alerts
-  - API versioning strategies
-
-#### Module: Security Engineering for AI (Tier: Advanced)
-**Role tags**: security_engineer, platform_engineer
-
-Topics:
-- **Advanced Container Security**
-  - Secure container registries
-  - Runtime security with Falco
-  - Network policies in Kubernetes
-  - Secrets management (Vault)
-
-- **AI-Specific Security Measures**
-  - Preventing model extraction
-  - Secure multi-party computation
-  - Differential privacy implementation
-  - Homomorphic encryption basics
-
-- **Incident Response for AI Systems**
-  - Detecting model compromises
-  - Forensics for AI attacks
-  - Rollback procedures
-  - Post-mortem processes
+**Full-Stack Safety Tools**
+- TypeScript/React for Research Interfaces
+- API Design for Safety Systems
+- Real-time Monitoring Dashboards
+- Integration with Research Tools
 
 ## UI/UX Changes
 
-### 1. Role Selection During Onboarding
+### 1. Track Selection (Simple Toggle)
 ```typescript
-interface RoleSelectionProps {
-  roles: [
-    {
-      id: 'platform_engineer',
-      title: 'AI Safety Platform Engineer',
-      description: 'Build infrastructure for safe AI',
-      icon: '🏗️',
-      skillsHighlight: ['Cloud', 'Kubernetes', 'MLOps']
-    },
-    // ... other roles
+interface TrackToggleProps {
+  tracks: [
+    { id: 'general', label: 'General Path', icon: '📚' },
+    { id: 'engineering', label: 'Engineering Track', icon: '⚙️' },
+    { id: 'research', label: 'Research Track', icon: '🔬' },
+    { id: 'governance', label: 'Governance Track', icon: '🏛️' }
   ]
 }
 ```
 
-### 2. Topic Filtering
+### 2. Smart Content Display
+- Engineering track shows additional engineering topics
+- Other tracks hide deep technical implementation details
+- All tracks see core AI safety concepts
+
+### 3. Visual Cues
+- Small track badge on engineering-specific topics: ⚙️
+- "Engineering Track" label in module headers
+- Different color accent for engineering content
+
+## Why One Engineering Track?
+
+**Advantages**:
+- Simpler for users (no analysis paralysis)
+- Covers full stack needed for any AI safety engineering role
+- Easier to maintain and update
+- Natural progression from basics to specialization
+
+**Flexibility**: 
+- Engineering track includes all key skills (platform, tools, security)
+- Users can skip sections not relevant to their specific job
+- Optional "deep dives" for specialized topics
+
+## Content Mapping to METR Requirements
+
+| METR Requirement | Engineering Track Coverage |
+|------------------|---------------------------|
+| Large-scale systems | ✅ Production Infrastructure module |
+| Containerization | ✅ Docker → Kubernetes progression |
+| Cloud (AWS) | ✅ Cloud Platforms section |
+| Python | ✅ Already in core + engineering context |
+| TypeScript | ✅ Full-Stack Safety Tools |
+| Data pipelines | ✅ Data Engineering module |
+| Security | ✅ Security & Reliability module |
+| CI/CD | ✅ CI/CD for Safety-Critical Systems |
+
+## Implementation Plan
+
+### Phase 1: Add Track System (Week 1)
+1. Add `track` column to topics table
+2. Create track toggle UI component
+3. Update topic queries to filter by track
+
+### Phase 2: Core Engineering Content (Weeks 2-4)
+1. Production Infrastructure for AI Safety
+2. Data Engineering for Safety Evaluation
+3. Tag as `track: 'engineering'`
+
+### Phase 3: Advanced Engineering (Weeks 5-6)
+1. Platform Engineering topics
+2. Security & Reliability topics
+3. Full-Stack Safety Tools
+
+## Example Topics Structure
+
 ```typescript
-// In topic queries
-function getTopicsForUser(tierId: string, userId: string) {
-  const userRoles = getUserRoles(userId);
-  return db.prepare(`
-    SELECT * FROM topics 
-    WHERE tier_id = ? 
-    AND (
-      role_tags IS NULL 
-      OR EXISTS (
-        SELECT 1 FROM json_each(role_tags) 
-        WHERE value IN (${userRoles.map(() => '?').join(',')})
-      )
-    )
-  `).all(tierId, ...userRoles);
+// Core topic everyone sees
+{
+  title: "Docker & Containerization",
+  track: "general",
+  tier: "foundations"
+}
+
+// Engineering-specific extension
+{
+  title: "Kubernetes for Model Evaluation",
+  track: "engineering", 
+  tier: "intermediate",
+  prerequisites: ["docker-containerization"]
 }
 ```
 
-### 3. Visual Indicators
-- Role badges on topics: 🏗️ Platform | 🛠️ Tools | 🧠 ML | 🔒 Security | 🏛️ Governance
-- "Recommended for your role" highlights
-- Progress tracking per role
-
-## Content Creation Priority
-
-### Phase 1: Core Platform Engineering (METR-aligned)
-1. Cloud Infrastructure for AI Safety
-2. Kubernetes for Model Evaluation
-3. MLOps & Evaluation Pipelines
-4. Monitoring & Observability
-
-### Phase 2: Broader Engineering Roles
-1. Frontend Development for Safety Tools
-2. API Design for Safety Systems
-3. Advanced Container Security
-4. Building Research Infrastructure
-
-### Phase 3: Specialized Content
-1. AI-Specific Security Measures
-2. Incident Response for AI Systems
-3. Governance Infrastructure
-4. Compliance Tooling
-
-## Migration Path
-
-1. Add `role_tags` column to topics table
-2. Tag existing content with appropriate roles
-3. Create new engineering-focused topics
-4. Implement role selection UI
-5. Add filtering logic to topic queries
-6. Update journey paths to respect role preferences
-
-## Benefits
-
-- **Targeted Learning**: Engineers see content relevant to their career goals
-- **Industry Alignment**: Content matches real job requirements (like METR's)
-- **Flexibility**: Users can select multiple roles or change focus
-- **Scalability**: Easy to add new roles and content
-- **Clear Pathways**: From fundamentals to role-specific expertise
-
 ## Next Steps
 
-1. Implement database schema changes
-2. Create role selection UI component
-3. Start creating Phase 1 content (METR-aligned)
-4. Update existing content with role tags
-5. Test with users interested in engineering roles
+1. Get approval on single engineering track approach
+2. Implement simple track system in database
+3. Create first METR-aligned engineering topics
+4. Add track toggle to UI
+5. Test with engineering-focused users

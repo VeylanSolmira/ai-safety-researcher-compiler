@@ -1,12 +1,9 @@
 import Database from 'better-sqlite3';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import crypto from 'crypto';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const db = new Database(path.join(__dirname, '..', '..', 'journey.db'));
+const DB_PATH = path.join(process.cwd(), 'journey.db');
+const db = new Database(DB_PATH);
 db.pragma('foreign_keys = ON');
 
 // Types
@@ -287,18 +284,18 @@ export function getTimelineTemplates(isPublic: boolean, userId?: string): Timeli
   const params: any[] = [];
 
   if (isPublic) {
-    query += ' AND is_public = 1';
+    query += ' AND public = 1';
   } else if (userId) {
-    query += ' AND (is_public = 1 OR user_id = ?)';
+    query += ' AND (public = 1 OR user_id = ?)';
     params.push(userId);
   }
 
-  query += ' ORDER BY use_count DESC, created_at DESC';
+  query += ' ORDER BY created_at DESC';
 
   return db.prepare(query).all(...params).map((template: any) => ({
     ...template,
     structure: JSON.parse((template as any).structure),
-    isPublic: Boolean(template.is_public)
+    isPublic: Boolean(template.public)
   }));
 }
 

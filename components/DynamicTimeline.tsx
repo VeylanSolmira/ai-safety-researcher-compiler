@@ -43,9 +43,16 @@ export default function DynamicTimeline({ userId }: DynamicTimelineProps) {
     try {
       const response = await fetch(`/api/timeline/blocks?userId=${userId}`);
       const data = await response.json();
-      setBlocks(data);
+      // Ensure data is an array
+      if (Array.isArray(data)) {
+        setBlocks(data);
+      } else {
+        console.error('Unexpected data format from timeline blocks API:', data);
+        setBlocks([]);
+      }
     } catch (error) {
       console.error('Error fetching blocks:', error);
+      setBlocks([]);
     } finally {
       setLoading(false);
     }
@@ -735,7 +742,7 @@ export default function DynamicTimeline({ userId }: DynamicTimelineProps) {
 
       {/* Timeline Blocks */}
       <div className="space-y-2">
-        {blocks.length === 0 ? (
+        {!Array.isArray(blocks) || blocks.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
             <Calendar className="w-12 h-12 mx-auto mb-4 opacity-50" />
             <p>No timeline blocks yet.</p>
