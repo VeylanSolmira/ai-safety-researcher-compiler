@@ -75,13 +75,16 @@ export default function JourneyPage() {
               </Link>
             </div>
             <div className="flex items-center gap-4">
-              {/* View Mode Toggle */}
-              <ViewModeToggle />
+              {/* View Mode Toggle - only show in development */}
+              {process.env.NEXT_PUBLIC_SHOW_DEV_TOOLS === 'true' && (
+                <ViewModeToggle />
+              )}
               
               {/* Development Mode Toggle */}
-              <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/20 px-3 py-1 rounded-lg">
-                <span className="text-xs font-medium text-yellow-800 dark:text-yellow-200">Dev Mode</span>
-                <button
+              {process.env.NEXT_PUBLIC_SHOW_DEV_TOOLS === 'true' && (
+                <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/20 px-3 py-1 rounded-lg">
+                  <span className="text-xs font-medium text-yellow-800 dark:text-yellow-200">Dev Mode</span>
+                  <button
                   onClick={() => setDevMode(!devMode)}
                   className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
                     devMode ? 'bg-yellow-600' : 'bg-gray-300 dark:bg-gray-600'
@@ -93,7 +96,8 @@ export default function JourneyPage() {
                     }`}
                   />
                 </button>
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

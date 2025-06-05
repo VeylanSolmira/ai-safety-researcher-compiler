@@ -6,15 +6,18 @@ export async function GET(
   { params }: { params: { topicId: string } }
 ) {
   try {
+    console.log(`[API] Fetching topic: ${params.topicId}`)
     const topic = await getTopicById(params.topicId)
     
     if (!topic) {
+      console.log(`[API] Topic not found: ${params.topicId}`)
       return NextResponse.json(
         { error: 'Topic not found' },
         { status: 404 }
       )
     }
     
+    console.log(`[API] Topic found: ${params.topicId}, has content: ${!!topic.content}`)
     return NextResponse.json(topic)
   } catch (error) {
     console.error('Error fetching topic:', error)

@@ -278,6 +278,16 @@ export async function getTopicById(topicId: string) {
     // Map database fields
     const { content_academic, content_personal, module_id, ...topicData } = topic
     
+    // Debug logging for production
+    if (process.env.NODE_ENV === 'production') {
+      console.log(`Topic ${topicId} content check:`, {
+        has_content_academic: !!content_academic,
+        academic_length: content_academic?.length || 0,
+        has_content_personal: !!content_personal,
+        personal_length: content_personal?.length || 0
+      })
+    }
+    
     return {
       ...topicData,
       moduleId: module_id,

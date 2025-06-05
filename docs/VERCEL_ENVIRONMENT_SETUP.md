@@ -6,7 +6,17 @@ This application uses environment variables to control feature visibility and co
 
 ### Required Environment Variables
 
-#### 1. Development Tools Visibility
+#### 1. Database Usage (REQUIRED for production!)
+
+```
+NEXT_PUBLIC_USE_DATABASE_FOR_JOURNEY=true
+NEXT_PUBLIC_USE_DATABASE_FOR_PROGRESS=true
+NEXT_PUBLIC_USE_DATABASE_FOR_RESOURCES=true
+```
+
+**CRITICAL**: These MUST be set in Vercel production environment or content won't load!
+
+#### 2. Development Tools Visibility
 
 ```
 NEXT_PUBLIC_SHOW_DEV_TOOLS=true  # Local development only
@@ -16,10 +26,11 @@ This controls the visibility of:
 - Database toggle button (bottom right corner)
 - Development tools section on home page
 - "(Development mode)" indicators
+- View mode toggle in journey pages
 
 **Important**: Do NOT set this in your Vercel production environment.
 
-#### 2. Claude API (Optional)
+#### 3. Claude API (Optional)
 
 ```
 ANTHROPIC_API_KEY=your-api-key-here
@@ -39,6 +50,9 @@ ANTHROPIC_MODEL=claude-3-5-haiku-20241022  # Optional, defaults to sonnet
 
 | Variable | Local Dev | Preview | Production |
 |----------|-----------|---------|------------|
+| NEXT_PUBLIC_USE_DATABASE_FOR_JOURNEY | true | true | ✅ REQUIRED |
+| NEXT_PUBLIC_USE_DATABASE_FOR_PROGRESS | true | true | ✅ REQUIRED |
+| NEXT_PUBLIC_USE_DATABASE_FOR_RESOURCES | true | true | ✅ REQUIRED |
 | NEXT_PUBLIC_SHOW_DEV_TOOLS | true | optional | ❌ Never |
 | ANTHROPIC_API_KEY | optional | optional | optional |
 
