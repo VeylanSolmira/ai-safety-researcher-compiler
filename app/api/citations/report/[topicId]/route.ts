@@ -17,6 +17,10 @@ interface Citation {
   extracted_year?: string
   issues?: string
   run_date: string
+  suggested_fix?: string
+  matched_paper_title?: string
+  matched_paper_year?: string
+  validation_errors?: string
 }
 
 interface Topic {
@@ -65,7 +69,14 @@ export async function GET(
       WHERE topic_id = ? 
       ORDER BY run_date DESC 
       LIMIT 10
-    `).all(params.topicId)
+    `).all(params.topicId) as Array<{
+      run_date: string
+      total_citations: number
+      verified_count: number
+      suspicious_count: number
+      broken_count: number
+      hallucinated_count: number
+    }>
     
     // Calculate statistics
     const stats = {
