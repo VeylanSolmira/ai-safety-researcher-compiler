@@ -4,23 +4,31 @@ import fs from 'fs'
 
 let cachedDbPath: string | null = null
 
-export function getVercelSafeDatabasePath(): string {
+/**
+ * Gets a writable database path, handling read-only filesystems in production.
+ * In environments with read-only filesystems (like some serverless platforms),
+ * this will copy the database to a writable location (/tmp).
+ */
+export function getWritableDatabasePath(): string {
   // If we've already determined the path, return it
   if (cachedDbPath) return cachedDbPath
   
   const isProduction = process.env.NODE_ENV === 'production'
   const dbFileName = isProduction ? 'journey-public.db' : 'journey-dev.db'
   
-  // In production on Vercel, we need to handle the read-only filesystem
-  if (isProduction && process.env.VERCEL) {
-    // Copy database to /tmp which is writable in Vercel
+  // Check if we're in an environment with a read-only filesystem
+  // This is indicated by either VERCEL env var or a READONLY_FS env var
+  const hasReadOnlyFS = isProduction && (process.env.VERCEL || process.env.READONLY_FS)
+  
+  if (hasReadOnlyFS) {
+    // Copy database to /tmp which is typically writable in serverless environments
     const sourceDbPath = path.join(process.cwd(), dbFileName)
     const tmpDbPath = path.join('/tmp', dbFileName)
     
     // Only copy if not already copied
     if (!fs.existsSync(tmpDbPath)) {
       try {
-        console.log(`Copying database from ${sourceDbPath} to ${tmpDbPath} for Vercel...`)
+        console.log(`Copying database from ${sourceDbPath} to ${tmpDbPath} for read-only filesystem...`)
         fs.copyFileSync(sourceDbPath, tmpDbPath)
         console.log('Database copied successfully')
       } catch (error) {
@@ -35,7 +43,7 @@ export function getVercelSafeDatabasePath(): string {
     return tmpDbPath
   }
   
-  // For local development or non-Vercel production
+  // For local development or writable filesystems
   cachedDbPath = path.join(process.cwd(), dbFileName)
   return cachedDbPath
 }
@@ -43,7 +51,7 @@ export function getVercelSafeDatabasePath(): string {
 // Test function to verify database access
 export function testDatabaseAccess(): boolean {
   try {
-    const dbPath = getVercelSafeDatabasePath()
+    const dbPath = getWritableDatabasePath()
     const db = new Database(dbPath, { readonly: true })
     const result = db.prepare('SELECT COUNT(*) as count FROM topics').get() as { count: number }
     db.close()

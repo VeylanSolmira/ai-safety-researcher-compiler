@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
-import { getDatabasePath, testDatabaseAccess } from '@/lib/db/vercel-db-init'
+import { getWritableDatabasePath, testDatabaseAccess } from '@/lib/db/writable-db-path'
 import Database from 'better-sqlite3'
 import fs from 'fs'
 
 export async function GET() {
   try {
-    const dbPath = getDatabasePath()
+    const dbPath = getWritableDatabasePath()
     const fileExists = fs.existsSync(dbPath)
     const fileStats = fileExists ? fs.statSync(dbPath) : null
     
@@ -30,7 +30,7 @@ export async function GET() {
           LIMIT 1
         `).get()
         
-        dbTest.sampleTopic = sampleTopic
+        dbTest.sampleTopic = sampleTopic as any
         dbTest.success = true
         
         db.close()

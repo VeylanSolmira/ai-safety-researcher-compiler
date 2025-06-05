@@ -102,13 +102,15 @@ export interface JourneyProgress {
   }
 }
 
-// Import journey data based on feature flag
-import { journeyTiers } from './journey-generated'
-export { journeyTiers }
+// Legacy journey data removed - database is now the only source of truth
+// Use API calls via hooks/useJourneyData.ts instead
 
 // Utility functions for navigation
+// DEPRECATED: These functions require static data that no longer exists
+// Use hooks/useJourneyData.ts or API calls instead
 export function getTier(tierId: string): Tier | undefined {
-  return journeyTiers.find(tier => tier.id === tierId)
+  console.warn('getTier is deprecated - use useJourneyData hook or API calls')
+  return undefined
 }
 
 export function getModule(tierId: string, moduleId: string): Module | undefined {
@@ -259,29 +261,10 @@ export async function markModuleComplete(tierId: string, moduleId: string): Prom
 }
 
 // Search functionality
+// DEPRECATED: Use API endpoint /api/journey/search instead
 export function searchTopics(query: string): Array<{topic: Topic; tierId: string; moduleId: string}> {
-  const results: Array<{topic: Topic; tierId: string; moduleId: string}> = []
-  const searchTerm = query.toLowerCase()
-  
-  for (const tier of journeyTiers) {
-    for (const mod of tier.modules) {
-      for (const topic of mod.topics) {
-        if (
-          topic.title.toLowerCase().includes(searchTerm) ||
-          topic.description.toLowerCase().includes(searchTerm) ||
-          topic.tags?.some(tag => tag.toLowerCase().includes(searchTerm))
-        ) {
-          results.push({
-            topic,
-            tierId: tier.id,
-            moduleId: mod.id
-          })
-        }
-      }
-    }
-  }
-  
-  return results
+  console.warn('searchTopics is deprecated - use /api/journey/search endpoint')
+  return []
 }
 
 // Progress calculation utilities

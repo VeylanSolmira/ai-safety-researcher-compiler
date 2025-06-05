@@ -2,12 +2,12 @@ import Database from 'better-sqlite3'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import * as schema from './schema'
 import path from 'path'
-import { getVercelSafeDatabasePath } from './vercel-db-init'
+import { getWritableDatabasePath } from './writable-db-path'
 
 // Database path - use production database in production environment
 export function getDatabasePath() {
-  // Use Vercel-safe path that handles read-only filesystem
-  return getVercelSafeDatabasePath()
+  // Use writable path that handles read-only filesystems
+  return getWritableDatabasePath()
 }
 
 const DB_PATH = getDatabasePath()

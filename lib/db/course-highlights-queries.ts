@@ -6,15 +6,15 @@ const DB_PATH = getDatabasePath()
 
 export interface CourseHighlight {
   id: string
-  type: 'concept' | 'paper' | 'tool' | 'researcher' | 'organization' | 'event'
-  category: string
+  type: string
   title: string
   description: string
-  significance: string
+  content_id: string
+  tier_id?: string
+  topics?: string[]
   tags: string[]
-  related_topics: string[]
-  external_links: Array<{ title: string; url: string }>
-  date?: string
+  navigation_path?: string
+  order_index?: number
   created_at: string
 }
 
@@ -24,14 +24,13 @@ export function getCourseHighlights(): CourseHighlight[] {
   try {
     const highlights = db.prepare(`
       SELECT * FROM course_highlights
-      ORDER BY created_at DESC
+      ORDER BY order_index, created_at DESC
     `).all() as any[]
     
     return highlights.map((h: any) => ({
       ...h,
-      tags: JSON.parse(h.tags || '[]'),
-      related_topics: JSON.parse(h.related_topics || '[]'),
-      external_links: JSON.parse(h.external_links || '[]')
+      topics: h.topics ? JSON.parse(h.topics) : [],
+      tags: h.tags ? JSON.parse(h.tags) : []
     }))
   } finally {
     db.close()

@@ -1,173 +1,220 @@
-'use client'
-
-import { useParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getJourneyProgress, getTierProgress, LearningPath } from '@/lib/journey'
-import { useTierData } from '@/hooks/useJourneyData'
-import { useLearningPath } from '@/hooks/useLearningPath'
+import { Metadata } from 'next'
 import ViewModeToggle from '@/components/ViewModeToggle'
+import TierProgress from './TierProgress'
+import Database from 'better-sqlite3'
+import { getDatabasePath } from '@/lib/db'
 
-export default function TierPage() {
-  const params = useParams()
-  const router = useRouter()
-  const tierId = params.tierId as string
+// Generate all possible tier pages at build time
+export async function generateStaticParams() {
+  const db = new Database(getDatabasePath())
   
-  const [progress, setProgress] = useState<any>(null)
-  const [tierProgress, setTierProgress] = useState({ 
-    modulesCompleted: 0, 
-    totalModules: 0, 
-    topicsCompleted: 0, 
-    totalTopics: 0, 
-    percentage: 0 
-  })
+  try {
+    // Get all tiers
+    const tiers = db.prepare(`
+      SELECT id as tierId
+      FROM tiers
+    `).all() as Array<{ tierId: string }>
+
+    return tiers.map(({ tierId }) => ({
+      tierId
+    }))
+  } finally {
+    db.close()
+  }
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { tierId: string } 
+}): Promise<Metadata> {
+  const db = new Database(getDatabasePath())
   
-  // Use database hook instead of file import
-  const { tier, loading, error } = useTierData(tierId)
-  const { selectedPath } = useLearningPath()
-  
-  useEffect(() => {
-    async function loadProgress() {
-      const p = await getJourneyProgress()
-      setProgress(p)
-      
-      if (p && tier) {
-        const tp = getTierProgress(tierId, p)
-        setTierProgress({
-          modulesCompleted: 0, // Would need to calculate separately
-          totalModules: tier.modules.length,
-          topicsCompleted: tp.completed,
-          totalTopics: tp.total,
-          percentage: tp.percentage
-        })
+  try {
+    const tier = db.prepare(`
+      SELECT title, description
+      FROM tiers
+      WHERE id = ?
+    `).get(params.tierId) as { title: string; description: string } | undefined
+
+    if (!tier) {
+      return {
+        title: 'Tier Not Found'
       }
     }
-    loadProgress()
-  }, [tierId, tier])
+
+    return {
+      title: `${tier.title} - AI Safety Research Compiler`,
+      description: tier.description
+    }
+  } finally {
+    db.close()
+  }
+}
+
+// Helper function to get tier data
+async function getTierPageData(tierId: string) {
+  const db = new Database(getDatabasePath())
   
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
-        <div className="text-lg text-white">Loading tier...</div>
-      </div>
+  try {
+    // Get tier
+    const tierData = db.prepare(`
+      SELECT *
+      FROM tiers
+      WHERE id = ?
+    `).get(tierId) as any
+
+    if (!tierData) {
+      return null
+    }
+
+    // Get all modules in this tier
+    const modules = db.prepare(`
+      SELECT 
+        id,
+        title,
+        description,
+        estimated_time,
+        learning_objectives,
+        practical_components,
+        assessment_type
+      FROM modules
+      WHERE tier_id = ?
+      ORDER BY id
+    `).all(tierId) as any[]
+
+    // Get topic counts for each module
+    const topicCounts = db.prepare(`
+      SELECT 
+        m.id as module_id,
+        COUNT(t.id) as topic_count
+      FROM modules m
+      LEFT JOIN topics t ON m.id = t.module_id
+      WHERE m.tier_id = ?
+      GROUP BY m.id
+    `).all(tierId) as Array<{ module_id: string; topic_count: number }>
+
+    const topicCountMap = Object.fromEntries(
+      topicCounts.map(({ module_id, topic_count }) => [module_id, topic_count])
     )
+
+    // Transform data
+    const tier = {
+      id: tierData.id,
+      title: tierData.title,
+      description: tierData.description,
+      level: tierData.level,
+    estimatedDuration: tierData.estimated_duration,
+    type: tierData.type,
+    prerequisites: tierData.prerequisites ? JSON.parse(tierData.prerequisites) : [],
+    unlocks: tierData.unlocks ? JSON.parse(tierData.unlocks) : [],
+    skillsGained: tierData.skills_gained ? JSON.parse(tierData.skills_gained) : [],
+    careerRelevance: tierData.career_relevance ? JSON.parse(tierData.career_relevance) : [],
+    requiredBackground: tierData.required_background ? JSON.parse(tierData.required_background) : [],
+    modules: modules.map(m => ({
+      id: m.id,
+      title: m.title,
+      description: m.description,
+      estimatedTime: m.estimated_time,
+      learningObjectives: m.learning_objectives ? JSON.parse(m.learning_objectives) : [],
+      practicalComponents: m.practical_components ? JSON.parse(m.practical_components) : [],
+      assessmentType: m.assessment_type,
+      topicCount: topicCountMap[m.id] || 0
+    }))
+  }
+
+    const totalTopics = Object.values(topicCountMap).reduce((sum, count) => sum + count, 0)
+
+    return { tier, totalTopics }
+  } finally {
+    db.close()
+  }
+}
+
+// Server component - runs at build time
+export default async function TierPage({ 
+  params 
+}: { 
+  params: { tierId: string } 
+}) {
+  const data = await getTierPageData(params.tierId)
+  
+  if (!data) {
+    notFound()
   }
   
-  if (error || !tier) {
-    return (
-      <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">
-            {error ? 'Error loading tier' : 'Tier not found'}
-          </h1>
-          <Link href="/journey" className="text-gray-400 hover:text-white">
-            Return to Journey
-          </Link>
-        </div>
-      </div>
-    )
-  }
-  
-  const isModuleComplete = (moduleId: string) => {
-    if (!progress) return false
-    const completedModules = progress.modulesCompleted?.[tierId] || []
-    return completedModules.includes(moduleId)
-  }
-  
-  const getModuleProgress = (moduleId: string) => {
-    if (!progress || !tier) return 0
-    const module = tier.modules.find(m => m.id === moduleId)
-    if (!module) return 0
-    
-    const completedTopics = progress.topicsCompleted?.[tierId]?.[moduleId] || []
-    return Math.round((completedTopics.length / module.topics.length) * 100)
-  }
-  
+  const { tier, totalTopics } = data
+  const { tierId } = params
+
   return (
     <div className="min-h-screen bg-[#0A0A0B]">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <nav className="mb-8">
-          <ol className="flex items-center space-x-2 text-sm text-gray-400">
+        <nav className="mb-8 text-sm">
+          <ol className="flex items-center space-x-2 text-gray-400">
             <li><Link href="/journey" className="hover:text-white">Journey</Link></li>
             <li className="text-gray-600">/</li>
             <li className="text-white">{tier.title}</li>
           </ol>
-          {selectedPath !== 'all' && (
-            <div className="mt-2 text-xs text-gray-500">
-              Viewing: <span className="text-gray-300 capitalize">{selectedPath.replace('-', ' ')}</span> path
-            </div>
-          )}
         </nav>
         
         {/* Tier Header */}
         <div className="mb-12">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
-              <h1 className="text-5xl font-bold text-white">{tier.title}</h1>
-              <span className={`px-3 py-1 rounded-full text-sm ${
-                tier.level === 'foundation' ? 'bg-green-500/20 text-green-400' :
-                tier.level === 'intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
-                tier.level === 'advanced' ? 'bg-orange-500/20 text-orange-400' :
-                'bg-purple-500/20 text-purple-400'
-              }`}>
-                {tier.level.charAt(0).toUpperCase() + tier.level.slice(1)}
-              </span>
+            <div>
+              <h1 className="text-4xl font-bold text-white mb-2">{tier.title}</h1>
+              <div className="flex items-center gap-4">
+                <span className={`px-3 py-1 rounded-full text-sm ${
+                  tier.level === 'foundation' ? 'bg-green-500/20 text-green-400' :
+                  tier.level === 'intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
+                  tier.level === 'advanced' ? 'bg-orange-500/20 text-orange-400' :
+                  'bg-red-500/20 text-red-400'
+                }`}>
+                  {tier.level.charAt(0).toUpperCase() + tier.level.slice(1)}
+                </span>
+                <span className="text-gray-500">⏱️ {tier.estimatedDuration}</span>
+              </div>
             </div>
             <ViewModeToggle />
           </div>
           <p className="text-xl text-gray-400 mb-6">{tier.description}</p>
           
-          {/* Tier Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="bg-gray-900 rounded-lg p-4">
-              <p className="text-sm text-gray-500 mb-1">Duration</p>
-              <p className="text-lg font-semibold text-white">{tier.estimatedDuration}</p>
-            </div>
-            <div className="bg-gray-900 rounded-lg p-4">
-              <p className="text-sm text-gray-500 mb-1">Progress</p>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 bg-gray-800 rounded-full h-2">
-                  <div 
-                    className="h-full bg-gradient-to-r from-[#FF3366] to-[#FF6B6B] rounded-full transition-all duration-500"
-                    style={{ width: `${tierProgress.percentage}%` }}
-                  />
-                </div>
-                <span className="text-sm text-white">
-                  {tierProgress.percentage}%
-                </span>
-              </div>
-            </div>
-            <div className="bg-gray-900 rounded-lg p-4">
-              <p className="text-sm text-gray-500 mb-1">Topics Completed</p>
-              <p className="text-lg font-semibold text-white">
-                {tierProgress.topicsCompleted} / {tierProgress.totalTopics}
-              </p>
-            </div>
-          </div>
+          {/* Tier Progress */}
+          <TierProgress tierId={tierId} totalTopics={totalTopics} />
           
-          {/* Skills & Career Relevance */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {tier.skillsGained && tier.skillsGained.length > 0 && (
-              <div>
+          {/* Tier Metadata */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            {tier.skillsGained.length > 0 && (
+              <div className="bg-gray-900 rounded-lg p-6">
                 <h3 className="text-lg font-semibold text-white mb-3">Skills You'll Gain</h3>
-                <div className="flex flex-wrap gap-2">
-                  {tier.skillsGained.map((skill, index) => (
-                    <span key={index} className="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">
-                      {skill}
-                    </span>
+                <ul className="space-y-1">
+                  {tier.skillsGained.map((skill: string, i: number) => (
+                    <li key={i} className="text-sm text-gray-400">• {skill}</li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
-            {tier.careerRelevance && tier.careerRelevance.length > 0 && (
-              <div>
+            
+            {tier.requiredBackground.length > 0 && (
+              <div className="bg-gray-900 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-white mb-3">Prerequisites</h3>
+                <ul className="space-y-1">
+                  {tier.requiredBackground.map((req: string, i: number) => (
+                    <li key={i} className="text-sm text-gray-400">• {req}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {tier.careerRelevance.length > 0 && (
+              <div className="bg-gray-900 rounded-lg p-6">
                 <h3 className="text-lg font-semibold text-white mb-3">Career Relevance</h3>
                 <ul className="space-y-1">
-                  {tier.careerRelevance.map((career, index) => (
-                    <li key={index} className="text-gray-400 text-sm">
-                      • {career}
-                    </li>
+                  {tier.careerRelevance.map((career: string, i: number) => (
+                    <li key={i} className="text-sm text-gray-400">• {career}</li>
                   ))}
                 </ul>
               </div>
@@ -175,133 +222,95 @@ export default function TierPage() {
           </div>
         </div>
         
-        {/* Modules Grid */}
-        <div className="space-y-6">
+        {/* Modules List */}
+        <div>
           <h2 className="text-2xl font-bold text-white mb-6">Modules</h2>
-          <div className="grid grid-cols-1 gap-6">
-            {tier.modules
-              .filter(module => 
-                selectedPath === 'all' || 
-                module.paths?.includes('all' as LearningPath) || 
-                module.paths?.includes(selectedPath)
-              )
-              .map((module, index) => {
-              const isComplete = isModuleComplete(module.id)
-              const moduleProgressPercent = getModuleProgress(module.id)
-              
-              return (
-                <Link
-                  key={module.id}
-                  href={`/journey/${tierId}/${module.id}`}
-                  className="block"
-                >
-                  <div className={`bg-gray-900 rounded-xl p-8 border-2 transition-all hover:bg-gray-900/80 ${
-                    isComplete 
-                      ? 'border-green-500/50 hover:border-green-500' 
-                      : moduleProgressPercent > 0
-                      ? 'border-yellow-500/30 hover:border-yellow-500/50'
-                      : 'border-gray-800 hover:border-gray-700'
-                  }`}>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-[#FF3366] to-[#FF6B6B] rounded-lg flex items-center justify-center text-2xl font-bold text-white">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-semibold text-white mb-1">{module.title}</h3>
-                          <p className="text-gray-400">{module.description}</p>
-                        </div>
-                      </div>
-                      {isComplete && (
-                        <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
-                          ✓ Complete
-                        </span>
-                      )}
-                    </div>
-                    
-                    {/* Module Stats */}
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                      <div>
-                        <p className="text-xs text-gray-500 mb-1">Duration</p>
-                        <p className="text-sm font-medium text-gray-300">{module.estimatedTime || 'Unknown'}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 mb-1">Topics</p>
-                        <p className="text-sm font-medium text-gray-300">{module.topics.length} topics</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 mb-1">Type</p>
-                        <p className="text-sm font-medium text-gray-300">
-                          {module.assessmentType ? module.assessmentType : 'Mixed'}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Progress Bar */}
-                    {moduleProgressPercent > 0 && (
-                      <div className="mt-4">
-                        <div className="bg-gray-800 rounded-full h-2">
-                          <div 
-                            className="h-full bg-gradient-to-r from-[#FF3366] to-[#FF6B6B] rounded-full transition-all duration-500"
-                            style={{ width: `${moduleProgressPercent}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* Learning Paths */}
-                    {module.paths && (
-                      <div className="mt-3 flex flex-wrap gap-1">
-                        {module.paths.map((path: string) => (
-                          <span key={path} className={`text-xs px-2 py-1 rounded ${
-                            path === 'all' ? 'bg-gray-700 text-gray-300' :
-                            path === 'technical-safety' ? 'bg-blue-900/30 text-blue-400' :
-                            path === 'governance' ? 'bg-purple-900/30 text-purple-400' :
-                            path === 'engineering' ? 'bg-green-900/30 text-green-400' :
-                            'bg-orange-900/30 text-orange-400'
-                          }`}>
-                            {path === 'all' ? 'All Paths' : path.replace('-', ' ')}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    
-                    {/* Quick Preview of Topics */}
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {module.topics.slice(0, 4).map((topic: any) => (
-                        <span key={topic.id} className="text-xs px-2 py-1 bg-gray-800 rounded text-gray-400">
-                          {topic.title}
-                        </span>
-                      ))}
-                      {module.topics.length > 4 && (
-                        <span className="text-xs px-2 py-1 text-gray-500">
-                          +{module.topics.length - 4} more
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {tier.modules.map((module, index) => (
+              <ModuleCard 
+                key={module.id} 
+                module={module} 
+                tierId={tierId}
+                index={index}
+              />
+            ))}
           </div>
         </div>
         
-        {/* Next Tier Preview */}
-        {tier.unlocks && tier.unlocks.length > 0 && (
-          <div className="mt-12 p-6 bg-gradient-to-r from-gray-900 to-gray-900/50 rounded-lg border border-gray-800">
-            <p className="text-sm text-gray-500 mb-1">Complete this tier to unlock:</p>
-            <p className="text-lg font-semibold text-white">
-              {tier.unlocks.join(', ')}
-            </p>
-          </div>
-        )}
+        {/* Navigation */}
+        <div className="mt-12 flex justify-between items-center">
+          <Link 
+            href="/journey"
+            className="text-gray-400 hover:text-white transition"
+          >
+            ← Back to Journey
+          </Link>
+          
+          {tier.modules.length > 0 && (
+            <Link
+              href={`/journey/${tierId}/${tier.modules[0].id}`}
+              className="px-6 py-3 bg-gradient-to-r from-[#FF3366] to-[#FF6B6B] rounded-lg text-white font-medium hover:opacity-90 transition"
+            >
+              Start First Module →
+            </Link>
+          )}
+        </div>
         
-        {/* Database efficiency indicator */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-green-600">
+        {/* SSG indicator */}
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-blue-600">
           <span>⚡</span>
-          <span>Powered by database (97% faster)</span>
+          <span>Pre-rendered at build time</span>
         </div>
       </div>
     </div>
+  )
+}
+
+// Module Card Component
+function ModuleCard({ 
+  module, 
+  tierId,
+  index
+}: { 
+  module: any
+  tierId: string
+  index: number
+}) {
+  return (
+    <Link
+      href={`/journey/${tierId}/${module.id}`}
+      className="block bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-gray-700 transition group"
+    >
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-gray-600 font-mono text-sm">
+              Module {index + 1}
+            </span>
+          </div>
+          <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition">
+            {module.title}
+          </h3>
+        </div>
+        <div className="text-gray-600 group-hover:text-gray-400 transition">
+          →
+        </div>
+      </div>
+      
+      <p className="text-gray-400 mb-4">{module.description}</p>
+      
+      <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center gap-4 text-gray-500">
+          <span>📚 {module.topicCount} topics</span>
+          <span>⏱️ {module.estimatedTime}</span>
+        </div>
+        
+        {module.assessmentType && (
+          <span className="text-xs bg-gray-800 px-2 py-1 rounded">
+            {module.assessmentType}
+          </span>
+        )}
+      </div>
+    </Link>
   )
 }

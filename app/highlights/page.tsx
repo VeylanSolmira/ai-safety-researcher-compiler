@@ -9,9 +9,17 @@ export default function HighlightsPage() {
   const [highlights, setHighlights] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
+  
+  // Track when component is mounted
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   
   // Fetch highlights from API
   useEffect(() => {
+    if (!mounted) return
+    
     async function fetchHighlights() {
       try {
         const response = await fetch('/api/course-highlights')
@@ -26,10 +34,11 @@ export default function HighlightsPage() {
     }
     
     fetchHighlights()
-  }, [])
+  }, [mounted])
   
-  const featuredHighlights = highlights.filter(h => h.featured)
-  const otherHighlights = highlights.filter(h => !h.featured)
+  // For now, treat the first 2 highlights as featured
+  const featuredHighlights = highlights.slice(0, 2)
+  const otherHighlights = highlights.slice(2)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
@@ -75,7 +84,16 @@ export default function HighlightsPage() {
               {featuredHighlights.map(highlight => (
                 <Link
                   key={highlight.id}
-                  href={highlight.path}
+                  href={(() => {
+                    // Map highlight types to correct resource paths
+                    const typeMap: Record<string, string> = {
+                      'case-study': 'case-studies',
+                      'experiment': 'experiments', 
+                      'exploration': 'explorations'
+                    }
+                    const resourceType = typeMap[highlight.type] || highlight.type + 's'
+                    return `/resources/${resourceType}/${highlight.id}`
+                  })()}
                   className="block group"
                 >
                   <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-1 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
@@ -86,7 +104,7 @@ export default function HighlightsPage() {
                             {highlight.title}
                           </h3>
                           <span className="inline-block mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {highlight.type.replace('-', ' ').toUpperCase()}
+                            {highlight.type ? highlight.type.replace('-', ' ').toUpperCase() : 'CONTENT'}
                           </span>
                         </div>
                         <svg className="w-6 h-6 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,7 +137,16 @@ export default function HighlightsPage() {
               {otherHighlights.map(highlight => (
                 <Link
                   key={highlight.id}
-                  href={highlight.path}
+                  href={(() => {
+                    // Map highlight types to correct resource paths
+                    const typeMap: Record<string, string> = {
+                      'case-study': 'case-studies',
+                      'experiment': 'experiments', 
+                      'exploration': 'explorations'
+                    }
+                    const resourceType = typeMap[highlight.type] || highlight.type + 's'
+                    return `/resources/${resourceType}/${highlight.id}`
+                  })()}
                   className="block group bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6"
                 >
                   <div className="flex items-start justify-between mb-3">
@@ -128,7 +155,7 @@ export default function HighlightsPage() {
                         {highlight.title}
                       </h3>
                       <span className="inline-block mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        {highlight.type.replace('-', ' ').toUpperCase()}
+                        {highlight.type ? highlight.type.replace('-', ' ').toUpperCase() : 'CONTENT'}
                       </span>
                     </div>
                     <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">

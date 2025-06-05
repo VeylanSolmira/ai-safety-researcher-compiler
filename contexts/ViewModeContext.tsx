@@ -8,16 +8,19 @@ interface ViewModeContextType {
   viewMode: ViewMode
   setViewMode: (mode: ViewMode) => void
   isPersonalMode: boolean
+  isClient: boolean
 }
 
 const ViewModeContext = createContext<ViewModeContextType | undefined>(undefined)
 
 export function ViewModeProvider({ children }: { children: ReactNode }) {
-  // Initialize from localStorage if available, default to academic
+  // Always start with 'academic' for consistent server/client rendering
   const [viewMode, setViewModeState] = useState<ViewMode>('academic')
+  const [isClient, setIsClient] = useState(false)
   
-  // Load from localStorage on mount
+  // Load from localStorage after mount (client-side only)
   useEffect(() => {
+    setIsClient(true)
     const saved = localStorage.getItem('viewMode') as ViewMode
     if (saved === 'personal' || saved === 'academic') {
       setViewModeState(saved)
@@ -27,13 +30,15 @@ export function ViewModeProvider({ children }: { children: ReactNode }) {
   // Save to localStorage when changed
   const setViewMode = (mode: ViewMode) => {
     setViewModeState(mode)
-    localStorage.setItem('viewMode', mode)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('viewMode', mode)
+    }
   }
   
   const isPersonalMode = viewMode === 'personal'
   
   return (
-    <ViewModeContext.Provider value={{ viewMode, setViewMode, isPersonalMode }}>
+    <ViewModeContext.Provider value={{ viewMode, setViewMode, isPersonalMode, isClient }}>
       {children}
     </ViewModeContext.Provider>
   )

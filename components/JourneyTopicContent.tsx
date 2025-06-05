@@ -199,7 +199,11 @@ export default function JourneyTopicContent({ topic, tierId, moduleId }: Journey
   }
 
   // Check if we're in development mode - using a client-side approach
-  const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+  const [isDevelopment, setIsDevelopment] = useState(false)
+  
+  useEffect(() => {
+    setIsDevelopment(window.location.hostname === 'localhost')
+  }, [])
 
   return (
     <div className="space-y-8">

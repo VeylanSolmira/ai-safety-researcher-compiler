@@ -1,5 +1,48 @@
 # Important Architecture Principles for Claude
 
+## TypeScript Best Practices
+
+**CRITICAL**: Always use full typing, even in early development stages to avoid technical debt.
+
+### Why this matters:
+1. **Type debt compounds quickly** - What seems like a quick `any` type becomes technical debt that's harder to fix later
+2. **Catches errors at compile time** - Not at runtime when users encounter them
+3. **Makes the codebase self-documenting** - Types explain what data structures are expected
+4. **Prevents API mismatches** - Ensures components use the correct property names and structures
+
+### Rules:
+- **Never use `any` type** - use `unknown` if type is truly unknown and narrow it down
+- **Always type function parameters and return values** - No implicit any
+- **Create interfaces for all data structures** - Even temporary ones during development
+- **When importing from database queries** - Ensure types match actual schema
+- **Use strict TypeScript settings** - Keep strict mode enabled in tsconfig.json
+- **Fix type errors immediately** - Don't let them accumulate
+
+### Examples:
+```typescript
+// ❌ Bad - using any
+const processData = (data: any) => data.someProperty
+
+// ✅ Good - proper typing
+interface DataStructure {
+  someProperty: string
+}
+const processData = (data: DataStructure): string => data.someProperty
+
+// ❌ Bad - no return type
+function calculateScore(items) {
+  return items.reduce((a, b) => a + b.score, 0)
+}
+
+// ✅ Good - fully typed
+interface ScoredItem {
+  score: number
+}
+function calculateScore(items: ScoredItem[]): number {
+  return items.reduce((a, b) => a + b.score, 0)
+}
+```
+
 ## Database is the Source of Truth
 
 **CRITICAL**: The SQLite database (`journey-dev.db`) is the SINGLE SOURCE OF TRUTH for all content and structure.

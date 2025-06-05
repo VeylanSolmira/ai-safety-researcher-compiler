@@ -4,7 +4,16 @@ import React from 'react'
 import { useViewMode } from '@/contexts/ViewModeContext'
 
 export default function ViewModeToggle() {
-  const { viewMode, setViewMode, isPersonalMode } = useViewMode()
+  const { viewMode, setViewMode, isPersonalMode, isClient } = useViewMode()
+  
+  // Render a stable placeholder during SSR/initial hydration
+  if (!isClient) {
+    return (
+      <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 h-10 w-[180px]">
+        {/* Empty placeholder with same dimensions */}
+      </div>
+    )
+  }
   
   return (
     <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2">
