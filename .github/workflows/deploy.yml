@@ -30,16 +30,17 @@ jobs:
       # - name: Type check
       #   run: npm run type-check
         
-      - name: Create production database
-        run: npm run db:create-prod
-        
+      # Database is shipped with the repo, just verify it exists
       - name: Verify production database
         run: |
           if [ ! -f journey-public.db ]; then
-            echo "Error: Production database not created"
+            echo "Error: Production database not found in repository"
+            echo "Please run 'npm run db:create-prod' locally and commit journey-public.db"
             exit 1
           fi
-          echo "Production database size: $(ls -lh journey-public.db | awk '{print $5}')"
+          echo "✓ Production database found"
+          echo "  Size: $(ls -lh journey-public.db | awk '{print $5}')"
+          echo "  Last modified: $(date -r journey-public.db)"
         
       - name: Build application
         run: npm run build

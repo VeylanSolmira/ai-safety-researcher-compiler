@@ -19,7 +19,8 @@ This directory contains comprehensive documentation for the AI Safety Research C
 - **[DATABASE_PATTERNS.md](./DATABASE_PATTERNS.md)** - Correct patterns for database interactions
 - **[DATABASE_MIGRATION_SUMMARY.md](./DATABASE_MIGRATION_SUMMARY.md)** - Database migration history
 
-**Other Documentation:**
+**Development Best Practices:**
+- **[TYPESCRIPT_BEST_PRACTICES.md](./TYPESCRIPT_BEST_PRACTICES.md)** - Lessons learned on TypeScript strictness for small projects
 - **Development Notes** - See `/development-resources/notes.md` for implementation details and technical decisions
 
 ### Documentation Structure

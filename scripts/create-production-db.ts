@@ -20,6 +20,17 @@ const FIELDS_TO_NULLIFY = {
 function createProductionDatabase() {
   console.log('Creating production database...')
   
+  // Check if dev database exists
+  if (!fs.existsSync('./journey-dev.db')) {
+    console.log('Development database not found. Creating from journey.db if it exists...')
+    if (fs.existsSync('./journey.db')) {
+      fs.copyFileSync('./journey.db', './journey-dev.db')
+    } else {
+      console.error('No database found. Please run db:init first.')
+      process.exit(1)
+    }
+  }
+  
   // Create backup of original
   const timestamp = new Date().toISOString().replace(/:/g, '-').split('.')[0]
   const backupPath = `./journey-dev.db.backup-${timestamp}`

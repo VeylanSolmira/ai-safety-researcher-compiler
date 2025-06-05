@@ -4,6 +4,27 @@ import path from 'path'
 
 const DB_PATH = path.join(process.cwd(), 'journey.db')
 
+interface Citation {
+  id: string
+  topic_id: string
+  content_type: string
+  citation_text: string
+  context: string
+  validation_status: string
+  confidence?: number
+  extracted_title?: string
+  extracted_authors?: string
+  extracted_year?: string
+  issues?: string
+  run_date: string
+}
+
+interface Topic {
+  id: string
+  title: string
+}
+
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { topicId: string } }
@@ -16,7 +37,7 @@ export async function GET(
       SELECT id, title 
       FROM topics 
       WHERE id = ?
-    `).get(params.topicId)
+    `).get(params.topicId) as Topic | undefined
     
     if (!topic) {
       return NextResponse.json(
@@ -35,7 +56,7 @@ export async function GET(
       LEFT JOIN known_papers kp ON cv.known_paper_id = kp.id
       WHERE cv.topic_id = ?
       ORDER BY cv.content_type, cv.validation_status
-    `).all(params.topicId)
+    `).all(params.topicId) as Citation[]
     
     // Get validation history
     const history = db.prepare(`

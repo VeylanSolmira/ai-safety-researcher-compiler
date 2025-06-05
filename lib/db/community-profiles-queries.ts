@@ -32,7 +32,7 @@ export function getAllCommunityProfiles(): CommunityProfile[] {
       FROM entities
       WHERE active = 1 AND type = 'researcher'
       ORDER BY name
-    `).all();
+    `).all() as Array<any>;
     
     // Parse JSON fields
     return profiles.map(profile => ({
@@ -63,7 +63,7 @@ export function getCommunityProfile(id: string): CommunityProfile | null {
         active
       FROM entities
       WHERE id = ? AND active = 1
-    `).get(id);
+    `).get(id) as any;
     
     if (!profile) return null;
     

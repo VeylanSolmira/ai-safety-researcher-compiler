@@ -117,7 +117,7 @@ export function getTimelineBlocks(userId: string): TimeBlock[] {
     FROM time_blocks
     WHERE user_id = ?
     ORDER BY position
-  `).all(userId);
+  `).all(userId) as Array<any>;
 
   const blockIds = blocks.map(b => b.id);
   const items = blockIds.length > 0 ? db.prepare(`
@@ -198,12 +198,14 @@ export function deleteTimeBlock(id: string): void {
 
 // Get timeline items for a block
 export function getTimelineItems(blockId: string): TimelineItem[] {
-  return db.prepare(`
+  const items = db.prepare(`
     SELECT id, block_id, type, title, description, completed, related_topics, url, reminder, date, position, created_at, updated_at
     FROM timeline_items
     WHERE block_id = ?
     ORDER BY position
-  `).all(blockId).map(item => ({
+  `).all(blockId) as Array<any>;
+  
+  return items.map(item => ({
     ...item,
     relatedTopics: item.related_topics ? JSON.parse(item.related_topics) : [],
     reminder: item.reminder ? JSON.parse(item.reminder) : null,

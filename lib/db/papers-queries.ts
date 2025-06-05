@@ -170,6 +170,8 @@ export function getPaperStats() {
     `).all() as { year: number; count: number }[]
     
     return {
+      ...paper,
+      category: paper.category as Paper['category'],
       total: totalCount.count,
       byCategory,
       byImportance,
