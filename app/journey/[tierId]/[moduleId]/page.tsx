@@ -18,7 +18,7 @@ export default function ModulePage() {
   
   // Use database hook to get tier data (includes modules)
   const { tier, loading, error } = useTierData(tierId)
-  const module = tier?.modules.find(m => m.id === moduleId)
+  const courseModule = tier?.modules.find(m => m.id === moduleId)
   
   useEffect(() => {
     async function loadProgress() {
@@ -36,7 +36,7 @@ export default function ModulePage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0A0A0B] flex items-center justify-center">
-        <div className="text-lg text-white">Loading module...</div>
+        <div className="text-lg text-white">Loading courseModule...</div>
       </div>
     )
   }
@@ -72,23 +72,23 @@ export default function ModulePage() {
             <li className="text-gray-600">/</li>
             <li><Link href={`/journey/${tierId}`} className="hover:text-white">{tier.title}</Link></li>
             <li className="text-gray-600">/</li>
-            <li className="text-white">{module.title}</li>
+            <li className="text-white">{courseModule.title}</li>
           </ol>
         </nav>
         
         {/* Module Header */}
         <div className="mb-12">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-4xl font-bold text-white">{module.title}</h1>
+            <h1 className="text-4xl font-bold text-white">{courseModule.title}</h1>
             <ViewModeToggle />
           </div>
-          <p className="text-xl text-gray-400 mb-6">{module.description}</p>
+          <p className="text-xl text-gray-400 mb-6">{courseModule.description}</p>
           
           {/* Module Metadata */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="bg-gray-900 rounded-lg p-4">
               <p className="text-sm text-gray-500 mb-1">Estimated Time</p>
-              <p className="text-lg font-semibold text-white">{module.estimatedTime}</p>
+              <p className="text-lg font-semibold text-white">{courseModule.estimatedTime}</p>
             </div>
             <div className="bg-gray-900 rounded-lg p-4">
               <p className="text-sm text-gray-500 mb-1">Progress</p>
@@ -107,11 +107,11 @@ export default function ModulePage() {
           </div>
           
           {/* Learning Objectives */}
-          {module.learningObjectives.length > 0 && (
+          {courseModule.learningObjectives.length > 0 && (
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-white mb-3">Learning Objectives</h3>
               <ul className="space-y-2">
-                {module.learningObjectives.map((objective, index) => (
+                {courseModule.learningObjectives.map((objective, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <span className="text-[#FF3366] mt-1">•</span>
                     <span className="text-gray-300">{objective}</span>
@@ -126,7 +126,7 @@ export default function ModulePage() {
         <div className="space-y-6">
           <h2 className="text-2xl font-bold text-white mb-6">Topics</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {module.topics.map((topic, index) => {
+            {courseModule.topics.map((topic, index) => {
               const isComplete = isTopicComplete(topic.id)
               
               return (
@@ -183,11 +183,11 @@ export default function ModulePage() {
         </div>
         
         {/* Assessment Info */}
-        {module.assessmentType && (
+        {courseModule.assessmentType && (
           <div className="mt-12 p-6 bg-gradient-to-r from-gray-900 to-gray-900/50 rounded-lg border border-gray-800">
             <h3 className="text-lg font-semibold text-white mb-2">Module Assessment</h3>
             <p className="text-gray-400">
-              Complete all topics to unlock the {module.assessmentType} assessment for this module.
+              Complete all topics to unlock the {courseModule.assessmentType} assessment for this courseModule.
             </p>
             {moduleProgress.percentage === 100 && (
               <button className="mt-4 px-6 py-2 bg-gradient-to-r from-[#FF3366] to-[#FF6B6B] rounded-lg text-white font-medium hover:opacity-90 transition">

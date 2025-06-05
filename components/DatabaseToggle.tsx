@@ -7,23 +7,6 @@ export default function DatabaseToggle() {
   const [flags, setFlags] = useState(getAllFlags())
   const [showPanel, setShowPanel] = useState(false)
 
-  // Only show in development
-  if (process.env.NODE_ENV !== 'development') {
-    return null
-  }
-
-  const toggleFlag = (flag: FeatureFlag) => {
-    const newValue = !flags[flag]
-    setFeatureFlag(flag, newValue)
-    setFlags(getAllFlags())
-    
-    // Store in localStorage for persistence
-    localStorage.setItem(`feature_flag_${flag}`, String(newValue))
-    
-    // Reload to apply changes
-    window.location.reload()
-  }
-
   // Load flags from localStorage on mount
   useEffect(() => {
     const flagKeys: FeatureFlag[] = [
@@ -41,6 +24,23 @@ export default function DatabaseToggle() {
     
     setFlags(getAllFlags())
   }, [])
+
+  // Only show in development
+  if (process.env.NODE_ENV !== 'development') {
+    return null
+  }
+
+  const toggleFlag = (flag: FeatureFlag) => {
+    const newValue = !flags[flag]
+    setFeatureFlag(flag, newValue)
+    setFlags(getAllFlags())
+    
+    // Store in localStorage for persistence
+    localStorage.setItem(`feature_flag_${flag}`, String(newValue))
+    
+    // Reload to apply changes
+    window.location.reload()
+  }
 
   return (
     <>

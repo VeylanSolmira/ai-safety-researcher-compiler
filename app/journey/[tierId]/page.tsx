@@ -70,11 +70,11 @@ export default function TierPage() {
   
   const getModuleProgress = (moduleId: string) => {
     if (!progress) return 0
-    const module = tier.modules.find(m => m.id === moduleId)
+    const courseModule = tier.modules.find(m => m.id === moduleId)
     if (!module) return 0
     
     const completedTopics = progress.topicsCompleted?.[tierId]?.[moduleId] || []
-    return Math.round((completedTopics.length / module.topics.length) * 100)
+    return Math.round((completedTopics.length / courseModule.topics.length) * 100)
   }
   
   return (
@@ -176,17 +176,17 @@ export default function TierPage() {
             {tier.modules
               .filter(module => 
                 selectedPath === 'all' || 
-                module.paths?.includes('all' as LearningPath) || 
-                module.paths?.includes(selectedPath)
+                courseModule.paths?.includes('all' as LearningPath) || 
+                courseModule.paths?.includes(selectedPath)
               )
               .map((module, index) => {
-              const isComplete = isModuleComplete(module.id)
-              const moduleProgressPercent = getModuleProgress(module.id)
+              const isComplete = isModuleComplete(courseModule.id)
+              const moduleProgressPercent = getModuleProgress(courseModule.id)
               
               return (
                 <Link
-                  key={module.id}
-                  href={`/journey/${tierId}/${module.id}`}
+                  key={courseModule.id}
+                  href={`/journey/${tierId}/${courseModule.id}`}
                   className="block"
                 >
                   <div className={`bg-gray-900 rounded-xl p-8 border-2 transition-all hover:bg-gray-900/80 ${
@@ -202,8 +202,8 @@ export default function TierPage() {
                           {index + 1}
                         </div>
                         <div>
-                          <h3 className="text-2xl font-semibold text-white mb-1">{module.title}</h3>
-                          <p className="text-gray-400">{module.description}</p>
+                          <h3 className="text-2xl font-semibold text-white mb-1">{courseModule.title}</h3>
+                          <p className="text-gray-400">{courseModule.description}</p>
                         </div>
                       </div>
                       {isComplete && (
@@ -217,16 +217,16 @@ export default function TierPage() {
                     <div className="grid grid-cols-3 gap-4 mb-4">
                       <div>
                         <p className="text-xs text-gray-500 mb-1">Duration</p>
-                        <p className="text-sm font-medium text-gray-300">{module.estimatedTime}</p>
+                        <p className="text-sm font-medium text-gray-300">{courseModule.estimatedTime}</p>
                       </div>
                       <div>
                         <p className="text-xs text-gray-500 mb-1">Topics</p>
-                        <p className="text-sm font-medium text-gray-300">{module.topics.length} topics</p>
+                        <p className="text-sm font-medium text-gray-300">{courseModule.topics.length} topics</p>
                       </div>
                       <div>
                         <p className="text-xs text-gray-500 mb-1">Type</p>
                         <p className="text-sm font-medium text-gray-300">
-                          {module.assessmentType ? module.assessmentType : 'Mixed'}
+                          {courseModule.assessmentType ? courseModule.assessmentType : 'Mixed'}
                         </p>
                       </div>
                     </div>
@@ -244,9 +244,9 @@ export default function TierPage() {
                     )}
                     
                     {/* Learning Paths */}
-                    {module.paths && (
+                    {courseModule.paths && (
                       <div className="mt-3 flex flex-wrap gap-1">
-                        {module.paths.map(path => (
+                        {courseModule.paths.map(path => (
                           <span key={path} className={`text-xs px-2 py-1 rounded ${
                             path === 'all' ? 'bg-gray-700 text-gray-300' :
                             path === 'technical-safety' ? 'bg-blue-900/30 text-blue-400' :
@@ -262,14 +262,14 @@ export default function TierPage() {
                     
                     {/* Quick Preview of Topics */}
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {module.topics.slice(0, 4).map(topic => (
+                      {courseModule.topics.slice(0, 4).map(topic => (
                         <span key={topic.id} className="text-xs px-2 py-1 bg-gray-800 rounded text-gray-400">
                           {topic.title}
                         </span>
                       ))}
-                      {module.topics.length > 4 && (
+                      {courseModule.topics.length > 4 && (
                         <span className="text-xs px-2 py-1 text-gray-500">
-                          +{module.topics.length - 4} more
+                          +{courseModule.topics.length - 4} more
                         </span>
                       )}
                     </div>

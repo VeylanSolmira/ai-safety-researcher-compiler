@@ -171,3 +171,38 @@ export function getNewsByTag(tag: string): NewsStory[] {
     db.close();
   }
 }
+
+export function getNewsStory(id: string) {
+  const db = new Database(DB_PATH, { readonly: true })
+  
+  try {
+    const query = `
+      SELECT 
+        n.*,
+        COUNT(DISTINCT nt.topic_id) as topic_count
+      FROM news n
+      LEFT JOIN news_topics nt ON n.id = nt.news_id
+      WHERE n.id = ?
+      GROUP BY n.id
+    `
+    
+    const news = db.prepare(query).get(id)
+    
+    if (!news) return null
+    
+    // Get related topics
+    const topics = db.prepare(`
+      SELECT t.id, t.title
+      FROM news_topics nt
+      JOIN topics t ON nt.topic_id = t.id
+      WHERE nt.news_id = ?
+    `).all(id)
+    
+    return {
+      ...news,
+      topics
+    }
+  } finally {
+    db.close()
+  }
+}

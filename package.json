@@ -34,6 +34,8 @@
     "deploy": "npm run export",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "pre-push": "npm run lint && npm run type-check && npm run build",
     "type-check": "tsc --noEmit",
     "export": "STATIC_EXPORT=true next build && touch out/.nojekyll"
   },
