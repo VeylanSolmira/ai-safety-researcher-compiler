@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check if journey.db is being committed (should never happen)
+if git diff --cached --name-only | grep -q "journey.db"; then
+  echo "❌ ERROR: Attempting to commit journey.db (development database)"
+  echo "This file contains personal data and should never be committed."
+  echo "If you meant to commit the production database, use journey.prod.db instead."
+  exit 1
+fi
+
+# Check if journey-dev.db is being committed (future name)
+if git diff --cached --name-only | grep -q "journey-dev.db"; then
+  echo "❌ ERROR: Attempting to commit journey-dev.db (development database)"
+  echo "This file contains personal data and should never be committed."
+  exit 1
+fi
+
+# Check for common personal data patterns in staged files
+if git diff --cached --name-only | grep -q "\.db$"; then
+  echo "⚠️  WARNING: You're committing a database file."
+  echo "Please ensure it has been sanitized with 'npm run db:create-prod'"
+  echo ""
+  # Run validation if prod database is being committed
+  if git diff --cached --name-only | grep -q "journey.prod.db\|journey-public.db"; then
+    echo "🔍 Validating production database..."
+    npm run db:validate-prod --silent
+    if [ $? -ne 0 ]; then
+      echo "❌ Production database validation failed!"
+      echo "Run 'npm run db:create-prod' to create a sanitized database."
+      exit 1
+    fi
+    echo "✅ Production database validation passed"
+  fi
+fi
+
+# Run linting on staged files
+npm run lint-staged

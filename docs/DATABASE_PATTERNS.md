@@ -9,7 +9,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 
 // Always use the local database file
-const dbPath = path.join(process.cwd(), 'journey.db');
+const dbPath = path.join(process.cwd(), 'journey-dev.db');
 const db = new Database(dbPath);
 
 // Basic query patterns
@@ -115,9 +115,9 @@ export async function GET(
 
 To check the actual database schema:
 ```bash
-sqlite3 journey.db ".schema topics"
-sqlite3 journey.db ".schema modules"
-sqlite3 journey.db ".tables"
+sqlite3 journey-dev.db ".schema topics"
+sqlite3 journey-dev.db ".schema modules"
+sqlite3 journey-dev.db ".tables"
 ```
 
 ## Common Queries
@@ -152,7 +152,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-const dbPath = path.join(process.cwd(), 'journey.db');
+const dbPath = path.join(process.cwd(), 'journey-dev.db');
 const db = new Database(dbPath);
 
 // Enable foreign keys
@@ -186,7 +186,7 @@ db.close();
 ```typescript
 // Test connection
 const testDb = () => {
-  const db = new Database('journey.db');
+  const db = new Database('journey-dev.db');
   try {
     const result = db.prepare('SELECT COUNT(*) as count FROM topics').get();
     console.log('Topics count:', result.count);

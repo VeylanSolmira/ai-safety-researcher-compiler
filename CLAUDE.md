@@ -2,7 +2,7 @@
 
 ## Database is the Source of Truth
 
-**CRITICAL**: The SQLite database (`journey.db`) is the SINGLE SOURCE OF TRUTH for all content and structure.
+**CRITICAL**: The SQLite database (`journey-dev.db`) is the SINGLE SOURCE OF TRUTH for all content and structure.
 
 ### What this means:
 1. **Content lives in the database** - specifically in the `content_academic` and `content_personal` fields of the topics table
@@ -12,7 +12,7 @@
 
 ### Correct Flow:
 ```
-Database (journey.db) 
+Database (journey-dev.db) 
     ↓ (export scripts)
 Markdown files in src/data/roadmaps/
     ↓ (build process)  

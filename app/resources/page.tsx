@@ -7,7 +7,8 @@ import {
   NewspaperIcon,
   GlobeAltIcon,
   LightBulbIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  CalendarIcon
 } from '@heroicons/react/24/outline'
 
 export const metadata = {
@@ -72,6 +73,14 @@ const resources: ResourceCard[] = [
     href: '/resources/external',
     available: true,
     badge: 'Updated'
+  },
+  {
+    title: 'Learning Timeline',
+    description: 'Build your own flexible learning timeline with custom time blocks, deadlines, and milestones.',
+    icon: CalendarIcon,
+    href: '/timeline',
+    available: true,
+    badge: 'Beta'
   }
 ]
 

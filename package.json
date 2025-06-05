@@ -24,12 +24,18 @@
     "db:migrate:journey": "tsx scripts/migrate-journey-data.ts",
     "db:migrate:mentors": "tsx scripts/migrate-mentors-data.ts",
     "db:setup": "npm run db:init:force && npm run db:migrate",
+    "db:extract-personal": "tsx scripts/extract-personal-data.ts",
+    "db:create-prod": "tsx scripts/create-production-db.ts",
+    "db:validate-prod": "tsx scripts/validate-prod-db.ts",
+    "db:apply-personal": "tsx scripts/extract-personal-data.ts --reapply",
     "build": "next build",
+    "build:prod": "npm run db:create-prod && next build",
+    "predeploy": "npm run build:prod",
+    "deploy": "npm run export",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "export": "STATIC_EXPORT=true next build && touch out/.nojekyll",
-    "deploy": "npm run export"
+    "export": "STATIC_EXPORT=true next build && touch out/.nojekyll"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
@@ -41,6 +47,7 @@
     "drizzle-orm": "^0.44.1",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.513.0",
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

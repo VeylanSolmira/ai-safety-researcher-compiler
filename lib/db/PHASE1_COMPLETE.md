@@ -43,7 +43,7 @@
 ```
 
 ### 4. Successfully Initialized Database
-- Created `journey.db` with all tables
+- Created `journey-dev.db` with all tables
 - Inserted initial learning paths data
 - Verified connection and queries work
 

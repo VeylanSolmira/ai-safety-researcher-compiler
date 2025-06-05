@@ -88,12 +88,12 @@ To find the correct topic ID:
 
 1. Check the database: 
    ```bash
-   sqlite3 journey.db "SELECT id, title FROM topics WHERE title LIKE '%keyword%';"
+   sqlite3 journey-dev.db "SELECT id, title FROM topics WHERE title LIKE '%keyword%';"
    ```
 
 2. Browse the journey structure:
    ```bash
-   sqlite3 journey.db "SELECT t.id, t.title, m.title as module FROM topics t JOIN modules m ON t.module_id = m.id ORDER BY m.title, t.position;"
+   sqlite3 journey-dev.db "SELECT t.id, t.title, m.title as module FROM topics t JOIN modules m ON t.module_id = m.id ORDER BY m.title, t.position;"
    ```
 
 3. Look in the URL when viewing the topic in the app

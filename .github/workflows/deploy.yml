@@ -1,53 +1,67 @@
-name: Deploy to GitHub Pages
+name: Deploy to Production
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  test-and-deploy:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: "20"
-          cache: "npm"
-
+          node-version: '20'
+          cache: 'npm'
+          
       - name: Install dependencies
         run: npm ci
-
-      - name: Build with Next.js
-        run: npm run export
+        
+      - name: Run linter
+        run: npm run lint
+        
+      - name: Type check
+        run: npm run type-check
+        
+      - name: Create production database
+        run: npm run db:create-prod
+        
+      - name: Verify production database
+        run: |
+          if [ ! -f journey-public.db ]; then
+            echo "Error: Production database not created"
+            exit 1
+          fi
+          echo "Production database size: $(ls -lh journey-public.db | awk '{print $5}')"
+        
+      - name: Build application
+        run: npm run build
         env:
-          STATIC_EXPORT: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          NODE_ENV: production
+          
+      # For Vercel deployment (if using Vercel)
+      - name: Deploy to Vercel
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          npm install -g vercel
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          
+      # Optional: Commit updated production database back to repo
+      # Uncomment if you want CI to update the database automatically
+      # - name: Commit production database
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   run: |
+      #     git config --local user.email "action@github.com"
+      #     git config --local user.name "GitHub Action"
+      #     git add journey-public.db
+      #     git diff --staged --quiet || git commit -m "Update production database [skip ci]"
+      #     git push

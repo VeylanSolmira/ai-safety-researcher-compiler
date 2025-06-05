@@ -2,7 +2,7 @@
 
 ## Summary
 
-Successfully converted all HTML citation warnings in the SQLite database (`journey.db`) to Markdown format.
+Successfully converted all HTML citation warnings in the SQLite database (`journey-dev.db`) to Markdown format.
 
 ## Conversion Details
 

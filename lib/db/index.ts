@@ -3,8 +3,10 @@ import { drizzle } from 'drizzle-orm/better-sqlite3'
 import * as schema from './schema'
 import path from 'path'
 
-// Database path
-const DB_PATH = path.join(process.cwd(), 'journey.db')
+// Database path - use production database in production environment
+const DB_PATH = process.env.NODE_ENV === 'production' 
+  ? path.join(process.cwd(), 'journey-public.db')
+  : path.join(process.cwd(), 'journey-dev.db')
 
 // Create database instance
 let db: ReturnType<typeof drizzle> | null = null

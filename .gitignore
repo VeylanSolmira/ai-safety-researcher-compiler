@@ -48,10 +48,21 @@ Thumbs.db
 development-resources/
 
 # Database files
+journey-dev.db
 journey.db
 *.db
 *.db-journal
 *.db-wal
 
+# Personal/sensitive data
+journey-personal.db
+data/personal-data.json
+*.personal.json
+*-personal.*
+
+# Production database (DO NOT IGNORE - this will be deployed)
+!journey-public.db
+
 # Content backups
 backups/
+*.backup-*

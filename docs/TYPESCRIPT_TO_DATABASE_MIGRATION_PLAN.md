@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the comprehensive plan to migrate all hardcoded data from TypeScript files to the SQLite database (`journey.db`). This migration will centralize all content, eliminate the need for rebuilds when content changes, and enable better content management.
+This document outlines the comprehensive plan to migrate all hardcoded data from TypeScript files to the SQLite database (`journey-dev.db`). This migration will centralize all content, eliminate the need for rebuilds when content changes, and enable better content management.
 
 ## Migration Status Summary
 
