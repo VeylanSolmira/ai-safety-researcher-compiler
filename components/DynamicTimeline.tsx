@@ -129,7 +129,7 @@ export default function DynamicTimeline({ userId }: DynamicTimelineProps) {
 
   const applyTemplate = async (templateId: string) => {
     try {
-      await fetch('/api/timeline/templates', {
+      const response = await fetch('/api/timeline/templates', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -138,6 +138,13 @@ export default function DynamicTimeline({ userId }: DynamicTimelineProps) {
           userId
         })
       });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        console.error('Error applying template:', error);
+        return;
+      }
+      
       fetchBlocks();
       setSelectedTemplate(null);
     } catch (error) {
@@ -725,7 +732,6 @@ export default function DynamicTimeline({ userId }: DynamicTimelineProps) {
                 {template.description && (
                   <div className="text-sm text-gray-500">{template.description}</div>
                 )}
-                <div className="text-xs text-gray-400 mt-1">Used {template.useCount} times</div>
               </button>
             ))}
           </div>

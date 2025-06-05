@@ -310,7 +310,7 @@ export function createTimelineTemplate(data: {
   const id = crypto.randomBytes(8).toString('hex');
   
   db.prepare(`
-    INSERT INTO timeline_templates (id, user_id, name, description, structure, is_public)
+    INSERT INTO timeline_templates (id, user_id, name, description, structure, public)
     VALUES (?, ?, ?, ?, ?, ?)
   `).run(
     id,
@@ -405,9 +405,6 @@ export function applyTemplate(templateId: string, userId: string, parentId: stri
   }
 
   const structure = JSON.parse((template as any).structure || "[]");
-  
-  // Increment use count
-  db.prepare('UPDATE timeline_templates SET use_count = use_count + 1 WHERE id = ?').run(templateId);
 
   // Recursively create blocks from template
   function createBlocksFromTemplate(templateBlock: any, parentId: string | null, position: number): TimeBlock {
