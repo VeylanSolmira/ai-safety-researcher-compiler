@@ -116,7 +116,7 @@ function parseMarkdown(markdown: string): string {
     .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-300 pl-4 italic">$1</blockquote>')
     .replace(/\*\*(.*)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*)\*/g, '<em>$1</em>')
-    .replace(/```(.*?)```/gs, '<pre class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto"><code>$1</code></pre>')
+    .replace(/```([\s\S]*?)```/g, '<pre class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto"><code>$1</code></pre>')
     .replace(/`([^`]+)`/g, '<code class="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">$1</code>')
     .replace(/\n\n/g, '</p><p class="mb-4">')
     .replace(/^(.+)$/gm, (match) => {

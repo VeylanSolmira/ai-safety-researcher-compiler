@@ -65,7 +65,7 @@ export default function ExternalResourcesPage() {
   }, [])
 
   // Get unique types
-  const resourceTypes = ['all', ...new Set(resources.map(r => r.type || 'other'))]
+  const resourceTypes = ['all', ...Array.from(new Set(resources.map(r => r.type || 'other')))]
 
   // Filter resources
   const filteredResources = resources.filter(resource => {
