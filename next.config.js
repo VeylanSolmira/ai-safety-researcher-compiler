@@ -8,9 +8,9 @@ const nextConfig = {
     images: {
       unoptimized: true,
     },
-    // If deploying to github.io/repository-name, uncomment and update:
-    // basePath: '/ai-safety-research-compiler',
-    // assetPrefix: '/ai-safety-research-compiler',
+    // GitHub Pages deployment configuration
+    basePath: '/ai-safety-researcher-compiler',
+    assetPrefix: '/ai-safety-researcher-compiler',
   }),
   async rewrites() {
     return [
