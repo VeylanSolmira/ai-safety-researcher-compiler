@@ -100,8 +100,7 @@ export default async function ModulePage({
         title,
         description,
         estimated_time,
-        difficulty,
-        tags
+        difficulty
       FROM topics
       WHERE module_id = ?
       ORDER BY position, id
@@ -122,7 +121,7 @@ export default async function ModulePage({
         description: t.description,
         estimatedTime: t.estimated_time,
         difficulty: t.difficulty,
-        tags: t.tags ? JSON.parse(t.tags) : []
+        tags: []
       }))
     }
 

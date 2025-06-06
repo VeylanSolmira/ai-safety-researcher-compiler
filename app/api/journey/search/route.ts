@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import { searchTopics } from '@/lib/api/journey'
 
+// Force dynamic mode to prevent build-time execution
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)

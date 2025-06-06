@@ -6,6 +6,9 @@ import {
   getCaseStudiesByTag 
 } from '@/lib/db/case-studies-queries';
 
+// Force dynamic mode to prevent build-time execution
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;

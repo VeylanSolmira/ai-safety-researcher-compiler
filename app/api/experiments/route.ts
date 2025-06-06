@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllExperiments, getExperimentsByDifficulty, getExperimentsByTag } from '@/lib/db/experiments-queries';
 
+// Force dynamic mode to prevent build-time execution
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;

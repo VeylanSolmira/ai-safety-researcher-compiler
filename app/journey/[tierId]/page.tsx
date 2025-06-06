@@ -78,9 +78,9 @@ async function getTierPageData(tierId: string) {
         title,
         description,
         estimated_time,
+        assessment_type,
         learning_objectives,
-        practical_components,
-        assessment_type
+        practical_components
       FROM modules
       WHERE tier_id = ?
       ORDER BY id

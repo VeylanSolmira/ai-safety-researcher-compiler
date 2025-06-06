@@ -3,6 +3,9 @@ import { getDatabasePath } from '@/lib/db'
 import Database from 'better-sqlite3'
 import path from 'path'
 
+// Force dynamic mode to prevent build-time execution
+export const dynamic = 'force-dynamic'
+
 const DB_PATH = getDatabasePath()
 
 export async function GET(request: Request) {

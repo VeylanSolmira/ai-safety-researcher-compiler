@@ -94,6 +94,43 @@ When writing scripts or API routes that interact with the database, follow the p
 - Proper column naming (use underscores, not camelCase)
 - Tier ID values (strings like 'intermediate', not numbers)
 
+## LLM-Assisted Development Patterns
+
+### Hardcoded Values vs Constants
+
+In LLM-assisted development, certain patterns that violate traditional best practices may actually be more practical:
+
+**When hardcoding makes sense with LLM assistance:**
+- Database IDs and enum values (e.g., `'foundation'`, `'intermediate'`, `'advanced'`)
+- Consistent strings used across multiple files
+- SQL queries with inline values
+- Route paths and navigation strings
+
+**Why this works for LLMs but not humans:**
+- LLMs have perfect recall of all instances
+- No cognitive load from tracking multiple values
+- Can instantly find and update all occurrences
+- Pattern matching across entire codebase is trivial
+
+**Still use constants for:**
+- External API endpoints and configuration
+- Business rules that might change
+- Values that cross package boundaries
+- Anything that could cause runtime errors if typo'd
+
+**Example:**
+```typescript
+// OK with LLM assistance - easy to find/replace all
+const moduleData = db.prepare(`
+  SELECT * FROM modules WHERE tier_id = 'foundation'
+`).all()
+
+// Still better as constant - critical external dependency
+const API_ENDPOINT = process.env.API_URL || 'https://api.example.com'
+```
+
+**Principle:** Optimize for LLM strengths (pattern matching, consistency) while protecting against human errors (typos in critical values).
+
 ## Proposal Documentation Pattern
 
 When providing architectural proposals, migration plans, or design decisions:

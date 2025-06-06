@@ -81,19 +81,9 @@ export function getAllExternalResources(): ExternalResource[] {
 }
 
 export function getAllAIPrompts(): AIPrompt[] {
-  const db = new Database(DB_PATH)
-  db.pragma('foreign_keys = ON')
-  
-  try {
-    const stmt = db.prepare(`
-      SELECT id, mode, prompt, created_at, updated_at 
-      FROM ai_prompts 
-      ORDER BY mode
-    `)
-    return stmt.all() as AIPrompt[]
-  } finally {
-    db.close()
-  }
+  // TODO: Implement AI prompts functionality
+  // Currently returning empty array as ai_prompts table doesn't exist
+  return []
 }
 
 export function getAllTools(): Tool[] {

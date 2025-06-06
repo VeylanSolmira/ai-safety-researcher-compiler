@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Type checking and linting already done in pre-commit
+# Just run the build to catch SSG/SSR issues
+echo "🔨 Building project..."
+npm run build
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed! Please fix errors before pushing."
+  echo "💡 This often catches:"
+  echo "   - Dynamic server usage in static routes"
+  echo "   - Missing environment variables"
+  echo "   - Import/export issues"
+  exit 1
+fi
+
+echo "✅ Build successful! Pushing to remote..."

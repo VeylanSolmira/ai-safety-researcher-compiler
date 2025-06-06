@@ -6,6 +6,9 @@ import {
   getIdeasByTag 
 } from '@/lib/db/ideas-queries';
 
+// Force dynamic mode to prevent build-time execution
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
