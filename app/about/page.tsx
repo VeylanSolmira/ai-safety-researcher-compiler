@@ -36,10 +36,10 @@ export default function AboutPage() {
                 <div className="space-y-2">
                   <h4 className="font-semibold mb-2">Connect</h4>
                   <a 
-                    href="mailto:veylan@example.com" 
+                    href="mailto:veylan.solmira@gmail.com"
                     className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 block"
                   >
-                    ✉️ Email: veylan@example.com
+                    ✉️ Email: veylan.solmira@gmail.com
                   </a>
                   <a 
                     href="https://linkedin.com/in/veylansolmira" 

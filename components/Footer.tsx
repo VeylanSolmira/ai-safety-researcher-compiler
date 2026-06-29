@@ -18,10 +18,10 @@ export default function Footer() {
             </p>
             <div className="mt-4 space-y-2">
               <a 
-                href="mailto:veylan@example.com" 
+                href="mailto:veylan.solmira@gmail.com"
                 className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 block"
               >
-                ✉️ veylan@example.com
+                ✉️ veylan.solmira@gmail.com
               </a>
               <a 
                 href="https://linkedin.com/in/veylansolmira" 
